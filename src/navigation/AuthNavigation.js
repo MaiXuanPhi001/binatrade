@@ -37,10 +37,9 @@ const AuthNavigation = () => {
         <Drawer.Navigator
             initialRouteName={routes.CHART}
             screenOptions={{
-                // headerShown: false,
+                headerShown: false,
                 drawerStyle: {
                     width: width / 2,
-                    maxWidth: 250,
                     marginTop: -20
                 }
             }}

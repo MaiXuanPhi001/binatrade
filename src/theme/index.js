@@ -47,6 +47,8 @@ export const theme = {
     blueText: '#0a97e7',
     gray4: '#434343',
     drawerChoose: '#354356',
+    gray5: '#33404e',
+    black2: '#141414',
   },
 
   fonts: {

@@ -6,3 +6,7 @@ export const kFormatter = (num) => {
 export const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+export const numberCommasDot = (x) => {
+    return x.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + x.toFixed(2).toString().substring(x.toString().indexOf("."))
+}

@@ -1,11 +1,17 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import KeyBoardSafe from '@reuse/KeyBoardSafe'
+import TotalAssets from './TotalAssets'
+import Box from '@commom/Box'
+import Tab from './Tab'
 
 const Wallet = () => {
   return (
-    <View>
-      <Text>Wallet</Text>
-    </View>
+    <KeyBoardSafe>
+      <Box paddingHorizontal={10}>
+        <TotalAssets />
+        <Tab />
+      </Box>
+    </KeyBoardSafe>
   )
 }
 

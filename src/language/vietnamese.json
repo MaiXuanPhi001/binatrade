@@ -241,6 +241,17 @@
         "Cannot connect to server! please try again": "Không thể kết nối đến máy chủ! vui lòng thử lại",
         "Email is not define": "Email không được xác định",
         "Incorrect account or password!": "Tài khoản hoặc mật khẩu không chính xác!",
-        "Create your account": "Đăng ký tài khoản"
+        "Create your account": "Đăng ký tài khoản",
+        "Wallet": "Ví tiền",
+        "Trade": "Đặt lệnh" ,
+        "Profile": "Tài khoản",
+        "Setting": "Cài đặt",
+        "Log out": "Đăng xuất",
+        "Upload avatar": "Thay ảnh",
+        "To keep your assets safe, we need to verify your identity.": "Để giữ an toàn cho tài sản của bạn, chúng tôi cần xác minh danh tính của bạn.",
+        "Please fill in the information correctly. Once the identity verification is complete, the information cannot be edited anymore.": "Vui lòng điền thông tin chính xác. Sau khi xác minh danh tính hoàn tất, thông tin không thể chỉnh sửa được nữa.",
+        "Verified": "Đã xác minh",
+        "* You must turn on 2FA to change password": "* Bạn phải bật 2FA để đổi mật khẩu",
+        "Required to withdraw or update the security": "Bắt buộc để rút tiền hoặc cập nhật các bảo mật"
     }
 }

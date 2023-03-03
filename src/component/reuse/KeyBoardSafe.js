@@ -4,7 +4,11 @@ import Box from '@commom/Box'
 import Scroll from '@commom/Scroll'
 import { theme } from '@theme/index'
 
-const KeyBoardSafe = ({ children, bg = theme.colors.background }) => {
+const KeyBoardSafe = ({
+    children,
+    bg = theme.colors.background,
+    paddingBottom = 500,
+}) => {
     return (
         <KeyboardAvoidingView
             keyboardVerticalOffset={Platform.OS === 'android' ? -1000 : 0}
@@ -22,7 +26,7 @@ const KeyBoardSafe = ({ children, bg = theme.colors.background }) => {
                 >
                     <Scroll
                         flexGrow={1}
-                        paddingBottom={500}
+                        paddingBottom={paddingBottom}
                     >
                         {children}
                     </Scroll>

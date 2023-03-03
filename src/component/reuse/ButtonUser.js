@@ -13,7 +13,8 @@ const ButtonUser = ({
     text,
     height = 45,
     width = '100%',
-    marginTop
+    marginTop,
+    size = 16
 }) => {
     return (
         <Btn
@@ -30,7 +31,7 @@ const ButtonUser = ({
             >
                 {loadingUser() ?
                     <LoadingWhite /> :
-                    <Txt bold color='white' size={16}>
+                    <Txt bold color='white' size={size}>
                         {text}
                     </Txt>
                 }

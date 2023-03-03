@@ -1,5 +1,4 @@
 import React from 'react'
-import Safe from '@reuse/Safe'
 import Img from '@commom/Img'
 import Txt from '@commom/Txt'
 import Box from '@commom/Box'
