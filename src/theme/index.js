@@ -45,7 +45,8 @@ export const theme = {
     redBtnSell: '#E93555',
     xanh: '#2e3b59',
     blueText: '#0a97e7',
-    gray4: '#434343'
+    gray4: '#434343',
+    drawerChoose: '#354356',
   },
 
   fonts: {

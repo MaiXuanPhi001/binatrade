@@ -22,7 +22,8 @@ const routes = {
     WITHDRAW_VND: 'WithdrawVND',
     HISTORY_WITHDRAW: 'HistoryWithdraw',
     SETTING: 'Setting',
-    CHART: 'Chart'
+    CHART: 'Chart',
+    WALLET: 'Wallet'
 }
 
 export default routes

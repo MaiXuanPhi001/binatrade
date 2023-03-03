@@ -11,7 +11,7 @@ const Safe = ({
         <SafeAreaView style={{ flex: 1, backgroundColor: bg }}>
             <Box
                 flex={1}
-                isPaddingAdnroid
+                // isPaddingAdnroid
                 paddingHorizontal={paddingHorizontal}
             >
                 {children}

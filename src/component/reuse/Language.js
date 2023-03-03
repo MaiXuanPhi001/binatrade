@@ -10,7 +10,7 @@ import { StyleSheet } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import contants from '@util/contants'
 
-const Language = ({ marginRight = 20 }) => {
+const Language = ({ marginRight = 20, alignSelf = 'flex-end'}) => {
     const { t, i18n } = useTranslation()
     const [drop, setDrop] = useState(false)
 
@@ -37,7 +37,7 @@ const Language = ({ marginRight = 20 }) => {
 
     return (
         <Box
-            alignSelf={'flex-end'}
+            alignSelf={alignSelf}
             marginRight={marginRight}
             alignStart
             width={140}
