@@ -160,3 +160,12 @@ export const getHistoryWidthdraw = async (data) => {
         return callFailed()
     }
 }
+
+export const getHistoryDeposit = async (data) => {
+    try {
+        const res = await axiosInstance.post('/api/crypto/getHistoryDeposit', data)
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}

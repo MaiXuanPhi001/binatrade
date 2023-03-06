@@ -3,11 +3,16 @@ import KeyBoardSafe from '@reuse/KeyBoardSafe'
 import TotalAssets from './TotalAssets'
 import Box from '@commom/Box'
 import Main from './Main'
+import Header from '@reuse/Header'
 
-const Wallet = () => {
+const Wallet = ({ navigation }) => {
   return (
     <KeyBoardSafe>
-      <Box paddingHorizontal={10}>
+      <Header navigation={navigation} />
+      <Box
+        paddingHorizontal={10}
+        marginTop={10}
+      >
         <TotalAssets />
         <Main />
       </Box>

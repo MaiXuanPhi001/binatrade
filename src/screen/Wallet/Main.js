@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { styles } from '@screen/Profile/Infomation'
 import Box from '@commom/Box'
 import { useTranslation } from 'react-i18next'
@@ -18,19 +18,32 @@ const Tab = createMaterialTopTabNavigator();
 
 const Main = () => {
     const { t } = useTranslation()
+    const [tabChoose, setTabchoose] = useState('Deposit')
 
     const data = [
         {
             title: t('Deposit'),
-            onPress: () => navigate(routes.DEPOSIT),
+            choose: 'Deposit' === tabChoose,
+            onPress: () => {
+                navigate(routes.DEPOSIT)
+                setTabchoose('Deposit')
+            },
         },
         {
             title: t('Withdraw'),
-            onPress: () => navigate(routes.WITHDRAW),
+            choose: 'Withdraw' === tabChoose,
+            onPress: () => {
+                navigate(routes.WITHDRAW)
+                setTabchoose('Withdraw')
+            },
         },
         {
             title: t('Transfer'),
-            onPress: () => navigate(routes.TRANSFER),
+            choose: 'Transfer' === tabChoose,
+            onPress: () => {
+                navigate(routes.TRANSFER)
+                setTabchoose('Transfer')
+            },
         },
     ]
 
@@ -65,7 +78,7 @@ const Item = ({ item }) => {
     return (
         <Btn
             onPress={item.onPress}
-            backgroundColor={theme.colors.black2}
+            backgroundColor={item.choose ? theme.colors.black2 : '#0b192b'}
             margin={5}
             paddingHorizontal={15}
             paddingVertical={10}

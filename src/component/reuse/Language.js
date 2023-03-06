@@ -42,6 +42,7 @@ const Language = ({ marginRight = 20, alignSelf = 'flex-end'}) => {
             alignStart
             width={140}
             zIndex={10}
+            marginTop={10}
         >
             <Btn
                 onPress={() => setDrop(!drop)}

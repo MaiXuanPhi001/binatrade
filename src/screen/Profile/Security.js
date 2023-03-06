@@ -28,7 +28,7 @@ const Security = () => {
                     </Box>
                     <ButtonUser
                         text={t('Change password')}
-                        width={130}
+                        width={140}
                         size={14}
                         height={40}
                     />

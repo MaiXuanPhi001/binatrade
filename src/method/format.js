@@ -10,3 +10,8 @@ export const numberWithCommas = (x) => {
 export const numberCommasDot = (x) => {
     return x.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + x.toFixed(2).toString().substring(x.toString().indexOf("."))
 }
+
+export const converNetwork = (str) => {
+    const dotIndex = str.indexOf('.')
+    return str.slice(dotIndex + 1, str.length)
+}

@@ -252,6 +252,12 @@
         "Please fill in the information correctly. Once the identity verification is complete, the information cannot be edited anymore.": "Vui lòng điền thông tin chính xác. Sau khi xác minh danh tính hoàn tất, thông tin không thể chỉnh sửa được nữa.",
         "Verified": "Đã xác minh",
         "* You must turn on 2FA to change password": "* Bạn phải bật 2FA để đổi mật khẩu",
-        "Required to withdraw or update the security": "Bắt buộc để rút tiền hoặc cập nhật các bảo mật"
+        "Required to withdraw or update the security": "Bắt buộc để rút tiền hoặc cập nhật các bảo mật",
+        "Wallet USDT": "Ví USDT",
+        "Coppy address": "Sao chép địa chỉ",
+        "You have to deposit at least 5 USDT to be credited. Any deposit that is less than 5 USDT will not be refunded.": "Bạn phải nạp ít nhất 5 USDT để được ghi nhận. Mọi giao dịch ít hơn 5 USDT sẽ không được hoàn trả.",
+        "This deposit address only accepts USDT. Do not send other coins to it.": "Địa chỉ nạp tiền này chỉ chấp nhận USDT. Không nạp coin khác vào địa chỉ này.",
+        "Live account": "Tài khoản live",
+        "Change account": "Đổi tài khoản"
     }
 }

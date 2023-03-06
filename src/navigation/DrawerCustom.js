@@ -69,7 +69,7 @@ const DrawerCustom = (props) => {
 
     return (
         <Box
-            backgroundColor={theme.colors.background}
+            backgroundColor={theme.colors.drawer}
             flex={1}
         >
             <DrawerContentScrollView {...props}
@@ -114,7 +114,7 @@ const DrawerItem = ({ drawer }) => {
             marginVertical={15}
             paddingVertical={5}
             radius={5}
-            backgroundColor={drawer.choose ? theme.colors.drawerChoose : theme.colors.background}
+            backgroundColor={drawer.choose ? theme.colors.drawerChoose : theme.colors.drawer}
         >
             <Img
                 source={drawer.image}

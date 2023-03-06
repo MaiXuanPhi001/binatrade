@@ -27,6 +27,7 @@ const KeyBoardSafe = ({
                     <Scroll
                         flexGrow={1}
                         paddingBottom={paddingBottom}
+                        nestedScrollEnabled={true}
                     >
                         {children}
                     </Scroll>

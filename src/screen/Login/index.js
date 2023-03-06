@@ -10,6 +10,7 @@ import { navigate } from '@navigation/navigationRef'
 import routes from '@util/routes'
 import { loginThunk } from '@asyncThunk/userAsyncThunk'
 import { Alert } from 'react-native'
+import { theme } from '@theme/index'
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -27,7 +28,7 @@ const Login = () => {
   }
 
   return (
-    <KeyBoardSafe>
+    <KeyBoardSafe bg={theme.colors.drawer}>
       <Language />
       <Banner
         firtText={'Log in to your account'}

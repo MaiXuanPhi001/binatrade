@@ -2,7 +2,7 @@ import { theme } from '@theme/index';
 import { getSize } from '@util/responsive';
 import { isNumber } from 'lodash';
 import React from 'react';
-import { Platform, ScrollView, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, ScrollView, StatusBar, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { handleMargin, handlePadding, handleRound, handleSquare } from '../shared';
 import styles from '@commom/Box/styles';
@@ -13,6 +13,7 @@ const Scroll = ({
     flexGrow,
     row,
     horizontal = false,
+    nestedScrollEnabled,
     column,
     shadow,
     backgroundColor,
@@ -152,6 +153,7 @@ const Scroll = ({
         <ScrollView
             horizontal={horizontal}
             contentContainerStyle={blockStyles}
+            nestedScrollEnabled={nestedScrollEnabled}
             {...rest}
         >
             {children}

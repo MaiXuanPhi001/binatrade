@@ -1,12 +1,13 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import USDT from './USDT'
+import History from './History'
 import KeyBoardSafe from '@reuse/KeyBoardSafe'
-import Txt from '@commom/Txt'
 
 const Deposit = () => {
   return (
-    <KeyBoardSafe>
-      <Txt>Deposit</Txt>
+    <KeyBoardSafe paddingBottom={0}>
+      <USDT />
+      <History />
     </KeyBoardSafe>
   )
 }

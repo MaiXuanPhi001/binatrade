@@ -35,7 +35,7 @@ const ForgotPassword = () => {
   }
 
   return (
-    <KeyBoardSafe>
+    <KeyBoardSafe bg={theme.colors.drawer}>
       <Language />
       <Banner
         firtText={'ForgotPass'}
