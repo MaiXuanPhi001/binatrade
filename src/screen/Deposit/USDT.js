@@ -11,7 +11,7 @@ import Warning from './Warning'
 import LoadingWhite from '@reuse/LoadingWhite'
 import Clipboard from '@react-native-clipboard/clipboard';
 
-const USDT = () => {
+const USDT = ({ toastTopRef }) => {
     const { t } = useTranslation()
     const [loading, setLoading] = useState(true)
     const [wallet, setWallet] = useState()
@@ -30,8 +30,9 @@ const USDT = () => {
         }
     }
 
-    const handleCopy = async () => {
+    const handleCopyABC = async () => {
         Clipboard.setString(wallet.address)
+        toastTopRef.current.slideDown(t('Coppy success'), true)
     }
 
     return (
@@ -61,7 +62,7 @@ const USDT = () => {
                             </Box>
                             <ButtonUser
                                 text={t('Coppy address')}
-                                onPress={handleCopy}
+                                onPress={handleCopyABC}
                                 size={14}
                                 height={40}
                                 width={200}

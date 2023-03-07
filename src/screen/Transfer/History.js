@@ -1,40 +1,43 @@
 import React, { useEffect, useState } from 'react'
-import Box from '@commom/Box'
 import Txt from '@commom/Txt'
 import { theme } from '@theme/index'
 import { useTranslation } from 'react-i18next'
+import Box from '@commom/Box'
 import Pagination from '@reuse/Pagination'
 import HeaderTableHistory from './HeaderTableHistory'
-import { getHistoryDeposit } from '@service/fundingService'
+import { getHistoryTransfer } from '@service/fundingService'
 import { Alert } from 'react-native'
 import ItemHistory from './ItemHistory'
-import ModalDetailHistory from './ModalDetailHistory'
+import { useSelector } from 'react-redux'
+import { profileSelector } from '@selector/userSelector'
+import ModalHistoryDetail from './ModalHistoryDetail'
 import LoadingWhite from '@reuse/LoadingWhite'
 
 const History = () => {
     const { t } = useTranslation()
+    const profile = useSelector(profileSelector)
     const [historys, setHistorys] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [historyDetail, setHistoryDetail] = useState({})
     const [page, setPage] = useState(1)
     const [total, setTotal] = useState(0)
     const [showModal, setShowModal] = useState(false)
-    const [historyDetail, setHistoryDetail] = useState({})
-    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        handleGetHistoryDeposit(1)
+        handleGetHistoryTransfer(1)
     }, [])
 
-    const handleGetHistoryDeposit = async (page) => {
+    const handleGetHistoryTransfer = async (page) => {
         setLoading(true)
-        const res = await getHistoryDeposit({
+        const res = await getHistoryTransfer({
             limit: 10,
             page
         })
         if (res.status) {
             setHistorys(res.data.array)
             setTotal(res.data.total)
-            setLoading(false)
             setPage(page)
+            setLoading(false)
         } else {
             Alert.alert(t(res.message))
         }
@@ -47,7 +50,7 @@ const History = () => {
 
     return (
         <Box marginTop={20}>
-            <Txt bold color={theme.colors.blueText} size={18}>{t('Deposit history')}</Txt>
+            <Txt bold color={theme.colors.blueText} size={18}>{t('History transferr')}</Txt>
             {loading ? (
                 <LoadingWhite />
             ) : (
@@ -56,8 +59,8 @@ const History = () => {
                         marginTop={10}
                         indexPage={page}
                         total={total}
-                        onNext={() => handleGetHistoryDeposit(page + 1)}
-                        onBack={() => handleGetHistoryDeposit(page - 1)}
+                        onNext={() => handleGetHistoryTransfer(page + 1)}
+                        onBack={() => handleGetHistoryTransfer(page - 1)}
                     />
                     <HeaderTableHistory />
                     {historys.map(history =>
@@ -66,14 +69,18 @@ const History = () => {
                             history={history}
                             onShowDetailHistory={handleShowDetailHistory}
                             t={t}
+                            email={profile.email}
                         />
                     )}
                 </>
             )}
-            <ModalDetailHistory
+            <ModalHistoryDetail
                 show={showModal}
                 setShow={setShowModal}
-                histoyDetail={historyDetail}
+                t={t}
+                historyDetail
+                profile={profile}
+                history={historyDetail}
             />
         </Box>
     )

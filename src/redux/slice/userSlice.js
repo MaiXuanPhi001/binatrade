@@ -7,15 +7,19 @@ const userSlice = createSlice({
         isLogin: false,
         profile: {},
         loading: false,
+        sound: true,
     },
     reducers: {
-        signOut: (state, action) => {
+        signOut: (state) => {
             state.profile = {}
             state.isLogin = false
         },
         setLoading: (state, action) => {
             state.loading = action.payload
         },
+        setSound: (state, { payload }) => {
+            state.sound = payload
+        }
     },
     extraReducers: buidlder => {
         buidlder

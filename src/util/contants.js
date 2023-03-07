@@ -5,7 +5,8 @@ const contants = {
     TIME_CRYPTO: 'timeCrypto',
     CRYPTO_ONE: 'cryptoOne',
     CRYPTO_TWO: 'cryptoTwo',
-    LANGUAGE: 'language'
+    LANGUAGE: 'language',
+    SOUND: 'sound',
 }
 
 export default contants

@@ -7,7 +7,7 @@ import Header from '@reuse/Header'
 
 const Wallet = ({ navigation }) => {
   return (
-    <KeyBoardSafe>
+    <KeyBoardSafe paddingBottom={0}>
       <Header navigation={navigation} />
       <Box
         paddingHorizontal={10}

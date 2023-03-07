@@ -12,6 +12,8 @@ export const numberCommasDot = (x) => {
 }
 
 export const converNetwork = (str) => {
-    const dotIndex = str.indexOf('.')
-    return str.slice(dotIndex + 1, str.length)
+    if (str) {
+        const dotIndex = str.indexOf('.')
+        return str.slice(dotIndex + 1, str.length)
+    }
 }

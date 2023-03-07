@@ -1,12 +1,14 @@
-import { View, Text } from 'react-native'
 import React from 'react'
-import { styles } from '@screen/Profile/Infomation'
+import KeyBoardSafe from '@reuse/KeyBoardSafe'
+import TransferConfirm from './TransferConfirm'
+import History from './History'
 
 const Transfer = () => {
   return (
-    <View style={styles.container}>
-      <Text>Transfer</Text>
-    </View>
+    <KeyBoardSafe paddingBottom={50}>
+      <TransferConfirm />
+      <History />
+    </KeyBoardSafe>
   )
 }
 

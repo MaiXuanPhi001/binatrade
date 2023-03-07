@@ -17,7 +17,7 @@ const Header = ({ navigation }) => {
       row
       paddingHorizontal={10}
       justifySpaceBetween
-      zIndex={1}
+      zIndex={2}
       marginTop={10}
     >
       <Btn onPress={() => navigation.openDrawer()}>

@@ -154,7 +154,7 @@ export const withdrawVND = async (data) => {
 
 export const getHistoryWidthdraw = async (data) => {
     try {
-        const res = await axiosInstance.post('/api/depositVND/getHistoryWidthdraw', data)
+        const res = await axiosInstance.post('/api/crypto/getHistoryWidthdraw', data)
         return callSuccess(res)
     } catch (error) {
         return callFailed()

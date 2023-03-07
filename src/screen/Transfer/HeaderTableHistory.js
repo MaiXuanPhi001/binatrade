@@ -22,7 +22,7 @@ const HeaderTableHistory = () => {
                 width={'29%'}
                 style={styles.container}
             >
-                <Txt style={styles.text}>{t('Network')}</Txt>
+                <Txt style={styles.text}>{t('Time')}</Txt>
                 <View style={styles.line} />
             </Box>
             <Box

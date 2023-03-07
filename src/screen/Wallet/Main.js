@@ -38,7 +38,7 @@ const Main = () => {
             },
         },
         {
-            title: t('Transfer'),
+            title: t('Transferr'),
             choose: 'Transfer' === tabChoose,
             onPress: () => {
                 navigate(routes.TRANSFER)
@@ -86,7 +86,7 @@ const Item = ({ item }) => {
             radius={5}
             borderColor={theme.colors.gray4}
         >
-            <Txt bold>{item.title}</Txt>
+            <Txt bold color={item.choose ? theme.colors.blueText : 'white'}>{item.title}</Txt>
         </Btn>
     )
 }

@@ -5,13 +5,11 @@ import { theme } from '@theme/index'
 import Txt from '@commom/Txt'
 import Btn from '@commom/Btn'
 import { StyleSheet, View } from 'react-native'
-import { useTranslation } from 'react-i18next'
 import { converNetwork } from '@method/format'
-import Img from '@commom/Img'
-import Clipboard from '@react-native-clipboard/clipboard'
+import { THEME } from './ItemHistory'
 
-const ModalDetailHistory = ({ show, setShow, histoyDetail }) => {
-    const { t } = useTranslation()
+const ModalHistoryDetail = ({ show, setShow, history, t }) => {
+    const status = history?.status === 1 ? THEME.SUCCESS : THEME.CANCEL 
 
     return (
         <Modality
@@ -32,7 +30,7 @@ const ModalDetailHistory = ({ show, setShow, histoyDetail }) => {
                     borderBottomWidth={1}
                     borderColor={'#303030'}
                 >
-                    <Txt size={15} bold>{t('Deposit information')}</Txt>
+                    <Txt size={15} bold>{t('Withdraw information')}</Txt>
                     <Btn onPress={() => setShow(false)}>
                         <Txt size={20} color={'#747e8a'}>X</Txt>
                     </Btn>
@@ -40,51 +38,47 @@ const ModalDetailHistory = ({ show, setShow, histoyDetail }) => {
 
                 <Box paddingHorizontal={10}>
                     <View style={styles.container}>
+                        <Txt>{t('Network')}</Txt>
+                        <Txt>{t(converNetwork(history?.network))}</Txt>
+                    </View>
+
+                    <View style={styles.container}>
+                        <Txt>{t('Amount')}</Txt>
+                        <Txt bold>${t(history?.amount)}</Txt>
+                    </View>
+
+                    <View style={styles.container}>
+                        <Txt>{t('Network Fee')}</Txt>
+                        <Txt bold>${t(history?.feeWidthdraw)}</Txt>
+                    </View>
+
+                    <View style={styles.container}>
+                        <Txt>{t('Amount received')}</Txt>
+                        <Txt bold>${t(history?.balanceWidthdraw)}</Txt>
+                    </View>
+
+                    <View style={styles.container}>
+                        <Txt>TxID</Txt>
+                        <Txt right marginRight={10}>{history?.hash}</Txt>
+                    </View>
+
+                    <View style={styles.container}>
+                        <Txt>{t('Time')}</Txt>
+                        <Txt>{t(history?.created_at)}</Txt>
+                    </View>
+
+                    <View style={styles.container}>
                         <Txt>{t('Status')}</Txt>
                         <Box
                             alignCenter
                             justifyCenter
                             padding={3}
                             radius={5}
-                            backgroundColor={'#162311'}
+                            backgroundColor={status.background}
                             borderWidth={1}
-                            borderColor={'#274916'}
+                            borderColor={status.border}
                         >
-                            <Txt color={'#69bd38'}>{t('Success')}</Txt>
-                        </Box>
-                    </View>
-
-                    <View style={styles.container}>
-                        <Txt>{t('Time')}</Txt>
-                        <Txt>{t(histoyDetail?.created_at)}</Txt>
-                    </View>
-
-                    <View style={styles.container}>
-                        <Txt>{t('Network')}</Txt>
-                        <Txt>{t(converNetwork(histoyDetail?.coin_key))}</Txt>
-                    </View>
-
-                    <View style={styles.container}>
-                        <Txt>{t('Amount')}</Txt>
-                        <Txt bold>+$ {t(histoyDetail?.amount)}</Txt>
-                    </View>
-
-                    <View style={styles.container}>
-                        <Txt>TxID</Txt>
-                        <Box
-                            row
-                            alignCenter
-                            width={'80%'}
-                            paddingHorizontal={15}
-                        >
-                            <Txt right marginRight={10}>{histoyDetail?.address}</Txt>
-                            <Btn onPress={() => Clipboard.setString(histoyDetail?.address)}>
-                                <Img
-                                    source={require('@images/wallet/copy.png')}
-                                    width={20}
-                                    height={20}
-                                />
-                            </Btn>
+                            <Txt color={status.color}>{t(status.text)}</Txt>
                         </Box>
                     </View>
                 </Box>
@@ -93,7 +87,7 @@ const ModalDetailHistory = ({ show, setShow, histoyDetail }) => {
     )
 }
 
-export default ModalDetailHistory
+export default ModalHistoryDetail
 
 const styles = StyleSheet.create({
     container: {

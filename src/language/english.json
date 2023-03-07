@@ -232,6 +232,9 @@
 
         "English": "English",
         "Vietnamese": "Vietnamese",
-        "Log in to your account": "Log in to your account"
+        "Log in to your account": "Log in to your account",
+        "Transferr": "Transfer",
+        "History transferr": "History transfer",
+        "Cancell": "Cancel"
     }
 }
