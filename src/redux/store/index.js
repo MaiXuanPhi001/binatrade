@@ -7,6 +7,7 @@ import fundingSlice from "@slice/fundingSlice";
 import historySlice from "@slice/historySlice";
 import orderSlice from "@slice/orderSlice";
 import statisticSlice from "@slice/statisticSlice";
+import tradeSlice from "@slice/tradeSlice";
 import userSlice from "../slice/userSlice";
 
 const store = configureStore({
@@ -20,6 +21,7 @@ const store = configureStore({
         account: accountSlice.reducer,
         admin: adminSlice.reducer,
         commission: commissionSlice.reducer,
+        trade: tradeSlice.reducer,
     }
 })
 

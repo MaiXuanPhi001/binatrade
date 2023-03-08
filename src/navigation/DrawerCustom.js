@@ -29,10 +29,10 @@ const DrawerCustom = (props) => {
             id: 0,
             title: t('Trade'),
             image: require('@images/drawer/rocket1.png'),
-            choose: routes.CHART === screenChoose,
+            choose: routes.TRADE === screenChoose,
             onPress: () => {
-                navigate(routes.CHART)
-                setScreenChoose(routes.CHART)
+                navigate(routes.TRADE)
+                setScreenChoose(routes.TRADE)
             },
         },
         {

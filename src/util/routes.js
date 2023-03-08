@@ -23,7 +23,8 @@ const routes = {
     HISTORY_WITHDRAW: 'HistoryWithdraw',
     SETTING: 'Setting',
     CHART: 'Chart',
-    WALLET: 'Wallet'
+    WALLET: 'Wallet',
+    TRADE: 'Trade',
 }
 
 export default routes
