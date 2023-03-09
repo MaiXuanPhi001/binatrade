@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import routes from "@util/routes";
 import { getProfileThunk, loginThunk, turn2FAThunk } from "../asyncThunk/userAsyncThunk";
 
 const userSlice = createSlice({
@@ -8,6 +9,7 @@ const userSlice = createSlice({
         profile: {},
         loading: false,
         sound: true,
+        screenChoose: routes.TRADE,
     },
     reducers: {
         signOut: (state) => {
@@ -19,6 +21,9 @@ const userSlice = createSlice({
         },
         setSound: (state, { payload }) => {
             state.sound = payload
+        },
+        setScreenChoose: (state, { payload }) => {
+            state.screenChoose = payload
         }
     },
     extraReducers: buidlder => {

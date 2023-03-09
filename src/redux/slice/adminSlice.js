@@ -33,7 +33,6 @@ const adminSlice = createSlice({
                 }
             }).
             addCase(getDayHistoryOrderAdminThunk.fulfilled, (state, action) => {
-                 console.log(action.payload)
                 if (action.payload.status) {
                     state.historyOrder.day = 'Today'
                     state.historyOrder.page = action.payload.page

@@ -1,13 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import Candlestick from './Candlestick'
 import Line from './Line'
+import Close from './Close'
+import PercentBuyAndSell from './PercentBuyAndSell'
 
 const Chart = () => {
   return (
     <View style={styles.container}>
-      <Line />
-      <Candlestick />
+      <View>
+        <Line />
+        <Candlestick />
+        <PercentBuyAndSell />
+      </View>
+      <Close />
     </View>
   )
 }
@@ -17,7 +23,7 @@ export default Chart
 const styles = StyleSheet.create({
   container: {
     height: '58%',
-    // backgroundColor: 'red',
-    marginTop: 10
+    flexDirection: 'row',
+    marginTop: 10,
   }
 })

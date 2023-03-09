@@ -2,7 +2,6 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 const Symbol = () => {
-  console.log('symbol')
   return (
     <View style={styles.container}>
       <Image 

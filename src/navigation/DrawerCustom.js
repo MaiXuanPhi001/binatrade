@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { theme } from '@theme/index'
 import { DrawerContentScrollView } from '@react-navigation/drawer'
 import Btn from '@commom/Btn'
@@ -11,13 +11,13 @@ import Box from '@commom/Box'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import userSlice from '@slice/userSlice'
 import contants from '@util/contants'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { screenChooseUserSelector } from '@selector/userSelector'
 
 const DrawerCustom = (props) => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
-
-    const [screenChoose, setScreenChoose] = useState(routes.CHART)
+    const screenChoose = useSelector(screenChooseUserSelector)
 
     const logOut = async () => {
         await AsyncStorage.removeItem(contants.TOKEN)
@@ -32,7 +32,7 @@ const DrawerCustom = (props) => {
             choose: routes.TRADE === screenChoose,
             onPress: () => {
                 navigate(routes.TRADE)
-                setScreenChoose(routes.TRADE)
+                dispatch(userSlice.actions.setScreenChoose(routes.TRADE))
             },
         },
         {
@@ -42,7 +42,7 @@ const DrawerCustom = (props) => {
             choose: routes.WALLET === screenChoose,
             onPress: () => {
                 navigate(routes.WALLET)
-                setScreenChoose(routes.WALLET)
+                dispatch(userSlice.actions.setScreenChoose(routes.WALLET))
             },
         },
         {
@@ -52,7 +52,7 @@ const DrawerCustom = (props) => {
             choose: routes.PROFILE === screenChoose,
             onPress: () => {
                 navigate(routes.PROFILE)
-                setScreenChoose(routes.PROFILE)
+                dispatch(userSlice.actions.setScreenChoose(routes.PROFILE))
             },
         },
         {
@@ -62,7 +62,7 @@ const DrawerCustom = (props) => {
             choose: routes.SETTING === screenChoose,
             onPress: () => {
                 navigate(routes.SETTING)
-                setScreenChoose(routes.SETTING)
+                dispatch(userSlice.actions.setScreenChoose(routes.SETTING))
             },
         },
     ]

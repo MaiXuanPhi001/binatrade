@@ -5,3 +5,5 @@ export const isLoginUserSelector = state => state.user.isLogin
 export const loadingUserSelector = state => state.user.loading
 
 export const soundUserSelector = state => state.user.sound
+
+export const screenChooseUserSelector = state => state.user.screenChoose

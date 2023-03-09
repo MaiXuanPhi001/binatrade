@@ -7,19 +7,26 @@ import PlaceABet from './PlaceABet'
 import Symbol from './Symbol'
 import { View } from 'react-native'
 import Socket from './Socket'
+import { useSelector } from 'react-redux'
+import { screenChooseUserSelector } from '@selector/userSelector'
+import routes from '@util/routes'
 
 const Trade = ({ navigation }) => {
+  const screenChoose = useSelector(screenChooseUserSelector)
+  
   return (
     <KeyBoardSafe paddingBottom={0}>
       <Header navigation={navigation} />
-      <View style={{ paddingHorizontal: 5 }}>
-        <Socket />
-        <Symbol />
-        <Chart />
-        <Statistical />
-        <PlaceABet />
-      </View>
-    </KeyBoardSafe>
+      {screenChoose === routes.TRADE &&
+        <View style={{ paddingHorizontal: 5 }}>
+          <Socket />
+          <Symbol />
+          <Chart />
+          <Statistical />
+          <PlaceABet />
+        </View>
+      }
+    </KeyBoardSafe >
   )
 }
 
