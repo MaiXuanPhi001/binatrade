@@ -12,7 +12,7 @@ const TextClose = ({ value, top }) => {
             }}
             numberOfLines={1}
         >
-            - {value}
+            -{value?.toFixed(2)}
         </Text>
     )
 }

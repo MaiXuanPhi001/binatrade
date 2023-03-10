@@ -1,11 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { dataDotTradeSelector } from '@selector/tradeSelector'
 import { theme } from '@theme/index'
+import { StyleSheet, View } from 'react-native'
+import { useSelector } from 'react-redux'
+import EvenAndOdd from './EvenAndOdd'
 
 const Statistical = () => {
+  const dots = useSelector(dataDotTradeSelector)
+
   return (
     <View style={styles.container}>
-      <Text>Statistical</Text>
+      <EvenAndOdd
+        dots={dots}
+      />
     </View>
   )
 }
@@ -13,8 +19,11 @@ const Statistical = () => {
 export default Statistical
 
 const styles = StyleSheet.create({
-    container: {
-        height: '17%',
-        backgroundColor: theme.colors.background,
-    }
+  container: {
+    height: '17%',
+    backgroundColor: theme.colors.background,
+    borderTopWidth: 1,
+    borderColor: theme.colors.gray,
+    paddingTop: 5
+  }
 })

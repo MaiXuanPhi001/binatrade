@@ -1,5 +1,5 @@
-import { StyleSheet, View, Text } from 'react-native'
-import React from 'react'
+import { StyleSheet, View, ScrollView } from 'react-native'
+import React, { useRef } from 'react'
 import { CandlestickChart } from 'react-native-wagmi-charts';
 import { height, width } from '@util/responsive';
 import { useSelector } from 'react-redux';
@@ -16,36 +16,52 @@ export const HEIGHT_CHART = height * PERCENT_HEIGHT / 100
 const Candlestick = () => {
     const dataTrade = useSelector(dataTradeSelector)
     const listTime = useSelector(listTimeTradeSelector)
+    const scrollViewRef = useRef()
 
-    let left = -45
+    let left = -18
 
     return (
         <View style={styles.container}>
             <CandlestickChart.Provider data={dataTrade}>
-                <CandlestickChart
-                    width={WIDTH_CHART}
-                    height={HEIGHT_CHART}
+                <ScrollView
+                    horizontal
+                    ref={scrollViewRef}
+                    onContentSizeChange={() => scrollViewRef?.current?.scrollToEnd({ animated: true })}
                 >
-                    <CandlestickChart.Candles />
-                </CandlestickChart>
-                <View style={styles.viewTime}>
-                    {listTime.slice(3, listTime.length).map(item => {
-                        left += 39
-                        return (
-                            <View
-                                style={{
-                                    alignItems: 'center',
-                                    position: 'absolute',
-                                    left: left,
-                                    marginTop: 3,
-                                }}
-                                key={Math.random()}
-                            >
-                                <Txt size={10}>{item}</Txt>
-                            </View>
-                        )
-                    })}
-                </View>
+                    <View>
+                        <CandlestickChart
+                            // width={WIDTH_CHART}
+                            width={dataTrade.length * 16}
+                            height={HEIGHT_CHART}
+                            style={styles.candlestick}
+                        >
+                            <CandlestickChart.Candles
+                                // positiveColor={theme.colors.greenNen}
+                                // negativeColor={theme.colors.redNen}
+                            />
+                        </CandlestickChart>
+
+                        <View style={styles.viewTime}>
+                            {listTime.map((item, index) => {
+                                left += 31
+                                if (index % 2 !== 0) return
+                                return (
+                                    <View
+                                        style={{
+                                            alignItems: 'center',
+                                            position: 'absolute',
+                                            left: left,
+                                            marginTop: 3,
+                                        }}
+                                        key={Math.random()}
+                                    >
+                                        <Txt size={10}>{item}</Txt>
+                                    </View>
+                                )
+                            })}
+                        </View>
+                    </View>
+                </ScrollView>
             </CandlestickChart.Provider>
         </View>
     )
@@ -54,15 +70,16 @@ const Candlestick = () => {
 export default Candlestick
 
 const styles = StyleSheet.create({
+    candlestick: {
+        borderBottomWidth: 1,
+        borderColor: 'white',
+    },
     viewTime: {
         flexDirection: 'row',
-        // height: 40,
+        height: 40,
     },
     container: {
         // backgroundColor: 'white',
-        borderBottomWidth: 1,
-        borderRightWidth: 1,
-        borderColor: 'white',
         width: WIDTH_CHART,
     }
 })

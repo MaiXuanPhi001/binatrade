@@ -50,6 +50,8 @@ export const theme = {
     drawerChoose: '#354356',
     gray5: '#33404e',
     black2: '#141414',
+    redNen: '#ee475d',
+    greenNen: '#28c86b',
   },
 
   fonts: {
