@@ -6,6 +6,12 @@ import DotItem from './DotItem'
 const EvenAndOdd = ({ dots }) => {
     let postion = 0
 
+    let [redSum, greenSum] = [0, 0]
+    for (let i = 0 ; i < dots.length ; i++) {
+        dots[i] === theme.colors.redNen && redSum++
+        dots[i] === theme.colors.greenNen && greenSum++
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.sumContainer}>
@@ -14,14 +20,14 @@ const EvenAndOdd = ({ dots }) => {
                         source={require('@images/trade/arrows_up_green.png')}
                         style={styles.image}
                     />
-                    <Text style={styles.sumText}>18</Text>
+                    <Text style={styles.sumText}>{greenSum}</Text>
                 </View>
                 <View style={styles.sumContent}>
                     <Image
                         source={require('@images/trade/arrows_down_red.png')}
                         style={styles.image}
                     />
-                    <Text style={styles.sumText}>29</Text>
+                    <Text style={styles.sumText}>{redSum}</Text>
                 </View>
             </View>
 

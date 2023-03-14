@@ -1,15 +1,14 @@
-import React from 'react'
-import KeyBoardSafe from '@reuse/KeyBoardSafe'
 import Header from '@reuse/Header'
-import Chart from './Chart'
-import Statistical from './Statistical'
-import PlaceABet from './PlaceABet'
-import Symbol from './Symbol'
-import { View } from 'react-native'
-import Socket from './Socket'
-import { useSelector } from 'react-redux'
+import KeyBoardSafe from '@reuse/KeyBoardSafe'
 import { screenChooseUserSelector } from '@selector/userSelector'
 import routes from '@util/routes'
+import { View } from 'react-native'
+import { useSelector } from 'react-redux'
+import Chart from './Chart'
+import PlaceABet from './PlaceABet'
+import Socket from './Socket'
+import Statistical from './Statistical'
+import Symbol from './Symbol'
 
 const Trade = ({ navigation }) => {
   const screenChoose = useSelector(screenChooseUserSelector)

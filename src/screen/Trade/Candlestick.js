@@ -26,6 +26,7 @@ const Candlestick = () => {
                 <ScrollView
                     horizontal
                     ref={scrollViewRef}
+                    scrollEnabled={false}
                     onContentSizeChange={() => scrollViewRef?.current?.scrollToEnd({ animated: true })}
                 >
                     <View>

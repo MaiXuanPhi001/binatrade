@@ -37,8 +37,8 @@ const PercentBuyAndSell = () => {
                 borderWidth={0}
             />
             <View style={styles.content}>
-                <Txt color={theme.colors.greenNen} bold size={12}>{(buy * 100 / (buy + sell)).toFixed(1) || 0}%</Txt>
-                <Txt color={theme.colors.redNen} bold size={12}>{(sell * 100 / (sell + buy)).toFixed(1) || 0}%</Txt>
+                <Txt color={theme.colors.greenNen} bold size={12}>{(buy * 100 / (buy + sell)).toFixed(1)}%</Txt>
+                <Txt color={theme.colors.redNen} bold size={12}>{(sell * 100 / (sell + buy)).toFixed(1)}%</Txt>
             </View>
         </View>
     )
