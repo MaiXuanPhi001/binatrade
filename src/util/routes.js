@@ -25,6 +25,7 @@ const routes = {
     CHART: 'Chart',
     WALLET: 'Wallet',
     TRADE: 'Trade',
+    TRADING: 'Trading',
 }
 
 export default routes

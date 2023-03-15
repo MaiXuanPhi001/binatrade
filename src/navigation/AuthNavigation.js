@@ -1,7 +1,7 @@
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import Trade from '@screen/Trade'
 import Profile from '@screen/Profile'
 import Setting from '@screen/Setting'
+import Trading from '@screen/Trading'
 import Wallet from '@screen/Wallet'
 import { width } from '@util/responsive'
 import routes from '@util/routes'
@@ -13,8 +13,8 @@ const AuthNavigation = () => {
     const data = [
         {
             id: 0,
-            name: routes.TRADE,
-            component: Trade,
+            name: routes.TRADING,
+            component: Trading,
         },
         {
             id: 1,
