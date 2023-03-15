@@ -1,6 +1,7 @@
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import Profile from '@screen/Profile'
 import Setting from '@screen/Setting'
+import Trade from '@screen/Trade'
 import Trading from '@screen/Trading'
 import Wallet from '@screen/Wallet'
 import { width } from '@util/responsive'

@@ -3,8 +3,9 @@ import React from 'react'
 import Candlestick from './Candlestick'
 import Line from './Line'
 import Close from './Close'
+import PercentBuyAndSell from './PercentBuyAndSell'
 
-const Chart = ({ trades, highChart, lowChart }) => {
+const Chart = ({ trades, highChart, lowChart, times }) => {
     return (
         <View style={styles.container}>
             <View>
@@ -15,7 +16,11 @@ const Chart = ({ trades, highChart, lowChart }) => {
                 />
                 <Candlestick
                     trades={trades}
+                    times={times}
                 />
+                {/* <PercentBuyAndSell
+                
+                /> */}
             </View>
             <Close
                 trades={trades}

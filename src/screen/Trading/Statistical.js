@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { theme } from '@theme/index'
+import EvenAndOdd from './EvenAndOdd'
 
-const Statistical = () => {
+const Statistical = ({dots}) => {
     return (
         <View style={styles.container}>
-            <Text>Statistical</Text>
+            <EvenAndOdd dots={dots}/>
         </View>
     )
 }
