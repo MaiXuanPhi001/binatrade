@@ -1,10 +1,10 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { memo } from 'react'
 
 const Symbol = () => {
   return (
     <View style={styles.container}>
-      <Image 
+      <Image
         source={require('@images/crypto/bitcoin.png')}
         style={styles.img}
       />
@@ -13,7 +13,7 @@ const Symbol = () => {
   )
 }
 
-export default Symbol
+export default memo(Symbol)
 
 const styles = StyleSheet.create({
   img: {

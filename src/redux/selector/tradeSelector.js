@@ -18,4 +18,6 @@ export const sellerTradeSelector = state => state.trade.seller
 
 export const dataDotTradeSelector = state => state.trade.dataDot
 
+export const dataSize40TradeSelector = state => state.trade.dataSize40
+
 

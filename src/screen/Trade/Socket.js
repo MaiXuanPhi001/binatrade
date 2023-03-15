@@ -1,5 +1,5 @@
 import { timeHM } from '@method/date'
-import { chartItemTradeSelector, dataTradeSelector } from '@selector/tradeSelector'
+import { chartItemTradeSelector, dataSize40TradeSelector, dataTradeSelector, highChartTradeSelector, lowChartTradeSelector } from '@selector/tradeSelector'
 import { getChart } from '@service/chartService'
 import tradeSlice from '@slice/tradeSlice'
 import { theme } from '@theme/index'
@@ -13,6 +13,9 @@ const Socket = () => {
     const socketRef = useRef()
     const chartItem = useSelector(chartItemTradeSelector)
     const dataTrade = useSelector(dataTradeSelector)
+    const dataSize40 = useSelector(dataSize40TradeSelector)
+    const highTrade = useSelector(highChartTradeSelector)
+    const lowTrade = useSelector(lowChartTradeSelector)
     const COIN = 'BTCUSDT'
     const LIMIT_DATA = 60
 
@@ -37,6 +40,7 @@ const Socket = () => {
         const res = await getChart(COIN)
         if (res.status) {
             const data = res.data.slice(160, res.data.length)
+            const candlestick = res.data.slice(180, res.data.length)
             let [listTime, highChart, lowChart, dots, buyer, seller] = [[], 0, 18092002, [], 0, 0]
             for (let i = 0; i < LIMIT_DATA; i++) {
                 if (data[i]) {
@@ -57,13 +61,14 @@ const Socket = () => {
             }
 
             dispatch(tradeSlice.actions.setDataTrade({
-                dataTrade: data,
+                dataTrade: candlestick,
                 highChart,
                 lowChart,
                 listTime: [... new Set(listTime)],
                 buyer,
                 seller,
                 dots,
+                dataSize40: data
             }))
         } else {
             alert(res.message)
@@ -80,12 +85,10 @@ const Socket = () => {
                 if (data[i]) {
                     highChart < data[i].high && (highChart = data[i].high)
                     lowChart > data[i].low && (lowChart = data[i].low)
-                    if (i !== data.length - 1) {
-                        listTime.push(timeHM(data[i].timestamp))
-                        dots.push(data[i].close > data[i].open ? theme.colors.greenNen : theme.colors.redNen)
-                    } else {
-                        dots.push(theme.colors.gray5)
-                    }
+                    listTime.push(timeHM(data[i].timestamp))
+                }
+                if (dataSize40[i]) {
+                    dots.push(dataSize40[i].close > dataSize40[i].open ? theme.colors.greenNen : theme.colors.redNen)
                 } else {
                     dots.push(theme.colors.gray5)
                 }
@@ -106,7 +109,7 @@ const Socket = () => {
                     dots,
                 }))
 
-                if (dataTrade.length >= 60) {
+                if (dataTrade.length >= 40) {
                     setTimeout(() => {
                         dispatch(tradeSlice.actions.resetTrade())
                     }, 5000)

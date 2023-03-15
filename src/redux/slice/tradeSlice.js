@@ -7,12 +7,13 @@ const tradeSlice = createSlice({
         dataTrade: [],
         time: 0,
         chartItem: {},
-        highChart: null,
+        highChart: 0,
         lowChart: 18092002,
         listTime: [],
         buyer: 0,
         seller: 0,
         dataDot: [],
+        dataSize40: [],
     },
     reducers: {
         setDataTrade: (state, { payload }) => {
@@ -23,6 +24,7 @@ const tradeSlice = createSlice({
             state.buyer = payload.buyer
             state.seller = payload.seller
             state.dataDot = payload.dots
+            state.dataSize40 = payload.dataSize40
         },
         changeDataTrade: (state, { payload }) => {
             state.dataTrade[state.dataTrade.length - 1] = payload.chartItem
@@ -35,6 +37,7 @@ const tradeSlice = createSlice({
             state.lowChart = payload.lowChart
             state.listTime = payload.listTime
             state.dataDot = payload.dots
+            state.dataSize40.push(payload.chartItem)
         },
         setChartItem: (state, { payload }) => {
             state.chartItem = payload
@@ -44,6 +47,7 @@ const tradeSlice = createSlice({
         },
         resetTrade: (state) => {
             state.dataTrade = state.dataTrade.slice(20, state.dataTrade.length)
+            state.dataSize40 = state.dataSize40.slice(20, state.dataSize40.length)
         },
         setBuyerAndSeller: (state, { payload }) => {
             state.buyer = payload.buyer
