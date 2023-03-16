@@ -40,7 +40,6 @@ const Form = () => {
             password,
             userName: username,
         })
-        console.log(res)
         Alert.alert(t(res.message))
 
         dispacth(userSlice.actions.setLoading(false))

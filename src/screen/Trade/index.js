@@ -5,6 +5,7 @@ import routes from '@util/routes'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 import Chart from './Chart'
+import ModalWin from './ModalWin'
 import PlaceABet from './PlaceABet'
 import Socket from './Socket'
 import Statistical from './Statistical'
@@ -23,6 +24,7 @@ const Trade = ({ navigation }) => {
           <Chart />
           <Statistical />
           <PlaceABet />
+          <ModalWin />
         </View>
       }
     </KeyBoardSafe >

@@ -20,4 +20,12 @@ export const dataDotTradeSelector = state => state.trade.dataDot
 
 export const dataSize40TradeSelector = state => state.trade.dataSize40
 
+export const amountTradeSelector = state => state.trade.amount
+
+export const profitTradeSelector = state => state.trade.profit
+
+export const showModalWinSelector = state => state.trade.showModalWin
+
+export const sideTradeSelector = state => state.trade.side
+
 

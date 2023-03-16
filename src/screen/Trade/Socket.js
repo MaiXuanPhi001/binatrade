@@ -1,5 +1,5 @@
 import { timeHM } from '@method/date'
-import { chartItemTradeSelector, dataSize40TradeSelector, dataTradeSelector, highChartTradeSelector, lowChartTradeSelector } from '@selector/tradeSelector'
+import { chartItemTradeSelector, dataSize40TradeSelector, dataTradeSelector } from '@selector/tradeSelector'
 import { getChart } from '@service/chartService'
 import tradeSlice from '@slice/tradeSlice'
 import { theme } from '@theme/index'
@@ -14,8 +14,6 @@ const Socket = () => {
     const chartItem = useSelector(chartItemTradeSelector)
     const dataTrade = useSelector(dataTradeSelector)
     const dataSize40 = useSelector(dataSize40TradeSelector)
-    const highTrade = useSelector(highChartTradeSelector)
-    const lowTrade = useSelector(lowChartTradeSelector)
     const COIN = 'BTCUSDT'
     const LIMIT_DATA = 60
 
@@ -80,8 +78,8 @@ const Socket = () => {
             const lastChart = dataTrade[dataTrade.length - 1]
 
             const data = [...dataTrade, chartItem]
-            let [highChart, lowChart, listTime, dots] = [0, 18092002, [], []]
-            for (let i = 0; i < LIMIT_DATA; i++) {
+            let [highChart, lowChart, listTime, dots, i] = [0, 18092002, [], [], 0]
+            while (i < LIMIT_DATA) {
                 if (data[i]) {
                     highChart < data[i].high && (highChart = data[i].high)
                     lowChart > data[i].low && (lowChart = data[i].low)
@@ -92,6 +90,7 @@ const Socket = () => {
                 } else {
                     dots.push(theme.colors.gray5)
                 }
+                i++
             }
 
             if (lastChart.id === chartItem.id) {

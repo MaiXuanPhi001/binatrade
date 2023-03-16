@@ -1,49 +1,92 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { orderThunk } from '@asyncThunk/orderAsyncThunk'
+import { getProfileThunk } from '@asyncThunk/userAsyncThunk'
+import LoadingWhite from '@reuse/LoadingWhite'
+import { amountTradeSelector, loadingTradeSelector, timeTradeSelector } from '@selector/tradeSelector'
+import { profileSelector, typeUserSelector } from '@selector/userSelector'
 import { theme } from '@theme/index'
-import { useSelector } from 'react-redux'
-import { timeTradeSelector } from '@selector/tradeSelector'
+import { useRef } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+import ToastOrder from './ToastOrder'
 
 const BuyOrSell = () => {
+  const dispatch = useDispatch()
+  const { t } = useTranslation()
   const timeServer = useSelector(timeTradeSelector)
+  const amount = useSelector(amountTradeSelector)
+  const type = useSelector(typeUserSelector)
+  const loading = useSelector(loadingTradeSelector)
+  const profile = useSelector(profileSelector)
+  const toastRef = useRef(null)
+
   const time = timeServer > 30 ? 61 - timeServer : 31 - timeServer
   const color = (timeServer >= 1 && timeServer <= 30) ? theme.colors.greenNen : theme.colors.redNen
   const disable = color === theme.colors.greenNen ? false : true
 
+  const handleOrder = async (side) => {
+    const { payload } = await dispatch(
+      orderThunk({
+        symbol: 'BTCUSDT',
+        type,
+        side,
+        amount,
+        api: 'order',
+      })
+    )
+    toastRef.current?.slide(t(payload.message), payload.status)
+    if (payload.status) {
+      dispatch(getProfileThunk())
+    }
+  }
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        disabled={disable}
+        onPress={() => handleOrder('sell')}
+        disabled={disable || loading}
         style={[
           styles.button,
           { backgroundColor: disable ? theme.colors.gray5 : theme.colors.redNen }
         ]}
       >
-        <Text style={styles.textButton}>SELL</Text>
-        <Image
-          source={require('@images/trade/rise_down.png')}
-          style={styles.imageButton}
-        />
+        {loading ? <LoadingWhite /> :
+          <>
+            <Text style={styles.textButton}>{t('SELL')}</Text>
+            <Image
+              source={require('@images/trade/rise_down.png')}
+              style={styles.imageButton}
+            />
+          </>
+        }
       </TouchableOpacity>
 
       <View style={styles.timeContainer}>
-        <Text style={[styles.textTime, { color }]}>Please trade</Text>
+        <Text style={[styles.textTime, { color }]} numberOfLines={1}>
+          {t(!disable ? 'Please trade' : 'Wait time')}
+        </Text>
         <Text style={[styles.textTime, { color }]}>{time}s</Text>
       </View>
 
       <TouchableOpacity
-        disabled={disable}
+        onPress={() => handleOrder('buy')}
+        disabled={disable || loading}
         style={[styles.button,
         {
           backgroundColor: disable ? theme.colors.gray5 : theme.colors.greenNen
         }]}
       >
-        <Text style={styles.textButton}>BUY</Text>
-        <Image
-          source={require('@images/trade/rise_up.png')}
-          style={styles.imageButton}
-        />
+        {loading ? <LoadingWhite /> :
+          <>
+            <Text style={styles.textButton}>{t('BUY')}</Text>
+            <Image
+              source={require('@images/trade/rise_up.png')}
+              style={styles.imageButton}
+            />
+          </>
+        }
       </TouchableOpacity>
+      <ToastOrder ref={toastRef} />
     </View>
   )
 }

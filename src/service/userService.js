@@ -85,3 +85,12 @@ export const checkKYCUser = async () => {
         return callFailed()
     }
 }
+
+export const updateBalanceDemo = async () => {
+    try {
+        const res = await axiosInstance.post('/api/binaryOption/updateBalanceDemo', {})
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}

@@ -1,34 +1,39 @@
-import { StyleSheet, View } from 'react-native'
-import React, { useMemo, useState } from 'react'
-import ProgressBar from 'react-native-progress/Bar'
 import Txt from '@commom/Txt'
+import { dataTradeSelector, sideTradeSelector, timeTradeSelector } from '@selector/tradeSelector'
 import { theme } from '@theme/index'
+import { useMemo, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import ProgressBar from 'react-native-progress/Bar'
 import { useSelector } from 'react-redux'
-import { buyerTradeSelector, dataTradeSelector, sellerTradeSelector, timeTradeSelector } from '@selector/tradeSelector'
 
 const PercentBuyAndSell = () => {
     const time = useSelector(timeTradeSelector)
     const dataTrade = useSelector(dataTradeSelector)
-    const buyer = useSelector(buyerTradeSelector)
-    const seller = useSelector(sellerTradeSelector)
+    const side = useSelector(sideTradeSelector)
 
-    const [buy, setBuy] = useState(buyer)
-    const [sell, setSell] = useState(seller)  
+    // const buyer = useSelector(buyerTradeSelector)
+    // const seller = useSelector(sellerTradeSelector)
+
+    const [buy, setBuy] = useState(0)
+    const [sell, setSell] = useState(0)
 
     useMemo(() => {
         if (dataTrade.length > 0) {
             const lastChart = dataTrade[dataTrade.length - 1]
-            if (time > 0 && time < 32 && lastChart.buyer) {
+            if (time > 0 && time < 32) {
                 setBuy(lastChart.buyer)
                 setSell(lastChart.seller)
             }
         }
-    }, [time, buyer, seller])
+        // if () {
+
+        // }
+    }, [time])
 
     return (
         <View style={styles.container}>
             <ProgressBar
-                progress={(buy * 100 / (buy + sell)).toFixed(1) / 100 || 0}
+                progress={buy !== 0 ? (buy * 100 / (buy + sell)).toFixed(1) / 100 : 0.5}
                 width={300}
                 color={'#1BBD61'}
                 unfilledColor={'#E93555'}
@@ -37,8 +42,8 @@ const PercentBuyAndSell = () => {
                 borderWidth={0}
             />
             <View style={styles.content}>
-                <Txt color={theme.colors.greenNen} bold size={12}>{(buy * 100 / (buy + sell)).toFixed(1)}%</Txt>
-                <Txt color={theme.colors.redNen} bold size={12}>{(sell * 100 / (sell + buy)).toFixed(1)}%</Txt>
+                <Txt color={theme.colors.greenNen} bold size={12}>{buy !== 0 ? (buy * 100 / (buy + sell)).toFixed(1) : 0}%</Txt>
+                <Txt color={theme.colors.redNen} bold size={12}>{sell !== 0 ? (sell * 100 / (sell + buy)).toFixed(1) : 0}%</Txt>
             </View>
         </View>
     )
@@ -58,8 +63,5 @@ const styles = StyleSheet.create({
         transform: [
             { rotate: '90deg' },
         ],
-        // backgroundColor: 'red',
-        // width:0,
-        // height: 50,
     },
 })

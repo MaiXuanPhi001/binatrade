@@ -10,6 +10,7 @@ const userSlice = createSlice({
         loading: false,
         sound: true,
         screenChoose: routes.TRADE,
+        type: 'live',
     },
     reducers: {
         signOut: (state) => {
@@ -24,6 +25,9 @@ const userSlice = createSlice({
         },
         setScreenChoose: (state, { payload }) => {
             state.screenChoose = payload
+        },
+        changeType: (state, { payload }) => {
+            state.type = payload
         }
     },
     extraReducers: buidlder => {

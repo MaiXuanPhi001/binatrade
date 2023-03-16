@@ -1,13 +1,17 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { theme } from '@theme/index'
+import { useSelector } from 'react-redux'
+import { profitTradeSelector } from '@selector/tradeSelector'
 
 const Profit = () => {
+    const profit = useSelector(profitTradeSelector)
+
     return (
         <View style={styles.container}>
             <Text style={styles.textPercent}>Profit
                 <Text style={styles.text95}> 95%</Text>
-                <Text style={styles.textProfit}>   $19.50</Text>
+                <Text style={styles.textProfit}>   ${profit.toFixed(2)}</Text>
             </Text>
         </View>
     )

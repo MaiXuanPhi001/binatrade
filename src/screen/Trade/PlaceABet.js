@@ -9,7 +9,7 @@ const PlaceABet = () => {
       <Amount />
       <BuyOrSell />
     </View>
-  )
+  ) 
 }
 
 export default PlaceABet

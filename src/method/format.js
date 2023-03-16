@@ -7,8 +7,14 @@ export const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-export const numberCommasDot = (x) => {
-    return x.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + x.toFixed(2).toString().substring(x.toString().indexOf("."))
+export const numberCommasDot = (n) => {
+    var x1 = (n + "").split(".")[0];
+    if (!Number.isInteger(n)) {
+        const x2 = (n + "").split(".")[1];
+        return x1 + '.' + x2
+    } else {
+        return x1
+    }
 }
 
 export const converNetwork = (str) => {

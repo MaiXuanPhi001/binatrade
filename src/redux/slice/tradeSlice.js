@@ -1,3 +1,5 @@
+import { orderThunk } from "@asyncThunk/orderAsyncThunk";
+
 const { createSlice } = require("@reduxjs/toolkit");
 
 const tradeSlice = createSlice({
@@ -5,6 +7,9 @@ const tradeSlice = createSlice({
     initialState: {
         loading: false,
         dataTrade: [],
+        side: {},
+        pendingOrder: {},
+        profit: 19.50,
         time: 0,
         chartItem: {},
         highChart: 0,
@@ -14,6 +19,8 @@ const tradeSlice = createSlice({
         seller: 0,
         dataDot: [],
         dataSize40: [],
+        amount: 10,
+        showModalWin: false,
     },
     reducers: {
         setDataTrade: (state, { payload }) => {
@@ -52,8 +59,26 @@ const tradeSlice = createSlice({
         setBuyerAndSeller: (state, { payload }) => {
             state.buyer = payload.buyer
             state.seller = payload.seller
-        }
+        },
+        changeAmount: (state, { payload }) => {
+            state.amount = payload
+            state.profit = (payload * 95 / 100) + payload
+        },
     },
+    extraReducers: builder => {
+        builder
+            .addCase(orderThunk.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(orderThunk.fulfilled, (state, { payload }) => {
+                state.loading = false
+                if (!payload.error && payload.status) {
+                    state.side = payload.data
+                    state.amount = 10
+                    state.profit = 19.50
+                }
+            })
+    }
 })
 
 export default tradeSlice

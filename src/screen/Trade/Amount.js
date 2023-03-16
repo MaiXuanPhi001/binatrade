@@ -1,17 +1,32 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { width } from '@util/responsive'
+import { amountTradeSelector } from '@selector/tradeSelector'
+import tradeSlice from '@slice/tradeSlice'
 import { theme } from '@theme/index'
+import { width } from '@util/responsive'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Amount = () => {
+    const dispatch = useDispatch()
+    const amount = useSelector(amountTradeSelector)
+
+    const handleChangeAmount = (action) => {
+        let price = action === '+' ? amount + 5 : amount - 5
+        dispatch(tradeSlice.actions.changeAmount(price < 0 ? 0 : price))
+    }
+
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+                onPress={() => handleChangeAmount('-')}
+                style={styles.button}
+            >
                 <Text style={styles.textButton}>-</Text>
             </TouchableOpacity>
 
             <View style={styles.inputContainer}>
-                <TextInput 
+                <TextInput
+                    value={amount.toString()}
+                    onChangeText={txt => dispatch(tradeSlice.actions.changeAmount(Number(txt)))}
                     keyboardType={'number-pad'}
                     style={styles.input}
                 />
@@ -20,7 +35,10 @@ const Amount = () => {
                 </View>
             </View>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+                onPress={() => handleChangeAmount('+')}
+                style={styles.button}
+            >
                 <Text style={styles.textButton}>+</Text>
             </TouchableOpacity>
         </View>

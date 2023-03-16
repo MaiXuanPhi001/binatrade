@@ -17,7 +17,7 @@ const Login = () => {
 
   const { t } = useTranslation()
 
-  const [email, setEmail] = useState('maixuanphi555@gmail.com')
+  const [email, setEmail] = useState('test@gmail.com')
   const [password, setPassword] = useState('123123')
   const [checkForm, setCheckForm] = useState(false)
 

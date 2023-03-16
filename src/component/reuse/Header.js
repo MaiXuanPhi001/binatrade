@@ -1,25 +1,33 @@
-import React, { useState } from 'react'
+import { getProfileThunk } from '@asyncThunk/userAsyncThunk'
 import Box from '@commom/Box'
 import Btn from '@commom/Btn'
 import Img from '@commom/Img'
 import Txt from '@commom/Txt'
-import LinearGradient from 'react-native-linear-gradient'
-import { Image, StyleSheet } from 'react-native'
-import Animated from 'react-native-reanimated'
+import { numberCommasDot } from '@method/format'
+import { profileSelector, typeUserSelector } from '@selector/userSelector'
+import { updateBalanceDemo } from '@service/userService'
+import userSlice from '@slice/userSlice'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
+import Animated from 'react-native-reanimated'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Header = ({ navigation }) => {
+  const dispatch = useDispatch()
   const { t } = useTranslation()
   const [drop, setDrop] = useState(false)
+  const type = useSelector(typeUserSelector)
+  const profile = useSelector(profileSelector)
+
+  const handleUpdateBalanceDemo = async () => {
+    const res = await updateBalanceDemo()
+    res.status && dispatch(await getProfileThunk())
+  }
 
   return (
-    <Box
-      row
-      paddingHorizontal={10}
-      justifySpaceBetween
-      zIndex={2}
-      marginTop={10}
-    >
+    <View style={styles.container}>
       <Btn onPress={() => navigation.openDrawer()}>
         <Img
           source={require('@images/burger-bar.png')}
@@ -55,96 +63,57 @@ const Header = ({ navigation }) => {
 
         {/* Account live */}
         <Box>
-          <Btn
+          <TouchableOpacity
             onPress={() => setDrop(!drop)}
-            row
-            backgroundColor={'#354356'}
-            padding={7}
-            radius={5}
+            style={styles.buttonShow}
           >
             <Box marginRight={15}>
-              <Txt size={13}>{t('Live account')}</Txt>
-              <Txt bold>$ 1,000,000</Txt>
+              <Txt size={13}>{t(type === 'live' ? 'Live account' : 'Demo account')}</Txt>
+              <Txt bold>$ {numberCommasDot(type === 'live' ? profile.balance : profile.demoBalance)}</Txt>
             </Box>
             <Image
               source={require('@images/wallet/next.png')}
               style={styles.imgDrop}
             />
-          </Btn>
+          </TouchableOpacity>
           {drop &&
-            <Animated.View
-              style={[styles.animatedView]}
-            >
+            <Animated.View style={[styles.animatedView]}>
               <Txt bold size={16} marginBottom={10}>{t('Change account')}</Txt>
-              <Box
-                row
-                alignCenter
-                backgroundColor={'#354356'}
-                padding={10}
-                radius={5}
-                marginBottom={10}
+              <TouchableOpacity
+                onPress={() => dispatch(userSlice.actions.changeType('live'))}
+                style={[styles.buttonLiveContainer, { backgroundColor: type === 'live' ? '#354356' : '#011022' }]}
               >
-                <Box
-                  width={20}
-                  height={20}
-                  backgroundColor={'white'}
-                  radius={50}
-                  alignCenter
-                  justifyCenter
-                  marginRight={10}
-                >
-                  <Box
-                    width={15}
-                    height={15}
-                    backgroundColor={'#0697e7'}
-                    radius={50}
-                  />
+                <View style={styles.circleContainer}>
+                  <View style={[styles.circle, { backgroundColor: type === 'live' ? '#0697e7' : '#d1d3d1' }]} />
                   <Box />
-                </Box>
+                </View>
                 <Box>
                   <Txt>{t('Live account')}</Txt>
-                  <Txt bold>$ 10,077.43</Txt>
+                  <Txt bold>$ {numberCommasDot(profile.balance)}</Txt>
                 </Box>
-              </Box>
+              </TouchableOpacity>
 
-              <Box
-                row
-                justifySpaceBetween
-                backgroundColor={'#011022'}
-                padding={10}
-                radius={5}
-                marginBottom={10}
+              <TouchableOpacity
+                onPress={() => dispatch(userSlice.actions.changeType('demo'))}
+                style={[styles.buttonDemoContainer, { backgroundColor: type === 'demo' ? '#354356' : '#011022' }]}
               >
                 <Box row alignCenter>
-                  <Box
-                    width={20}
-                    height={20}
-                    backgroundColor={'white'}
-                    radius={50}
-                    alignCenter
-                    justifyCenter
-                    marginRight={10}
-                  >
-                    <Box
-                      width={15}
-                      height={15}
-                      backgroundColor={'#d1d3d1'}
-                      radius={50}
-                    />
-                  </Box>
-                  <Box>
-                    <Txt>{t('Live account')}</Txt>
-                    <Txt bold>$ 1,000.00</Txt>
-                  </Box>
+                  <View style={styles.circleContainer}>
+                    <View style={[styles.circle, { backgroundColor: type === 'demo' ? '#0697e7' : '#d1d3d1' }]} />
+                  </View>
+                  <View>
+                    <Txt>{t('Demo account')}</Txt>
+                    <Txt bold>$ {numberCommasDot(999.75)}</Txt>
+                  </View>
                 </Box>
-                <Btn>
+                <Btn onPress={handleUpdateBalanceDemo}>
                   <Img
                     source={require('@images/reload.png')}
                     width={20}
                     height={20}
                   />
                 </Btn>
-              </Box>
+              </TouchableOpacity>
             </Animated.View>
           }
         </Box>
@@ -175,13 +144,49 @@ const Header = ({ navigation }) => {
           />
         </Btn>
       </Box>
-    </Box>
+    </View>
   )
 }
 
 export default Header
 
 const styles = StyleSheet.create({
+  circle: {
+    width: 15,
+    height: 15,
+    borderRadius: 50,
+  },
+  circleContainer: {
+    width: 20,
+    height: 20,
+    backgroundColor: 'white',
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 10,
+  },
+  buttonDemoContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  buttonLiveContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  buttonShow: {
+    flexDirection: 'row',
+    backgroundColor: '#354356',
+    padding: 7,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
   animatedView: {
     backgroundColor: '#02142b',
     padding: 10,
@@ -207,5 +212,12 @@ const styles = StyleSheet.create({
     height: 45,
     padding: 5,
     justifyContent: 'center',
+  },
+  container: {
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+    justifyContent: 'space-between',
+    zIndex: 2,
+    marginTop: 10,
   }
 })
