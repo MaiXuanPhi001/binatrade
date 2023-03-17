@@ -18,6 +18,7 @@ const tradeSlice = createSlice({
         buyer: 0,
         seller: 0,
         dataDot: [],
+        start: true,
         dataSize40: [],
         amount: 10,
         showModalWin: false,
@@ -35,6 +36,7 @@ const tradeSlice = createSlice({
         },
         changeDataTrade: (state, { payload }) => {
             state.dataTrade[state.dataTrade.length - 1] = payload.chartItem
+            state.dataSize40[state.dataSize40.length - 1] = payload.chartItem
             state.highChart = payload.highChart
             state.lowChart = payload.lowChart
         },
