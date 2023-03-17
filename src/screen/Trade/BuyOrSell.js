@@ -2,7 +2,7 @@ import { orderThunk } from '@asyncThunk/orderAsyncThunk'
 import { getProfileThunk } from '@asyncThunk/userAsyncThunk'
 import LoadingWhite from '@reuse/LoadingWhite'
 import { amountTradeSelector, loadingTradeSelector, timeTradeSelector } from '@selector/tradeSelector'
-import { profileSelector, typeUserSelector } from '@selector/userSelector'
+import { typeUserSelector } from '@selector/userSelector'
 import { theme } from '@theme/index'
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -17,7 +17,6 @@ const BuyOrSell = () => {
   const amount = useSelector(amountTradeSelector)
   const type = useSelector(typeUserSelector)
   const loading = useSelector(loadingTradeSelector)
-  const profile = useSelector(profileSelector)
   const toastRef = useRef(null)
 
   const time = timeServer > 30 ? 61 - timeServer : 31 - timeServer
@@ -34,7 +33,7 @@ const BuyOrSell = () => {
         api: 'order',
       })
     )
-    toastRef.current?.slide(t(payload.message), payload.status)
+    toastRef.current?.slide(payload)
     if (payload.status) {
       dispatch(getProfileThunk())
     }

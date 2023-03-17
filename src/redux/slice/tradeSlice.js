@@ -57,6 +57,8 @@ const tradeSlice = createSlice({
         resetTrade: (state) => {
             state.candles = state.candles.slice(20, state.candles.length)
             state.dataTrade = state.dataTrade.slice(20, state.dataTrade.length)
+            state.highChart = 0
+            state.lowChart = 18092022
         },
         setBuyerAndSeller: (state, { payload }) => {
             state.buyer = payload.buyer

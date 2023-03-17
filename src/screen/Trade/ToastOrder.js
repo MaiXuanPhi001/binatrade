@@ -1,11 +1,13 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
-import React, { forwardRef, memo, useCallback, useImperativeHandle } from 'react'
-import Animated, { useAnimatedProps, useAnimatedStyle, useSharedValue, withDelay, withSpring } from 'react-native-reanimated'
 import { theme } from '@theme/index'
-import { TextInput } from 'react-native-gesture-handler'
 import { height, width } from '@util/responsive'
+import { forwardRef, memo, useCallback, useImperativeHandle } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Image, StyleSheet } from 'react-native'
+import { TextInput } from 'react-native-gesture-handler'
+import Animated, { useAnimatedProps, useAnimatedStyle, useSharedValue, withDelay, withSpring } from 'react-native-reanimated'
 
 const ToastOrder = forwardRef((_, ref) => {
+    const { t } = useTranslation()
     const AnimatedTextInput = Animated.createAnimatedComponent(TextInput)
     const start = -(width * 89 / 100)
     const rightPosition = useSharedValue(start)
@@ -25,10 +27,11 @@ const ToastOrder = forwardRef((_, ref) => {
         }
     })
 
-    const slide = useCallback((text, status) => {
+    const slide = useCallback((data) => {
         'worklet'
-        message.value = text
-        background.value = status ? theme.colors.greenNen : theme.colors.redNen 
+        message.value = !data.error ? t(data.message) : t('Network error!') 
+
+        background.value = data.status ? theme.colors.greenNen : theme.colors.redNen
         rightPosition.value = withSpring(0, {
             damping: 100,
             stiffness: 400,
@@ -65,6 +68,7 @@ export default memo(ToastOrder)
 
 const styles = StyleSheet.create({
     labelText: {
+        flexWrap: 'wrap',
         color: 'white',
         fontWeight: 'bold',
         fontSize: 17,
