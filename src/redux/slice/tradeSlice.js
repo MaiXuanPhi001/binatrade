@@ -6,7 +6,7 @@ const tradeSlice = createSlice({
     name: 'trade',
     initialState: {
         loading: false,
-        dataTrade: [],
+        candles: [],
         side: {},
         pendingOrder: {},
         profit: 19.50,
@@ -19,34 +19,34 @@ const tradeSlice = createSlice({
         seller: 0,
         dataDot: [],
         start: true,
-        dataSize40: [],
+        dataTrade: [],
         amount: 10,
         showModalWin: false,
     },
     reducers: {
         setDataTrade: (state, { payload }) => {
-            state.dataTrade = payload.dataTrade
+            state.candles = payload.candles
             state.lowChart = payload.lowChart
             state.highChart = payload.highChart
             state.listTime = payload.listTime
             state.buyer = payload.buyer
             state.seller = payload.seller
             state.dataDot = payload.dots
-            state.dataSize40 = payload.dataSize40
+            state.dataTrade = payload.dataAPI
         },
         changeDataTrade: (state, { payload }) => {
+            state.candles[state.candles.length - 1] = payload.chartItem
             state.dataTrade[state.dataTrade.length - 1] = payload.chartItem
-            state.dataSize40[state.dataSize40.length - 1] = payload.chartItem
             state.highChart = payload.highChart
             state.lowChart = payload.lowChart
         },
         addDataTrade: (state, { payload }) => {
-            state.dataTrade.push(payload.chartItem)
+            state.candles.push(payload.chartItem)
             state.highChart = payload.highChart
             state.lowChart = payload.lowChart
             state.listTime = payload.listTime
             state.dataDot = payload.dots
-            state.dataSize40.push(payload.chartItem)
+            state.dataTrade.push(payload.chartItem)
         },
         setChartItem: (state, { payload }) => {
             state.chartItem = payload
@@ -55,8 +55,8 @@ const tradeSlice = createSlice({
             state.time = payload
         },
         resetTrade: (state) => {
+            state.candles = state.candles.slice(20, state.candles.length)
             state.dataTrade = state.dataTrade.slice(20, state.dataTrade.length)
-            state.dataSize40 = state.dataSize40.slice(20, state.dataSize40.length)
         },
         setBuyerAndSeller: (state, { payload }) => {
             state.buyer = payload.buyer

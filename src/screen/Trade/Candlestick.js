@@ -1,10 +1,10 @@
-import { StyleSheet, View, ScrollView } from 'react-native'
-import React, { useRef } from 'react'
-import { CandlestickChart } from 'react-native-wagmi-charts';
-import { height, width } from '@util/responsive';
-import { useSelector } from 'react-redux';
-import { dataTradeSelector, listTimeTradeSelector } from '@selector/tradeSelector';
 import Txt from '@commom/Txt';
+import { candlesTradeSelector, listTimeTradeSelector } from '@selector/tradeSelector';
+import { height, width } from '@util/responsive';
+import { useRef } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { CandlestickChart } from 'react-native-wagmi-charts';
+import { useSelector } from 'react-redux';
 
 const PERCENT_WIDTH = 85
 const PADDING_HOZ = 10
@@ -14,7 +14,7 @@ const PERCENT_HEIGHT = 47.39336492890995
 export const HEIGHT_CHART = height * PERCENT_HEIGHT / 100
 
 const Candlestick = () => {
-    const dataTrade = useSelector(dataTradeSelector)
+    const candles = useSelector(candlesTradeSelector)
     const listTime = useSelector(listTimeTradeSelector)
     const scrollViewRef = useRef()
 
@@ -22,7 +22,7 @@ const Candlestick = () => {
 
     return (
         <View style={styles.container}>
-            <CandlestickChart.Provider data={dataTrade}>
+            <CandlestickChart.Provider data={candles}>
                 <ScrollView
                     horizontal
                     ref={scrollViewRef}
@@ -32,7 +32,7 @@ const Candlestick = () => {
                     <View>
                         <CandlestickChart
                             // width={WIDTH_CHART}
-                            width={dataTrade.length * 16}
+                            width={candles.length * 16}
                             height={HEIGHT_CHART}
                             style={styles.candlestick}
                         >

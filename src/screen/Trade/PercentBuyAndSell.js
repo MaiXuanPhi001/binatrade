@@ -1,5 +1,5 @@
 import Txt from '@commom/Txt'
-import { dataTradeSelector, sideTradeSelector, timeTradeSelector } from '@selector/tradeSelector'
+import { candlesTradeSelector, sideTradeSelector, timeTradeSelector } from '@selector/tradeSelector'
 import { theme } from '@theme/index'
 import { useMemo, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 
 const PercentBuyAndSell = () => {
     const time = useSelector(timeTradeSelector)
-    const dataTrade = useSelector(dataTradeSelector)
+    const candles = useSelector(candlesTradeSelector)
     const side = useSelector(sideTradeSelector)
 
     // const buyer = useSelector(buyerTradeSelector)
@@ -18,8 +18,8 @@ const PercentBuyAndSell = () => {
     const [sell, setSell] = useState(0)
 
     useMemo(() => {
-        if (dataTrade.length > 0) {
-            const lastChart = dataTrade[dataTrade.length - 1]
+        if (candles.length > 0) {
+            const lastChart = candles[candles.length - 1]
             if (time > 0 && time < 32) {
                 setBuy(lastChart.buyer)
                 setSell(lastChart.seller)

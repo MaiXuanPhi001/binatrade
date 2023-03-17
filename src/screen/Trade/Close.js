@@ -1,19 +1,18 @@
+import { candlesTradeSelector, highChartTradeSelector, lowChartTradeSelector } from '@selector/tradeSelector'
 import { StyleSheet, View } from 'react-native'
-import React from 'react'
-import { HEIGHT_CHART } from './Candlestick'
 import { useSelector } from 'react-redux'
-import { dataTradeSelector, highChartTradeSelector, lowChartTradeSelector } from '@selector/tradeSelector'
+import { HEIGHT_CHART } from './Candlestick'
 import CloseValue from './CloseValue'
 import Pointer from './Pointer'
 
 const Close = () => {
     const highChart = useSelector(highChartTradeSelector)
     const lowChart = useSelector(lowChartTradeSelector)
-    const dataTrade = useSelector(dataTradeSelector)
+    const candles = useSelector(candlesTradeSelector)
 
-    const close = dataTrade.length > 0 && dataTrade[dataTrade.length - 1].close
-    const percent = dataTrade.length > 0 && (highChart - close) * 100 / (highChart - lowChart)
-    const top = dataTrade.length > 0 && (HEIGHT_CHART - 15) * percent / 100
+    const close = candles.length > 0 && candles[candles.length - 1].close
+    const percent = candles.length > 0 && (highChart - close) * 100 / (highChart - lowChart)
+    const top = candles.length > 0 && (HEIGHT_CHART - 15) * percent / 100
 
     return (
         <View style={styles.container}>

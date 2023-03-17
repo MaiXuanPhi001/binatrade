@@ -1,13 +1,12 @@
-import { StyleSheet, View } from 'react-native'
-import React from 'react'
-import { LineChart } from 'react-native-wagmi-charts';
-import { HEIGHT_CHART, WIDTH_CHART } from './Candlestick';
-import { useSelector } from 'react-redux';
-import { dataTradeSelector, highChartTradeSelector, lowChartTradeSelector } from '@selector/tradeSelector';
+import { candlesTradeSelector, highChartTradeSelector, lowChartTradeSelector } from '@selector/tradeSelector';
 import { theme } from '@theme/index';
+import { StyleSheet, View } from 'react-native';
+import { LineChart } from 'react-native-wagmi-charts';
+import { useSelector } from 'react-redux';
+import { HEIGHT_CHART, WIDTH_CHART } from './Candlestick';
 
 const Line = () => {
-    const dataTrade = useSelector(dataTradeSelector)
+    const candles = useSelector(candlesTradeSelector)
     const highChart = useSelector(highChartTradeSelector)
     const lowChart = useSelector(lowChartTradeSelector)
 
@@ -22,7 +21,7 @@ const Line = () => {
         }
     ]
 
-    const close = dataTrade.length > 0 && dataTrade[dataTrade.length - 1].close
+    const close = candles.length > 0 && candles[candles.length - 1].close
     const lineThree = (highChart - lowChart) / 2 + lowChart
     const lineFour = (lineThree - lowChart) / 2 + lowChart
     const lineTwo = (highChart - lineThree) / 2 + lineThree

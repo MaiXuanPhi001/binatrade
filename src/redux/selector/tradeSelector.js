@@ -1,6 +1,6 @@
 export const loadingTradeSelector = state => state.trade.loading
 
-export const dataTradeSelector = state => state.trade.dataTrade
+export const candlesTradeSelector = state => state.trade.candles
 
 export const timeTradeSelector = state => state.trade.time
 
@@ -18,7 +18,7 @@ export const sellerTradeSelector = state => state.trade.seller
 
 export const dataDotTradeSelector = state => state.trade.dataDot
 
-export const dataSize40TradeSelector = state => state.trade.dataSize40
+export const dataTradeSelector = state => state.trade.dataTrade
 
 export const amountTradeSelector = state => state.trade.amount
 

@@ -1,5 +1,5 @@
 import { timeHM } from '@method/date'
-import { chartItemTradeSelector, dataSize40TradeSelector, dataTradeSelector } from '@selector/tradeSelector'
+import { candlesTradeSelector, chartItemTradeSelector, dataTradeSelector, highChartTradeSelector, lowChartTradeSelector } from '@selector/tradeSelector'
 import { getChart } from '@service/chartService'
 import tradeSlice from '@slice/tradeSlice'
 import { theme } from '@theme/index'
@@ -15,8 +15,10 @@ const Socket = () => {
     const dispatch = useDispatch()
     const socketRef = useRef()
     const chartItem = useSelector(chartItemTradeSelector)
+    const candles = useSelector(candlesTradeSelector)
     const dataTrade = useSelector(dataTradeSelector)
-    const dataSize40 = useSelector(dataSize40TradeSelector)
+    const highTrade = useSelector(highChartTradeSelector)
+    const lowTrade = useSelector(lowChartTradeSelector)
 
     useEffect(() => {
         handleGetChartAPI()
@@ -32,27 +34,26 @@ const Socket = () => {
             dispatch(tradeSlice.actions.setTime(timeSocket))
         })
 
-        return () => socketRef?.current.disconnect()
+        return () => socketRef?.current?.disconnect()
     }, [])
 
     useMemo(() => {
-        if (dataTrade.length > 0 && chartItem?.id) {
-            const lastChart = dataTrade[dataTrade.length - 1]
+        if (candles.length > 0 && chartItem?.id) {
+            const lastChart = candles[candles.length - 1]
 
-            const data = [...dataTrade, chartItem]
-            let [highChart, lowChart, listTime, dots, i] = [0, 18092002, [], [], 0]
-            while (i < LIMIT_DATA) {
-                if (data[i]) {
-                    highChart < data[i].high && (highChart = data[i].high)
-                    lowChart > data[i].low && (lowChart = data[i].low)
-                    listTime.push(timeHM(data[i].timestamp))
+            const data = [...candles, chartItem]
+            let [highChart, lowChart, listTime, dots, i] = [highTrade, lowTrade, [], [], 0]
+            if (chartItem.high > highChart || chartItem.low < lowChart || lastChart.id !== chartItem.id) {
+                while (i < LIMIT_DATA) {
+                    if (data[i]) {
+                        highChart < data[i].high && (highChart = data[i].high)
+                        lowChart > data[i].low && (lowChart = data[i].low)
+                        listTime.push(timeHM(data[i].timestamp))
+                    }
+                    dataTrade[i] ? dots.push(dataTrade[i].close > dataTrade[i].open ? theme.colors.greenNen : theme.colors.redNen)
+                        : dots.push(theme.colors.gray5)
+                    i++
                 }
-                if (dataSize40[i]) {
-                    dots.push(dataSize40[i].close > dataSize40[i].open ? theme.colors.greenNen : theme.colors.redNen)
-                } else {
-                    dots.push(theme.colors.gray5)
-                }
-                i++
             }
 
             if (lastChart.id === chartItem.id) {
@@ -70,7 +71,7 @@ const Socket = () => {
                     dots,
                 }))
 
-                if (dataSize40.length >= LIMIT_DATA) {
+                if (dataTrade.length >= LIMIT_DATA) {
                     setTimeout(() => {
                         dispatch(tradeSlice.actions.resetTrade())
                     }, 5000)
@@ -82,39 +83,36 @@ const Socket = () => {
     const handleGetChartAPI = async () => {
         const res = await getChart(COIN)
         if (res.status) {
-            const data = res.data.slice(160, res.data.length)
-            const candlestick = res.data.slice(180, res.data.length)
+            const dataAPI = res.data.slice(160, res.data.length)
+            const candles = res.data.slice(180, res.data.length)
             let [listTime, highChart, lowChart, dots, buyer, seller, i] = [[], 0, 18092002, [], 0, 0, 0]
             while (i < LIMIT_DATA) {
-                if (candlestick[i]) {
-                    highChart < candlestick[i].high && (highChart = candlestick[i].high)
-                    lowChart > candlestick[i].low && (lowChart = candlestick[i].low)
-                    listTime.push(timeHM(candlestick[i].timestamp))
+                if (candles[i]) {
+                    highChart < candles[i].high && (highChart = candles[i].high)
+                    lowChart > candles[i].low && (lowChart = candles[i].low)
+                    listTime.push(timeHM(candles[i].timestamp))
                 }
-                if (data[i]) {
-                    dots.push(data[i].close > data[i].open ? theme.colors.greenNen : theme.colors.redNen)
-                } else {
-                    dots.push(theme.colors.gray5)
-                }
+                dataAPI[i] ? dots.push(dataAPI[i].close > dataAPI[i].open ? theme.colors.greenNen : theme.colors.redNen)
+                    : dots.push(theme.colors.gray5)
                 i++
             }
 
-            for (let i = candlestick.length - 1; i >= 0; i--) {
-                if (candlestick[i].order === 1) {
-                    [buyer, seller] = [candlestick[i].buyer, candlestick[i].seller]
+            for (let i = candles.length - 1; i >= 0; i--) {
+                if (candles[i].order === 1) {
+                    [buyer, seller] = [candles[i].buyer, candles[i].seller]
                     break
                 }
             }
 
             dispatch(tradeSlice.actions.setDataTrade({
-                dataTrade: candlestick,
+                candles,
                 highChart,
                 lowChart,
                 listTime: [... new Set(listTime)],
                 buyer,
                 seller,
                 dots,
-                dataSize40: data
+                dataAPI,
             }))
         } else {
             alert(res.message)
