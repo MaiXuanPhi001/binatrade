@@ -26,8 +26,8 @@ const Amount = () => {
             <View style={styles.inputContainer}>
                 <TextInput
                     value={amount.toString()}
-                    onChangeText={txt => dispatch(tradeSlice.actions.changeAmount(Number(txt)))}
-                    keyboardType={'number-pad'}
+                    onChangeText={txt => dispatch(tradeSlice.actions.changeAmount(txt))}
+                    keyboardType={'decimal-pad'}
                     style={styles.input}
                 />
                 <View style={styles.dollarContainer}>

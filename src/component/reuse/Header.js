@@ -103,7 +103,7 @@ const Header = ({ navigation }) => {
                   </View>
                   <View>
                     <Txt>{t('Demo account')}</Txt>
-                    <Txt bold>$ {numberCommasDot(999.75)}</Txt>
+                    <Txt bold>$ {numberCommasDot(profile.demoBalance)}</Txt>
                   </View>
                 </Box>
                 <Btn onPress={handleUpdateBalanceDemo}>

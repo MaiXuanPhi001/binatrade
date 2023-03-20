@@ -1,4 +1,3 @@
-import { getAllOrderPendingUserThunk, orderThunk } from "@asyncThunk/orderAsyncThunk";
 
 const { createSlice } = require("@reduxjs/toolkit");
 
@@ -52,37 +51,6 @@ const orderSlice = createSlice({
             state.seller = action.payload.seller
         }
     },
-    extraReducers: builder => {
-        builder
-            .addCase(orderThunk.pending, (state, action) => {
-                state.loading = true
-            })
-            .addCase(orderThunk.fulfilled, (state, action) => {
-                state.loading = false
-                if (!action.payload.error && action.payload.status) {
-                    state.side = action.payload.data
-                    state.profit = (state.amountOrder + action.payload.amount) * 95 / 100 + ((state.amountOrder + action.payload.amount))
-                    state.amountOrder = state.amountOrder + action.payload.amount
-                    state.symbol = action.payload.symbol
-                }
-            })
-            .addCase(getAllOrderPendingUserThunk.fulfilled, (state, action) => {
-                if (action.payload.status) {
-                    if (action.payload?.data.length > 0) {
-                        state.side = action.payload.data[0].side
-                        state.amountOrder = action.payload.data[0].amount
-                        state.profit = action.payload.data[0].amount * 95 / 100 + action.payload.data[0].amount
-                    } else {
-                        state.side = ''
-                        state.amountOrder = 0
-                        state.profit = 0
-                        state.result = ''
-                        state.result
-                        state.modalResult = false
-                    }
-                }
-            })
-    }
 })
 
 export default orderSlice

@@ -10,9 +10,9 @@ export const order = async (data) => {
     }
 }
 
-export const getAllOrderPendingUser = async () => {
+export const getAllOrderPendingUser = async (type) => {
     try {
-        const res = await axiosInstance.post('/api/binaryOption/getAllOrderPendingUser', { type: 'live' })
+        const res = await axiosInstance.post('/api/binaryOption/getAllOrderPendingUser', { type })
         return callSuccess(res)
     } catch (error) {
         return callFailed()

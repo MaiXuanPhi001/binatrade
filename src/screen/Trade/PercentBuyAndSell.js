@@ -1,15 +1,18 @@
+import { getProfileThunk } from '@asyncThunk/userAsyncThunk'
 import Txt from '@commom/Txt'
-import { candlesTradeSelector, sideTradeSelector, timeTradeSelector } from '@selector/tradeSelector'
+import { candlesTradeSelector, orderTradeSelector, timeTradeSelector } from '@selector/tradeSelector'
+import tradeSlice from '@slice/tradeSlice'
 import { theme } from '@theme/index'
 import { useMemo, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import ProgressBar from 'react-native-progress/Bar'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const PercentBuyAndSell = () => {
+    const dispatch = useDispatch()
     const time = useSelector(timeTradeSelector)
     const candles = useSelector(candlesTradeSelector)
-    const side = useSelector(sideTradeSelector)
+    const order = useSelector(orderTradeSelector)
 
     // const buyer = useSelector(buyerTradeSelector)
     // const seller = useSelector(sellerTradeSelector)
@@ -24,10 +27,21 @@ const PercentBuyAndSell = () => {
                 setBuy(lastChart.buyer)
                 setSell(lastChart.seller)
             }
+            // console.log(side)
+            if (time === 2 && order.amountTotal > 0) {
+                const penultimate = candles[candles.length - 2]
+                if ((order.side === 'buy' && penultimate.close > penultimate.open) ||
+                    (order.side === 'sell' && penultimate.close < penultimate.open)) {
+                    dispatch(tradeSlice.actions.setShowModalWin())
+                    setTimeout(() => {
+                        dispatch(tradeSlice.actions.resetOrder())
+                        dispatch(getProfileThunk())
+                    }, 3000)
+                } else {
+                    dispatch(tradeSlice.actions.resetOrder())
+                }
+            }
         }
-        // if () {
-
-        // }
     }, [time])
 
     return (

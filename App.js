@@ -1,7 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
 import Container from '@navigation/Container'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 const App = () => {
   return (
@@ -13,4 +11,3 @@ const App = () => {
 
 export default App
 
-const styles = StyleSheet.create({})

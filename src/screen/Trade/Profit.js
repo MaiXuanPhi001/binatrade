@@ -3,13 +3,15 @@ import React from 'react'
 import { theme } from '@theme/index'
 import { useSelector } from 'react-redux'
 import { profitTradeSelector } from '@selector/tradeSelector'
+import { useTranslation } from 'react-i18next'
 
 const Profit = () => {
+    const { t } = useTranslation()
     const profit = useSelector(profitTradeSelector)
 
     return (
         <View style={styles.container}>
-            <Text style={styles.textPercent}>Profit
+            <Text style={styles.textPercent}>{t('Profit')}
                 <Text style={styles.text95}> 95%</Text>
                 <Text style={styles.textProfit}>   ${profit.toFixed(2)}</Text>
             </Text>
@@ -26,7 +28,7 @@ const styles = StyleSheet.create({
     },
     text95: {
         fontSize: 16,
-    },  
+    },
     textPercent: {
         color: 'white',
         fontWeight: 'bold',

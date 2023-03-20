@@ -1,4 +1,4 @@
-import { orderThunk } from "@asyncThunk/orderAsyncThunk";
+import { getAllOrderPendingUserThunk, orderThunk } from "@asyncThunk/orderAsyncThunk";
 
 const { createSlice } = require("@reduxjs/toolkit");
 
@@ -7,9 +7,13 @@ const tradeSlice = createSlice({
     initialState: {
         loading: false,
         candles: [],
-        side: {},
+        order: {
+            amountTotal: 0,
+            side: '',
+            type: '',
+        },
         pendingOrder: {},
-        profit: 19.50,
+        profit: 0,
         time: 0,
         chartItem: {},
         highChart: 0,
@@ -66,8 +70,16 @@ const tradeSlice = createSlice({
         },
         changeAmount: (state, { payload }) => {
             state.amount = payload
-            state.profit = (payload * 95 / 100) + payload
         },
+        resetOrder: (state) => {
+            state.order.amountTotal = 0
+            state.side = ''
+            state.profit = 0
+            state.showModalWin = false
+        },
+        setShowModalWin: (state) => {
+            state.showModalWin = true
+        }
     },
     extraReducers: builder => {
         builder
@@ -77,9 +89,23 @@ const tradeSlice = createSlice({
             .addCase(orderThunk.fulfilled, (state, { payload }) => {
                 state.loading = false
                 if (!payload.error && payload.status) {
-                    state.side = payload.data
-                    state.amount = 10
-                    state.profit = 19.50
+                    state.order.type = payload.type
+                    state.order.side = payload.data.side
+                    state.order.amountTotal = state.order.amountTotal + payload.data.amount
+                    state.profit = state.order.amountTotal + (state.order.amountTotal * 95 / 100)
+                }
+            })
+            .addCase(getAllOrderPendingUserThunk.fulfilled, (state, { payload }) => {
+                if (payload.status && payload.data.length > 0) {
+                    state.order.type = payload.type
+                    state.order.side = payload.data[0].side
+                    let [sum, i] = [0, 0]
+                    while (i < payload.data.length) {
+                        sum += payload.data[i].amount
+                        i++
+                    }
+                    state.order.amountTotal = sum
+                    state.profit = state.order.amountTotal + (state.order.amountTotal * 95 / 100)
                 }
             })
     }

@@ -1,5 +1,7 @@
+import { getAllOrderPendingUserThunk } from '@asyncThunk/orderAsyncThunk'
 import { timeHM } from '@method/date'
 import { candlesTradeSelector, chartItemTradeSelector, dataTradeSelector, highChartTradeSelector, lowChartTradeSelector } from '@selector/tradeSelector'
+import { typeUserSelector } from '@selector/userSelector'
 import { getChart } from '@service/chartService'
 import tradeSlice from '@slice/tradeSlice'
 import { theme } from '@theme/index'
@@ -19,6 +21,7 @@ const Socket = () => {
     const dataTrade = useSelector(dataTradeSelector)
     const highTrade = useSelector(highChartTradeSelector)
     const lowTrade = useSelector(lowChartTradeSelector)
+    const typeAccount = useSelector(typeUserSelector)
 
     useEffect(() => {
         handleGetChartAPI()
@@ -114,6 +117,8 @@ const Socket = () => {
                 dots,
                 dataAPI,
             }))
+
+            dispatch(getAllOrderPendingUserThunk(typeAccount))
         } else {
             alert(res.message)
         }

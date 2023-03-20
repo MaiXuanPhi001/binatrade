@@ -1,11 +1,9 @@
-import { StyleSheet } from 'react-native'
-import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import routes from '@util/routes'
 import Hello from '@screen/Hello'
-import { navigationRef } from './navigationRef'
+import routes from '@util/routes'
 import MainNavigation from './MainNavigation'
+import { navigationRef } from './navigationRef'
 
 const Stack = createNativeStackNavigator()
 
@@ -22,4 +20,3 @@ const Container = () => {
 
 export default Container
 
-const styles = StyleSheet.create({})

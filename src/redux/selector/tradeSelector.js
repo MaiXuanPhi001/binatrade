@@ -26,6 +26,5 @@ export const profitTradeSelector = state => state.trade.profit
 
 export const showModalWinSelector = state => state.trade.showModalWin
 
-export const sideTradeSelector = state => state.trade.side
-
+export const orderTradeSelector = state => state.trade.order
 

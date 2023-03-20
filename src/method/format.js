@@ -8,7 +8,7 @@ export const numberWithCommas = (x) => {
 }
 
 export const numberCommasDot = (n) => {
-    var x1 = (n + "").split(".")[0];
+    var x1 = (n + "").split(".")[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     if (!Number.isInteger(n)) {
         const x2 = (n + "").split(".")[1];
         return x1 + '.' + x2
