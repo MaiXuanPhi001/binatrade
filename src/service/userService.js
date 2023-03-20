@@ -76,15 +76,6 @@ export const sendMailForgotPassword = async (email) => {
     }
 }
 
-export const checkKYCUser = async () => {
-    try {
-        const response = await fetchPOST('/api/user/checkKycUser', {})
-        const res = await response.json()
-        return callSuccess(res)
-    } catch (error) {
-        return callFailed()
-    }
-}
 
 export const updateBalanceDemo = async () => {
     try {

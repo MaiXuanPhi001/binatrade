@@ -1,4 +1,4 @@
-import { orderThunk } from '@asyncThunk/orderAsyncThunk'
+import { orderThunk } from '@asyncThunk/tradeAsyncThunk'
 import { getProfileThunk } from '@asyncThunk/userAsyncThunk'
 import LoadingWhite from '@reuse/LoadingWhite'
 import { amountTradeSelector, loadingTradeSelector, timeTradeSelector } from '@selector/tradeSelector'

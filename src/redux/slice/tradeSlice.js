@@ -1,4 +1,4 @@
-import { getAllOrderPendingUserThunk, orderThunk } from "@asyncThunk/orderAsyncThunk";
+import { getAllOrderPendingUserThunk, orderThunk } from "@asyncThunk/tradeAsyncThunk";
 
 const { createSlice } = require("@reduxjs/toolkit");
 
