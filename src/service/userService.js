@@ -85,3 +85,16 @@ export const updateBalanceDemo = async () => {
         return callFailed()
     }
 }
+
+// data {
+//     userid: 283
+//     image: (binary)
+// }
+export const uploadAvatar = async (data) => {
+    try {
+        const res = await axiosInstance.post('/api/user/uploadAvatar', {})
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}

@@ -12,7 +12,7 @@ const Modality = ({ show, setShow, animation, children }) => {
             transparent={true}
             onRequestClose={() => setShow(false)}
         >
-            <Pressable style={{flex: 1}} onPress={() => setShow(false)}>
+            <Pressable style={{flex: 1}} onPress={() => {setShow && setShow(false)}}>
                 <Box
                     flex={1}
                     alignCenter

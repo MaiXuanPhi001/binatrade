@@ -63,6 +63,12 @@ const tradeSlice = createSlice({
             state.dataTrade = state.dataTrade.slice(20, state.dataTrade.length)
             state.highChart = 0
             state.lowChart = 18092022
+            let i = 0
+            while (i < state.candles.length) {
+                state.highChart < state.candles[i].high && (state.highChart = state.candles[i].high)
+                state.lowChart > state.candles[i].low && (state.lowChart = state.candles[i].low)
+                i++
+            }
         },
         setBuyerAndSeller: (state, { payload }) => {
             state.buyer = payload.buyer

@@ -1,5 +1,5 @@
 import { View, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { theme } from '@theme/index'
 import Txt from '@commom/Txt'
 import Box from '@commom/Box'
@@ -9,10 +9,26 @@ import { useTranslation } from 'react-i18next'
 import Input from '@commom/Input'
 import { useSelector } from 'react-redux'
 import { profileSelector } from '@selector/userSelector'
+import ImagePicker from 'react-native-image-crop-picker';
+import ModalImage from './ModalImage'
 
 const Infomation = () => {
-    const profile = useSelector(profileSelector)
     const { t } = useTranslation()
+    const profile = useSelector(profileSelector)
+    const [image, setImage] = useState('')
+    const [showModalImg, setShowModalImg] = useState(true)
+
+    const handleOpenCamera = () => {
+        ImagePicker.openPicker({
+            width: 400,
+            height: 300,
+            cropping: true,
+            multiple: false,
+        }).then(image => {
+            setImage(image.path)
+            setShowModalImg(true)
+        }).catch(err => console.log(err))
+    }
 
     return (
         <View
@@ -39,6 +55,7 @@ const Infomation = () => {
                 </Box>
 
                 <ButtonUser
+                    onPress={handleOpenCamera}
                     text={t('Upload avatar')}
                     width={150}
                     size={14}
@@ -62,6 +79,11 @@ const Infomation = () => {
                     style={styles.input}
                 />
             </Box>
+            <ModalImage 
+                show={showModalImg}
+                setShow={setShowModalImg}
+                path={image}
+            />
         </View>
     )
 }

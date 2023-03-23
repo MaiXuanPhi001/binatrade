@@ -119,7 +119,7 @@ const Header = ({ navigation }) => {
         </Box>
 
         {/* No tification */}
-        <Btn
+        {/* <Btn
           alignCenter
           justifyCenter
           paddingLeft={10}
@@ -142,7 +142,7 @@ const Header = ({ navigation }) => {
             width={20}
             height={20}
           />
-        </Btn>
+        </Btn> */}
       </Box>
     </View>
   )
