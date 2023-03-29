@@ -11,17 +11,18 @@ import { useSelector } from 'react-redux'
 import { profileSelector } from '@selector/userSelector'
 import ImagePicker from 'react-native-image-crop-picker';
 import ModalImage from './ModalImage'
+import contants from '@util/contants'
 
 const Infomation = () => {
     const { t } = useTranslation()
     const profile = useSelector(profileSelector)
     const [image, setImage] = useState('')
-    const [showModalImg, setShowModalImg] = useState(true)
+    const [showModalImg, setShowModalImg] = useState(false)
 
     const handleOpenCamera = () => {
         ImagePicker.openPicker({
             width: 400,
-            height: 300,
+            height: 400,
             cropping: true,
             multiple: false,
         }).then(image => {
@@ -31,9 +32,7 @@ const Infomation = () => {
     }
 
     return (
-        <View
-            style={styles.container}
-        >
+        <View style={styles.container}>
             <Txt bold color={theme.colors.blueText} size={18}>{t('Profile')}</Txt>
             <Box
                 row
@@ -47,7 +46,7 @@ const Infomation = () => {
                     borderColor={theme.colors.gray5}
                 >
                     <Img
-                        source={require('@images/drawer/user.png')}
+                        source={{uri: contants.HOSTING + profile.avatar}}
                         width={60}
                         height={60}
                         radius={50}
@@ -83,6 +82,7 @@ const Infomation = () => {
                 show={showModalImg}
                 setShow={setShowModalImg}
                 path={image}
+                setPath={setImage}
             />
         </View>
     )

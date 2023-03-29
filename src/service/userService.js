@@ -1,5 +1,6 @@
 import { callFailed, callSuccess } from "@method/requestResult"
 import axiosInstance from "./axios"
+import axiosUpload from "./axiosUpload"
 import { fetchPOST } from "./fetchConfig"
 
 export const login = async (data) => {
@@ -76,7 +77,6 @@ export const sendMailForgotPassword = async (email) => {
     }
 }
 
-
 export const updateBalanceDemo = async () => {
     try {
         const res = await axiosInstance.post('/api/binaryOption/updateBalanceDemo', {})
@@ -86,13 +86,18 @@ export const updateBalanceDemo = async () => {
     }
 }
 
-// data {
-//     userid: 283
-//     image: (binary)
-// }
-export const uploadAvatar = async (data) => {
+export const uploadAvatar = async (fromData) => {
     try {
-        const res = await axiosInstance.post('/api/user/uploadAvatar', {})
+        const res = await axiosUpload.post('/api/user/uploadAvatar', fromData)
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}
+
+export const checKYCUser = async () => {
+    try {
+        const res = await axiosInstance.post('/api/user/checkKycUser', {})
         return callSuccess(res)
     } catch (error) {
         return callFailed()
