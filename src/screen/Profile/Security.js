@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { styles } from './Infomation'
+import ModalAuth2FA from './ModalAuth2FA'
 import ModalQRCode2FA from './ModalQRCode2FA'
 
 const Security = () => {
@@ -17,7 +18,9 @@ const Security = () => {
     const profile = useSelector(profileSelector)
     const [OTPToken, setOTPToken] = useState({})
     const [isShowModal2FA, setShowModal2FA] = useState(false)
+    const [isShowModalAuth2FA, setShowModalAuth2FA] = useState(false)
     const [loading, setLoading] = useState(false)
+    const twofa = profile.twofa !== 0
 
     useEffect(() => {
         handleGenerateOTPToken()
@@ -37,6 +40,13 @@ const Security = () => {
 
     }
 
+    const handleShowModal = () => {
+        if (!twofa)
+            setShowModal2FA(true)
+        else
+            setShowModalAuth2FA(true)
+    }
+
     return (
         <View style={[styles.container, { marginTop: 20 }]}>
             <Txt bold color={theme.colors.blueText} size={18}>{t('Security')}</Txt>
@@ -45,7 +55,7 @@ const Security = () => {
                 <Box row justifySpaceBetween alignCenter>
                     <Box width={'60%'}>
                         <Txt bold size={16}>{t('Password')}</Txt>
-                        {profile.twofa === 0 && <Txt color={'red'}>{t('* You must turn on 2FA to change password')}</Txt>}
+                        {!twofa && <Txt color={'red'}>{t('* You must turn on 2FA to change password')}</Txt>}
                     </Box>
                     <ButtonUser
                         onPress={handleChangePassword}
@@ -62,8 +72,8 @@ const Security = () => {
                         <Txt>{t('Required to withdraw or update the security')}</Txt>
                     </Box>
                     <ButtonLiner
-                        onPress={() => setShowModal2FA(true)}
-                        text={t('Turn on 2FA')}
+                        onPress={handleShowModal}
+                        text={t(twofa ? 'Turn off 2FA' : 'Turn on 2FA')}
                         loading={loading}
                         width={100}
                         size={14}
@@ -76,6 +86,14 @@ const Security = () => {
                 setShow={setShowModal2FA}
                 OTPToken={OTPToken}
                 t={t}
+                setShowModalAuth2FA={setShowModalAuth2FA}
+            />
+            <ModalAuth2FA
+                show={isShowModalAuth2FA}
+                setShow={setShowModalAuth2FA}
+                setShowModal2FA={setShowModal2FA}
+                t={t}
+                twofa={twofa}
             />
         </View>
     )

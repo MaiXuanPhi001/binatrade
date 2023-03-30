@@ -6,10 +6,16 @@ import Modality from '@reuse/Modality'
 import { theme } from '@theme/index'
 import QRCode from 'react-native-qrcode-svg'
 
-const ModalQRCode2FA = ({ show, setShow, OTPToken, t }) => {
+const ModalQRCode2FA = ({
+    show,
+    setShow,
+    OTPToken,
+    t,
+    setShowModalAuth2FA
+}) => {
 
-    function applyLetterSpacing(string, count = 3) {
-        return string.split('').join('\u200A'.repeat(count));
+    const applyLetterSpacing = (string, count = 3) => {
+        return string?.split('')?.join('\u200A'.repeat(count));
     }
 
     return (
@@ -48,6 +54,10 @@ const ModalQRCode2FA = ({ show, setShow, OTPToken, t }) => {
 
                     <Box width={'100%'} marginTop={10} alignEnd>
                         <ButtonLiner
+                            onPress={() => {
+                                setShow(false)
+                                setShowModalAuth2FA(true)
+                            }}
                             text={'Next'}
                             width={100}
                             height={40}

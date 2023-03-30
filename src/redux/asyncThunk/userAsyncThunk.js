@@ -1,6 +1,5 @@
-import { callSuccess } from "@method/requestResult";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getListUserF1, getParentToLevel, getProfile, login, turn2FA } from "@service/userService";
+import { getListUserF1, getParentToLevel, getProfile, login } from "@service/userService";
 import contants from "@util/contants";
 
 const { createAsyncThunk } = require("@reduxjs/toolkit");
@@ -29,13 +28,4 @@ export const getListUserF1Thunk = createAsyncThunk('account/getListUserF1', asyn
 export const getParentToLevelThunk = createAsyncThunk('account/getParentToLevel', async (data) => {
     const res = await getParentToLevel(data)
     return { ...res, level: data.level }
-})
-
-export const turn2FAThunk = createAsyncThunk('user/turn2FA', async (otp) => {
-    const res = await turn2FA(otp)
-    if (!res.error && res.status) {
-        const response = await getProfile()
-        return callSuccess(response)
-    }
-    return res
 })

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import routes from "@util/routes";
-import { getProfileThunk, loginThunk, turn2FAThunk } from "../asyncThunk/userAsyncThunk";
+import { getProfileThunk, loginThunk } from "../asyncThunk/userAsyncThunk";
 
 const userSlice = createSlice({
     name: 'user',
@@ -45,11 +45,6 @@ const userSlice = createSlice({
             .addCase(getProfileThunk.fulfilled, (state, action) => {
                 if (action.payload.status) {
                     state.isLogin = true
-                    state.profile = action.payload.data
-                }
-            }).
-            addCase(turn2FAThunk.fulfilled, (state, action) => {
-                if (!action.payload.error && action.payload.status) {
                     state.profile = action.payload.data
                 }
             })
