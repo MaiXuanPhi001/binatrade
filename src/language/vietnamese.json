@@ -296,6 +296,8 @@
         "Please select your photo front identity card": "Vui lòng chọn ảnh CCCD mặt trước của bạn",
         "Please select your photo back identity card": "Vui lòng chọn ảnh CCCD mặt sau của bạn",
         "Please select your selfie photo": "Vui lòng chọn hình sefiel của bạn",
-        "Save": "Lưu"
+        "Save": "Lưu",
+        "Pending2": "Đang giải quyết",
+        "users who have updated KYC please wait for admin to approve": "Người dùng đã cập nhật KYC vui lòng đợi quản trị viên phê duyệt"
     }
 }

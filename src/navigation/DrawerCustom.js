@@ -1,18 +1,17 @@
-import React from 'react'
-import { theme } from '@theme/index'
-import { DrawerContentScrollView } from '@react-navigation/drawer'
+import Box from '@commom/Box'
 import Btn from '@commom/Btn'
-import Txt from '@commom/Txt'
 import Img from '@commom/Img'
-import { navigate } from './navigationRef'
+import Txt from '@commom/Txt'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { DrawerContentScrollView } from '@react-navigation/drawer'
+import { screenChooseUserSelector } from '@selector/userSelector'
+import userSlice from '@slice/userSlice'
+import { theme } from '@theme/index'
+import contants from '@util/contants'
 import routes from '@util/routes'
 import { useTranslation } from 'react-i18next'
-import Box from '@commom/Box'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import userSlice from '@slice/userSlice'
-import contants from '@util/contants'
 import { useDispatch, useSelector } from 'react-redux'
-import { screenChooseUserSelector } from '@selector/userSelector'
+import { navigate } from './navigationRef'
 
 const DrawerCustom = (props) => {
     const { t } = useTranslation()
@@ -20,6 +19,8 @@ const DrawerCustom = (props) => {
     const screenChoose = useSelector(screenChooseUserSelector)
 
     const logOut = async () => {
+        navigate(routes.TRADE)
+        dispatch(userSlice.actions.setScreenChoose(routes.TRADE))
         await AsyncStorage.removeItem(contants.TOKEN)
         dispatch(userSlice.actions.signOut())
     }

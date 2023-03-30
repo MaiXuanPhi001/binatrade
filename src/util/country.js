@@ -1,5 +1,4 @@
 export const contrys = [
-    "Viet Nam",
     "Afghanistan",
     "land Islands",
     "Albania",
@@ -236,6 +235,7 @@ export const contrys = [
     "Uzbekistan",
     "Vanuatu",
     "Venezuela",
+    "Viet Nam",
     "Virgin Islands, British",
     "Virgin Islands, U.S.",
     "Wallis and Futuna",

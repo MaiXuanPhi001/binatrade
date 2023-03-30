@@ -1,8 +1,12 @@
 import Box from '@commom/Box'
 import ButtonLiner from '@reuse/ButtonLiner'
+import { profileSelector } from '@selector/userSelector'
+import { kycUser } from '@service/userService'
 import { useReducer, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Platform } from 'react-native'
 import ImageCropPicker from 'react-native-image-crop-picker'
+import { useSelector } from 'react-redux'
 import InputKYC from './InputKYC'
 import InputModal from './InputModal'
 import ModalCountry from './ModalCountry'
@@ -45,13 +49,14 @@ const reducer = (state, action) => {
                 ...state,
                 [action.field]: action.value,
                 modalGender: false,
-                modalCountry:  false,
+                modalCountry: false,
             }
         default: return state;
     }
 };
 
-const Kyc = () => {
+const Kyc = ({ onChecKYCUser }) => {
+    const profile = useSelector(profileSelector)
     const { t } = useTranslation()
     const [infomation, dispatch] = useReducer(reducer, initialInfomation)
     const [loading, setLoading] = useState(false)
@@ -77,13 +82,29 @@ const Kyc = () => {
         }).catch(err => console.log(err))
     }
 
-    const handleKYCUser = () => {
+    const handleKYCUser = async () => {
         if (infomation.firstname.trim() === '' || infomation.lastname.trim() === '' || infomation.gender === 0
-        || infomation.passport.trim() === '' || infomation.country.trim() === '' || infomation.frontCard.name.trim() === ''
-        || infomation.backCard.name.trim() === '' || infomation.selfiePhoto.name.trim() === '') {
+            || infomation.passport.trim() === '' || infomation.country.trim() === '' || infomation.frontCard.name.trim() === ''
+            || infomation.backCard.name.trim() === '' || infomation.selfiePhoto.name.trim() === '') {
             return setCheckForm(true)
         }
-        alert('hello')
+        setLoading(true)
+        let formData = new FormData()
+        formData.append('userid', profile.id)
+        formData.append('firstname', infomation.firstname)
+        formData.append('lastname', infomation.lastname)
+        formData.append('gender', infomation.gender)
+        formData.append('passport', infomation.passport)
+        formData.append('country', infomation.country)
+        formData.append('phone', infomation.phone)
+        formData.append('photo', { uri: Platform.OS === 'ios' ? infomation.frontCard.path.replace('file://', '') : infomation.frontCard.path, name: 'image.jpg', type: 'image/jpg' })
+        formData.append('photo', { uri: Platform.OS === 'ios' ? infomation.backCard.path.replace('file://', '') : infomation.backCard.path, name: 'image.jpg', type: 'image/jpg' })
+        formData.append('photo', { uri: Platform.OS === 'ios' ? infomation.selfiePhoto.path.replace('file://', '') : infomation.selfiePhoto.path, name: 'image.jpg', type: 'image/jpg' })
+
+        const res = await kycUser(formData)
+        !res.status && alert(t(res.message))
+        setLoading(false)
+        onChecKYCUser()
     }
 
     return (
@@ -168,7 +189,7 @@ const Kyc = () => {
                 show={infomation.modalGender}
                 dispatch={dispatch}
             />
-            <ModalCountry 
+            <ModalCountry
                 show={infomation.modalCountry}
                 dispatch={dispatch}
             />

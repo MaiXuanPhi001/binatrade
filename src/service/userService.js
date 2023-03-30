@@ -103,3 +103,22 @@ export const checKYCUser = async () => {
         return callFailed()
     }
 }
+
+export const kycUser = async (formData) => {
+    try {
+        const res = await axiosInstance.post('/api/user/kycUser', formData)
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}
+
+export const generateOTPToken = async () => {
+    try {
+        const res = await axiosInstance.post('/api/user/generateOTPToken', {})
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}
+
