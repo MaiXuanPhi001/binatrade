@@ -1,3 +1,4 @@
+import { getValueConfigThunk } from '@asyncThunk/userAsyncThunk'
 import Box from '@commom/Box'
 import Btn from '@commom/Btn'
 import Img from '@commom/Img'
@@ -9,6 +10,7 @@ import userSlice from '@slice/userSlice'
 import { theme } from '@theme/index'
 import contants from '@util/contants'
 import routes from '@util/routes'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { navigate } from './navigationRef'
@@ -17,6 +19,14 @@ const DrawerCustom = (props) => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
     const screenChoose = useSelector(screenChooseUserSelector)
+
+    useEffect(() => {
+        handleGetValueConfig()
+    }, [])
+
+    const handleGetValueConfig = async () => {
+        await dispatch(getValueConfigThunk('POOL'))
+    }
 
     const logOut = async () => {
         navigate(routes.TRADE)

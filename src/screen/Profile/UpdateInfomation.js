@@ -42,7 +42,7 @@ const UpdateInfomation = () => {
 
     return (
         <View style={[styles.container, { marginTop: 20 }]}>
-            <Txt bold color={theme.colors.blueText} size={18}>{t('UpdateInfomation')}</Txt>
+            <Txt bold color={theme.colors.blueText} size={18}>{t('Update Infomation')}</Txt>
             <Warning text={t('To keep your assets safe, we need to verify your identity.')} />
             <Warning text={t('Please fill in the information correctly. Once the identity verification is complete, the information cannot be edited anymore.')} />
 

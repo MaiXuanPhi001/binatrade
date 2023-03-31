@@ -11,6 +11,7 @@ import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { styles } from './Infomation'
 import ModalAuth2FA from './ModalAuth2FA'
+import ModalChangePassword from './ModalChangePassword'
 import ModalQRCode2FA from './ModalQRCode2FA'
 
 const Security = () => {
@@ -19,6 +20,7 @@ const Security = () => {
     const [OTPToken, setOTPToken] = useState({})
     const [isShowModal2FA, setShowModal2FA] = useState(false)
     const [isShowModalAuth2FA, setShowModalAuth2FA] = useState(false)
+    const [isShowModalChangePassword, setShowModalChangePassword] = useState(false)
     const [loading, setLoading] = useState(false)
     const twofa = profile.twofa !== 0
 
@@ -29,15 +31,15 @@ const Security = () => {
     const handleGenerateOTPToken = async () => {
         setLoading(true)
         const res = await generateOTPToken()
-        if (res.status) {
-            setOTPToken(res.data)
-            setLoading(false)
-        }
+        if (res.error) return
+        res?.data && setOTPToken(res.data)
+        setLoading(false)
+
     }
 
     const handleChangePassword = () => {
         if (profile.twofa === 0) return
-
+        setShowModalChangePassword(true)
     }
 
     const handleShowModal = () => {
@@ -81,6 +83,11 @@ const Security = () => {
                     />
                 </Box>
             </Box>
+            <ModalChangePassword 
+                show={isShowModalChangePassword}
+                setShow={setShowModalChangePassword}
+                t={t}
+            />
             <ModalQRCode2FA
                 show={isShowModal2FA}
                 setShow={setShowModal2FA}

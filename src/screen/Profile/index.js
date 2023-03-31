@@ -1,10 +1,9 @@
-import React from 'react'
 import Box from '@commom/Box'
+import Header from '@reuse/Header'
 import KeyBoardSafe from '@reuse/KeyBoardSafe'
 import Infomation from './Infomation'
-import UpdateInfomation from './UpdateInfomation'
 import Security from './Security'
-import Header from '@reuse/Header'
+import UpdateInfomation from './UpdateInfomation'
 
 const Profile = ({ navigation }) => {
   return (

@@ -298,6 +298,15 @@
         "Please select your selfie photo": "Vui lòng chọn hình sefiel của bạn",
         "Save": "Lưu",
         "Pending2": "Đang giải quyết",
-        "users who have updated KYC please wait for admin to approve": "Người dùng đã cập nhật KYC vui lòng đợi quản trị viên phê duyệt"
-    }
+        "users who have updated KYC please wait for admin to approve": "Người dùng đã cập nhật KYC vui lòng đợi quản trị viên phê duyệt",
+        "You have to verify 2FA to keep your account safe": "Bạn phải xác minh 2FA để giữ an toàn cho tài khoản của mình",
+        "Incorrect code! ": "Mã không đúngg!",
+        "Code is empty": "Mã trống",
+        "The user has not enabled 2FA": "Người dùng chưa kích hoạt 2FA",
+        "Old password is empty": "Mật khẩu cũ trống",
+        "New password is empty": "Mật khẩu mới trống",
+        "Update Infomation": "Cập nhật thông tin",
+        "Change password successfully!": "Đổi mật khẩu thành công!",
+        "Incorrect password!": "Mật khẩu không đúng!"
+    }  
 }

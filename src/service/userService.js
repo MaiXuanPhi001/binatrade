@@ -23,8 +23,7 @@ export const getProfile = async () => {
 
 export const changePassword = async (data) => {
     try {
-        const response = await fetchPOST('/api/user/changePassword', data)
-        const res = await response.json()
+        const res = await axiosInstance.post('/api/user/changePassword', data)
         return callSuccess(res)
     } catch (error) {
         return callFailed()
@@ -116,6 +115,24 @@ export const kycUser = async (formData) => {
 export const generateOTPToken = async () => {
     try {
         const res = await axiosInstance.post('/api/user/generateOTPToken', {})
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}
+
+export const checkUser2fa = async (email) => {
+    try {
+        const res = await axiosInstance.post('/api/user/checkuser2fa', { email })
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}
+
+export const getValueConfig = async (name) => {
+    try {
+        const res = await axiosInstance.post('/api/user/getValueConfig', { name })
         return callSuccess(res)
     } catch (error) {
         return callFailed()

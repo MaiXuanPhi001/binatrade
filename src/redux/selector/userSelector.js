@@ -9,3 +9,5 @@ export const soundUserSelector = state => state.user.sound
 export const screenChooseUserSelector = state => state.user.screenChoose
 
 export const typeUserSelector = state => state.user.type
+
+export const prizePoolUserSelector = state => state.user.prizePool

@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import Txt from '@commom/Txt'
-import { theme } from '@theme/index'
-import { useTranslation } from 'react-i18next'
 import Box from '@commom/Box'
-import Pagination from '@reuse/Pagination'
-import HeaderTableHistory from './HeaderTableHistory'
-import { getHistoryTransfer } from '@service/fundingService'
-import { Alert } from 'react-native'
-import ItemHistory from './ItemHistory'
-import { useSelector } from 'react-redux'
-import { profileSelector } from '@selector/userSelector'
-import ModalHistoryDetail from './ModalHistoryDetail'
+import Txt from '@commom/Txt'
 import LoadingWhite from '@reuse/LoadingWhite'
+import Pagination from '@reuse/Pagination'
+import { profileSelector } from '@selector/userSelector'
+import { getHistoryTransfer } from '@service/fundingService'
+import { theme } from '@theme/index'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import HeaderTableHistory from './HeaderTableHistory'
+import ItemHistory from './ItemHistory'
+import ModalHistoryDetail from './ModalHistoryDetail'
 
 const History = () => {
     const { t } = useTranslation()
@@ -38,8 +37,6 @@ const History = () => {
             setTotal(res.data.total)
             setPage(page)
             setLoading(false)
-        } else {
-            Alert.alert(t(res.message))
         }
     }
 

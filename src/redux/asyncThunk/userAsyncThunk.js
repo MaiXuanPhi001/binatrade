@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getListUserF1, getParentToLevel, getProfile, login } from "@service/userService";
+import { getListUserF1, getParentToLevel, getProfile, getValueConfig, login } from "@service/userService";
 import contants from "@util/contants";
 
 const { createAsyncThunk } = require("@reduxjs/toolkit");
@@ -20,12 +20,7 @@ export const getProfileThunk = createAsyncThunk('user/getProfile', async () => {
     return res
 })
 
-export const getListUserF1Thunk = createAsyncThunk('account/getListUserF1', async (data) => {
-    const res = await getListUserF1(data)
-    return { ...res, page: data.page }
-})
-
-export const getParentToLevelThunk = createAsyncThunk('account/getParentToLevel', async (data) => {
-    const res = await getParentToLevel(data)
-    return { ...res, level: data.level }
+export const getValueConfigThunk = createAsyncThunk('user/getValueConfig', async (name) => {
+    const res = await getValueConfig(name)
+    return res
 })

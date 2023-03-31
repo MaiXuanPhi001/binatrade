@@ -1,41 +1,22 @@
-import { getProfileThunk } from '@asyncThunk/userAsyncThunk'
-import Box from '@commom/Box'
-import Btn from '@commom/Btn'
-import Input from '@commom/Input'
-import Txt from '@commom/Txt'
-import ButtonLiner from '@reuse/ButtonLiner'
-import Modality from '@reuse/Modality'
-import TextError from '@reuse/TextError'
-import { turn2FA } from '@service/userService'
-import { theme } from '@theme/index'
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import Box from "@commom/Box"
+import Btn from "@commom/Btn"
+import Input from "@commom/Input"
+import Txt from "@commom/Txt"
+import ButtonLiner from "@reuse/ButtonLiner"
+import Modality from "@reuse/Modality"
+import TextError from "@reuse/TextError"
+import { theme } from "@theme/index"
 
-const ModalAuth2FA = ({ show, t, setShow, setShowModal2FA, twofa }) => {
-    const dispatch = useDispatch()
-    const [code, setCode] = useState('')
-    const [checkForm, setChecForm] = useState(false)
-    const [loading, setLoading] = useState(false)
-
-    const handleTurnOnOff2FA = async () => {
-        if (code.trim() === '') {
-            return setChecForm(true)
-        }
-        setLoading(true)
-        const res = await turn2FA(code)
-        if (res.status) {
-            dispatch(getProfileThunk())
-            setShow(false)
-        } else {
-            alert(t(res.message))
-        }
-        setLoading(false)
-    }
-
-    const handleCancelClick = () => {
-        if (!twofa) setShowModal2FA(true)
-        setShow(false)
-    }
+const ModalOTP = ({
+    show,
+    setShow,
+    checkForm,
+    t,
+    loading,
+    onLoginWithTwoFA,
+    otp,
+    setOtp,
+}) => {
 
     return (
         <Modality show={show}>
@@ -58,10 +39,10 @@ const ModalAuth2FA = ({ show, t, setShow, setShowModal2FA, twofa }) => {
                 </Box>
 
                 <Box padding={15}>
-                    <Txt>{t('Enter the 6-digit code from authenticator app')}</Txt>
+                    <Txt>{t('You have to verify 2FA to keep your account safe')}</Txt>
                     <Input
-                        value={code}
-                        onChangeText={setCode}
+                        value={otp}
+                        onChangeText={setOtp}
                         borderWidth={1}
                         borderColor={theme.colors.gray4}
                         height={40}
@@ -70,11 +51,11 @@ const ModalAuth2FA = ({ show, t, setShow, setShowModal2FA, twofa }) => {
                         paddingHorizontal={10}
                         marginBottom={5}
                     />
-                    {checkForm && <TextError text={t('Code is empty')} />}
+                    {(checkForm && otp.trim() === '')&& <TextError text={t('Code is empty')} />}
 
                     <Box row justifyEnd marginTop={20}>
                         <Btn
-                            onPress={handleCancelClick}
+                            onPress={() => setShow(false)}
                             borderWidth={1}
                             borderColor={theme.colors.gray4}
                             height={40}
@@ -82,13 +63,13 @@ const ModalAuth2FA = ({ show, t, setShow, setShowModal2FA, twofa }) => {
                             radius={10}
                             marginRight={10}
                         >
-                            <Txt>{t(!twofa ? 'Previous' : 'Cancel')}</Txt>
+                            <Txt>{t('Cancel')}</Txt>
                         </Btn>
 
                         <ButtonLiner
-                            onPress={handleTurnOnOff2FA}
+                            onPress={onLoginWithTwoFA}
                             loading={loading}
-                            text={t(!twofa ? 'Turn on 2FA' : 'Turn off 2FA')}
+                            text={t('login')}
                             width={130}
                             height={40}
                         />
@@ -99,4 +80,4 @@ const ModalAuth2FA = ({ show, t, setShow, setShowModal2FA, twofa }) => {
     )
 }
 
-export default ModalAuth2FA
+export default ModalOTP

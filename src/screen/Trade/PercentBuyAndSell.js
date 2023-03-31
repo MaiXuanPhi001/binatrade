@@ -27,7 +27,6 @@ const PercentBuyAndSell = () => {
                 setBuy(lastChart.buyer)
                 setSell(lastChart.seller)
             }
-            // console.log(side)
             if (time === 2 && order.amountTotal > 0) {
                 const penultimate = candles[candles.length - 2]
                 if ((order.side === 'buy' && penultimate.close > penultimate.open) ||

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import routes from "@util/routes";
-import { getProfileThunk, loginThunk } from "../asyncThunk/userAsyncThunk";
+import { getProfileThunk, getValueConfigThunk, loginThunk } from "../asyncThunk/userAsyncThunk";
 
 const userSlice = createSlice({
     name: 'user',
@@ -11,6 +11,7 @@ const userSlice = createSlice({
         sound: true,
         screenChoose: routes.TRADE,
         type: 'live',
+        prizePool: [],
     },
     reducers: {
         signOut: (state) => {
@@ -28,7 +29,7 @@ const userSlice = createSlice({
         },
         changeType: (state, { payload }) => {
             state.type = payload
-        }
+        },
     },
     extraReducers: buidlder => {
         buidlder
@@ -46,6 +47,11 @@ const userSlice = createSlice({
                 if (action.payload.status) {
                     state.isLogin = true
                     state.profile = action.payload.data
+                }
+            })
+            .addCase(getValueConfigThunk.fulfilled, (state, { payload }) => {
+                if (payload.status) {
+                    state.prizePool = payload.data
                 }
             })
     }

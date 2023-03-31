@@ -4,7 +4,7 @@ import Btn from '@commom/Btn'
 import Img from '@commom/Img'
 import Txt from '@commom/Txt'
 import { numberCommasDot } from '@method/format'
-import { profileSelector, typeUserSelector } from '@selector/userSelector'
+import { prizePoolUserSelector, profileSelector, typeUserSelector } from '@selector/userSelector'
 import { updateBalanceDemo } from '@service/userService'
 import userSlice from '@slice/userSlice'
 import { useState } from 'react'
@@ -13,6 +13,7 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import Animated from 'react-native-reanimated'
 import { useDispatch, useSelector } from 'react-redux'
+import { kFormatter } from '@method/format'
 
 const Header = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -20,6 +21,7 @@ const Header = ({ navigation }) => {
   const [drop, setDrop] = useState(false)
   const type = useSelector(typeUserSelector)
   const profile = useSelector(profileSelector)
+  const prizePool = useSelector(prizePoolUserSelector)
 
   const handleUpdateBalanceDemo = async () => {
     const res = await updateBalanceDemo()
@@ -57,7 +59,7 @@ const Header = ({ navigation }) => {
             style={styles.linearGradient}
           >
             <Txt marginLeft={18} bold size={12}>Prize Pool</Txt>
-            <Txt marginLeft={18} bold color={'#f7a72e'}>$ 24.8k</Txt>
+            <Txt marginLeft={18} bold color={'#f7a72e'}>$ {prizePool.length > 0 && kFormatter(prizePool[0]?.value)}</Txt>
           </LinearGradient>
         </Btn>
 

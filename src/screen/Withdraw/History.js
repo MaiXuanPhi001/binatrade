@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import Txt from '@commom/Txt'
-import { theme } from '@theme/index'
-import { useTranslation } from 'react-i18next'
 import Box from '@commom/Box'
+import Txt from '@commom/Txt'
+import LoadingWhite from '@reuse/LoadingWhite'
 import Pagination from '@reuse/Pagination'
-import { getHistoryWidthdraw } from '@service/fundingService'
-import { Alert } from 'react-native'
 import HeaderTableHistory from '@screen/Deposit/HeaderTableHistory'
+import { getHistoryWidthdraw } from '@service/fundingService'
+import { theme } from '@theme/index'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import ItemHistory from './ItemHistory'
 import ModalHistoryDetail from './ModalHistoryDetail'
-import LoadingWhite from '@reuse/LoadingWhite'
 
 const History = () => {
     const { t } = useTranslation()
@@ -35,8 +34,6 @@ const History = () => {
             setTotal(res.data.total)
             setPage(page)
             setLoading(false)
-        } else {
-            Alert.alert(t(res.message))
         }
     }
 
