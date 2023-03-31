@@ -11,3 +11,5 @@ export const screenChooseUserSelector = state => state.user.screenChoose
 export const typeUserSelector = state => state.user.type
 
 export const prizePoolUserSelector = state => state.user.prizePool
+
+export const kycUserSelector = state => state.user.kyc

@@ -1,3 +1,4 @@
+import { checKYCUserThunk } from '@asyncThunk/userAsyncThunk'
 import Box from '@commom/Box'
 import ButtonLiner from '@reuse/ButtonLiner'
 import { profileSelector } from '@selector/userSelector'
@@ -55,7 +56,7 @@ const reducer = (state, action) => {
     }
 };
 
-const Kyc = ({ onChecKYCUser }) => {
+const Kyc = () => {
     const profile = useSelector(profileSelector)
     const { t } = useTranslation()
     const [infomation, dispatch] = useReducer(reducer, initialInfomation)
@@ -104,7 +105,7 @@ const Kyc = ({ onChecKYCUser }) => {
         const res = await kycUser(formData)
         !res.status && alert(t(res.message))
         setLoading(false)
-        onChecKYCUser()
+        dispatch(checKYCUserThunk())
     }
 
     return (

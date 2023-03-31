@@ -14,6 +14,7 @@ export const theme = {
     black: '#000000',
     placeholder: '#707070',
     blue: '#0d5cb6',
+    blue2: '#152333',
     red: '#E83625',
     gradient: ['#F04831', '#E73222', '#D9100C'],
     green: '#088A08',

@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import contants from "@util/contants";
 import routes from "@util/routes";
-import { getProfileThunk, getValueConfigThunk, loginThunk } from "../asyncThunk/userAsyncThunk";
+import { checKYCUserThunk, getProfileThunk, getValueConfigThunk, loginThunk } from "../asyncThunk/userAsyncThunk";
 
 const userSlice = createSlice({
     name: 'user',
@@ -12,6 +13,7 @@ const userSlice = createSlice({
         screenChoose: routes.TRADE,
         type: 'live',
         prizePool: [],
+        kyc: ''
     },
     reducers: {
         signOut: (state) => {
@@ -52,6 +54,15 @@ const userSlice = createSlice({
             .addCase(getValueConfigThunk.fulfilled, (state, { payload }) => {
                 if (payload.status) {
                     state.prizePool = payload.data
+                }
+            })
+            .addCase(checKYCUserThunk.fulfilled, (state, { payload }) => {
+                if (!payload.error) {
+                    if (payload.status) {
+                        state.kyc = payload.data
+                    } else {
+                        state.kyc = contants.NOT_KYC
+                    }
                 }
             })
     }

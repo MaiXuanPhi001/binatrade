@@ -99,7 +99,7 @@ export const styles = StyleSheet.create({
     },
     input: {
         borderWidth: 1,
-        backgroundColor: '#152333',
+        backgroundColor: theme.colors.blue2,
         color: '#56606c',
         padding: 10,
         borderRadius: 5,

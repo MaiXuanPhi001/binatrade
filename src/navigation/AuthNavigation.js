@@ -1,3 +1,4 @@
+import { checKYCUserThunk } from '@asyncThunk/userAsyncThunk'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import Profile from '@screen/Profile'
 import Setting from '@screen/Setting'
@@ -5,11 +6,19 @@ import Trade from '@screen/Trade'
 import Wallet from '@screen/Wallet'
 import { width } from '@util/responsive'
 import routes from '@util/routes'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import DrawerCustom from './DrawerCustom'
 
 const Drawer = createDrawerNavigator()
 
 const AuthNavigation = () => {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(checKYCUserThunk())
+    })
+
     const data = [
         {
             id: 0,

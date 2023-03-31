@@ -1,10 +1,8 @@
-import React from 'react'
-import Img from '@commom/Img'
-import Txt from '@commom/Txt'
 import Box from '@commom/Box'
-import { useTranslation } from 'react-i18next'
+import Txt from '@commom/Txt'
 import { theme } from '@theme/index'
-import { height, width } from '@util/responsive'
+import { height } from '@util/responsive'
+import { useTranslation } from 'react-i18next'
 
 const Banner = ({ firtText, secondText, thirdText, onPress }) => {
     const { t } = useTranslation()

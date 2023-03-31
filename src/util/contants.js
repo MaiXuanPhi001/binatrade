@@ -7,6 +7,9 @@ const contants = {
     CRYPTO_TWO: 'cryptoTwo',
     LANGUAGE: 'language',
     SOUND: 'sound',
+    NOT_KYC: 'NOT_KYC',
+    KYC_PENDING: 'PENDING',
+    KYC_APPROVED: 'APPROVED',
 }
 
 export default contants

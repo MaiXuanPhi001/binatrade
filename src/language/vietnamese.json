@@ -307,6 +307,8 @@
         "New password is empty": "Mật khẩu mới trống",
         "Update Infomation": "Cập nhật thông tin",
         "Change password successfully!": "Đổi mật khẩu thành công!",
-        "Incorrect password!": "Mật khẩu không đúng!"
+        "Incorrect password!": "Mật khẩu không đúng!",
+        "Amount of USDT": "Số lượng USDT",
+        "Max available": "Có sẵn tối đa"
     }  
 }
