@@ -37,3 +37,30 @@ export const getHistoryDeposit = async (data) => {
         return callFailed()
     }
 }
+
+export const withDraw = async (data) => {
+    try {
+        const res = await axiosInstance.post('/api/crypto/widthdraw', data)
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}
+
+export const getValueConfig = async (name) => {
+    try {
+        const res = await axiosInstance.post('/api/user/getValueConfig', { name })
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+} 
+
+export const transfer = async (data) => {
+    try {
+        const res = await axiosInstance.post('/api/crypto/transfer', data)
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}

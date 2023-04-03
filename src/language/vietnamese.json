@@ -309,6 +309,17 @@
         "Change password successfully!": "Đổi mật khẩu thành công!",
         "Incorrect password!": "Mật khẩu không đúng!",
         "Amount of USDT": "Số lượng USDT",
-        "Max available": "Có sẵn tối đa"
+        "Max available": "Có sẵn tối đa",
+        "Withdrawal fee: $": "Phí rút tiền: $",
+        "Wallet USDT is empty": "Ví USDT trống",
+        "2FA is empty": "2FA trống",
+        "User receive": "Người nhận",
+        "Note": "Ghi chú",
+        "Transfer fee: $": "Phí chuyển tiền: $",
+        "Each transaction requires a minimum amount of $5": "Mỗi giao dịch yêu cầu số tiền tối thiểu là $5",
+        "Minimum amount is $50": "Số tiền tối thiểu là $50",
+        "Receive is empty": "Người nhận trống",
+        "Note is empty": "Ghi chú trống",
+        "username does not exist" : "Người dùng không tồn tại"
     }  
 }

@@ -1,10 +1,12 @@
 import Box from '@commom/Box'
+import Btn from '@commom/Btn'
 import Input from '@commom/Input'
 import Txt from '@commom/Txt'
+import TextError from '@reuse/TextError'
 import { theme } from '@theme/index'
 const HEIGH = 40
 
-const AmountUSDT = ({ amount, setAmount, t }) => {
+const AmountUSDT = ({ amount, setAmount, t, profile, checkForm }) => {
     return (
         <Box marginBottom={10} marginTop={10}>
             <Txt>{t('Amount of USDT')}</Txt>
@@ -38,7 +40,8 @@ const AmountUSDT = ({ amount, setAmount, t }) => {
                     </Box>
                 </Box>
 
-                <Box
+                <Btn
+                    onPress={() => setAmount(profile.balance.toFixed(0))}
                     height={HEIGH}
                     alignCenter
                     justifyCenter
@@ -49,8 +52,9 @@ const AmountUSDT = ({ amount, setAmount, t }) => {
                     marginLeft={10}
                 >
                     <Txt>{t('MAX')}</Txt>
-                </Box>
+                </Btn>
             </Box>
+            {(checkForm && amount.trim() === '') && <TextError text={t('Amount is empty')} />}
         </Box>
     )
 }
