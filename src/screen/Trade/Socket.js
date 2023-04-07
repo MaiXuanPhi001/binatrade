@@ -98,7 +98,7 @@ const Socket = () => {
         const res = await getChart(COIN)
         if (res.status) {
             const dataAPI = res.data.slice(160, res.data.length)
-            const candles = res.data.slice(170, res.data.length)
+            const candles = res.data.slice(175, res.data.length)
             let [listTime, highChart, lowChart, dots, buyer, seller, i] = [[], 0, 18092002, [], 0, 0, 0]
             while (i < LIMIT_DATA) {
                 if (candles[i]) {
