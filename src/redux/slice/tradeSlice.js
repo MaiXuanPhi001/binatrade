@@ -45,6 +45,14 @@ const tradeSlice = createSlice({
             state.lowChart = payload.lowChart
         },
         addDataTrade: (state, { payload }) => {
+            state.candles[1] = {
+                ...state.candles[0], 
+                high: payload.highChart,
+                low: payload.lowChart,
+                close: payload.highChart,
+                open: payload.lowChart
+            }
+            state.candles.shift()
             state.candles.push(payload.chartItem)
             state.highChart = payload.highChart
             state.lowChart = payload.lowChart

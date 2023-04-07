@@ -11,7 +11,7 @@ const Chart = () => {
       <View>
         <Line />
         <Candlestick />
-        <PercentBuyAndSell />
+        {/* <PercentBuyAndSell /> */}
       </View>
       <Close />
     </View>
