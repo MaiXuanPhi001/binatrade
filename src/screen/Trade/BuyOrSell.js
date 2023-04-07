@@ -20,7 +20,7 @@ const BuyOrSell = () => {
   const toastRef = useRef(null)
 
   const time = timeServer > 30 ? 61 - timeServer : 31 - timeServer
-  const color = (timeServer >= 1 && timeServer <= 30) ? theme.colors.greenNen : theme.colors.redNen
+  const color = (timeServer >= 31 && timeServer <= 60) ? theme.colors.greenNen : theme.colors.redNen
   const disable = color === theme.colors.greenNen ? false : true
 
   const handleOrder = async (side) => {

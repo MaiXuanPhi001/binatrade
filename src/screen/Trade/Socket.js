@@ -53,8 +53,19 @@ const Socket = () => {
                         lowChart > data[i].low && (lowChart = data[i].low)
                         listTime.push(timeHM(data[i].timestamp))
                     }
-                    dataTrade[i] ? dots.push(dataTrade[i].close > dataTrade[i].open ? theme.colors.greenNen : theme.colors.redNen)
-                        : dots.push(theme.colors.gray5)
+
+                    if (dataTrade[i]) {
+                        if (dataTrade[i].close === dataTrade[i].open) {
+                            dots.push('white')
+                        } else if (dataTrade[i].close > dataTrade[i].open) {
+                            dots.push(theme.colors.greenNen)
+                        } else {
+                            dots.push(theme.colors.redNen)
+                        }
+                    } else {
+                        dots.push(theme.colors.gray5)
+                    }
+
                     i++
                 }
             }
@@ -95,8 +106,19 @@ const Socket = () => {
                     lowChart > candles[i].low && (lowChart = candles[i].low)
                     listTime.push(timeHM(candles[i].timestamp))
                 }
-                dataAPI[i] ? dots.push(dataAPI[i].close > dataAPI[i].open ? theme.colors.greenNen : theme.colors.redNen)
-                    : dots.push(theme.colors.gray5)
+
+                if (dataAPI[i]) {
+                    if (dataAPI[i].close === dataAPI[i].open) {
+                        dots.push('white')
+                    } else if (dataAPI[i].close > dataAPI[i].open) {
+                        dots.push(theme.colors.greenNen)
+                    } else {
+                        dots.push(theme.colors.redNen)
+                    }
+                } else {
+                    dots.push(theme.colors.gray5)
+                }
+                
                 i++
             }
 

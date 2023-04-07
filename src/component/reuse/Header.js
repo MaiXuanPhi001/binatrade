@@ -82,7 +82,10 @@ const Header = ({ navigation }) => {
             <Animated.View style={[styles.animatedView]}>
               <Txt bold size={16} marginBottom={10}>{t('Change account')}</Txt>
               <TouchableOpacity
-                onPress={() => dispatch(userSlice.actions.changeType('live'))}
+                onPress={() => {
+                  setDrop(false)
+                  dispatch(userSlice.actions.changeType('live'))
+                }}
                 style={[styles.buttonLiveContainer, { backgroundColor: type === 'live' ? '#354356' : '#011022' }]}
               >
                 <View style={styles.circleContainer}>
@@ -96,7 +99,10 @@ const Header = ({ navigation }) => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => dispatch(userSlice.actions.changeType('demo'))}
+                onPress={() => {
+                  setDrop(false)
+                  dispatch(userSlice.actions.changeType('demo'))
+                }}
                 style={[styles.buttonDemoContainer, { backgroundColor: type === 'demo' ? '#354356' : '#011022' }]}
               >
                 <Box row alignCenter>

@@ -12,6 +12,8 @@
 
 # profile.twofa === 0 => protection is not enabled, can't change password
 
+# 1-30: order, 31-60: wait
+
 // run app
 # npm install
 # npx react-native run-ios

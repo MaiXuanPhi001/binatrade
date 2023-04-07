@@ -7,6 +7,7 @@ import { useMemo, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import ProgressBar from 'react-native-progress/Bar'
 import { useDispatch, useSelector } from 'react-redux'
+import ModalWin from './ModalWin'
 
 const PercentBuyAndSell = () => {
     const dispatch = useDispatch()
@@ -27,7 +28,7 @@ const PercentBuyAndSell = () => {
                 setBuy(lastChart.buyer)
                 setSell(lastChart.seller)
             }
-            if (time === 2 && order.amountTotal > 0) {
+            if (time === 32 && order.amountTotal > 0) {
                 const penultimate = candles[candles.length - 2]
                 if ((order.side === 'buy' && penultimate.close > penultimate.open) ||
                     (order.side === 'sell' && penultimate.close < penultimate.open)) {
@@ -38,6 +39,7 @@ const PercentBuyAndSell = () => {
                     }, 3000)
                 } else {
                     dispatch(tradeSlice.actions.resetOrder())
+                    dispatch(getProfileThunk())
                 }
             }
         }
@@ -58,6 +60,7 @@ const PercentBuyAndSell = () => {
                 <Txt color={theme.colors.greenNen} bold size={12}>{buy !== 0 ? (buy * 100 / (buy + sell)).toFixed(1) : 0}%</Txt>
                 <Txt color={theme.colors.redNen} bold size={12}>{sell !== 0 ? (sell * 100 / (sell + buy)).toFixed(1) : 0}%</Txt>
             </View>
+            <ModalWin />
         </View>
     )
 }
