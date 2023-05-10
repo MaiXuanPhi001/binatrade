@@ -12,7 +12,8 @@
 
 # profile.twofa === 0 => protection is not enabled, can't change password
 
-# 1-30: order, 31-60: wait
+<!-- # 1-30: order, 31-60: wait -->
+# 1 - 30 waits, 31 - 60 order
 
 // run app
 # npm install

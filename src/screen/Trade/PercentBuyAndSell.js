@@ -24,7 +24,7 @@ const PercentBuyAndSell = () => {
     useMemo(() => {
         if (candles.length > 0) {
             const lastChart = candles[candles.length - 1]
-            if (time > 0 && time < 32) {
+            if (time > 30 && time < 61) {
                 setBuy(lastChart.buyer)
                 setSell(lastChart.seller)
             }
