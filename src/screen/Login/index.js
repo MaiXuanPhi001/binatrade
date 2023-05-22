@@ -9,10 +9,12 @@ import Language from '@reuse/Language'
 import { navigate } from '@navigation/navigationRef'
 import routes from '@util/routes'
 import { loginThunk } from '@asyncThunk/userAsyncThunk'
-import { Alert } from 'react-native'
+import { Alert, NativeModules } from 'react-native'
 import { theme } from '@theme/index'
 import { checkUser2fa } from '@service/userService'
 import ModalOTP from './ModalOTP'
+
+const { HelloYt } = NativeModules
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -22,18 +24,19 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [otp, setOtp] = useState('')
   const [password, setPassword] = useState('')
-  const [isShowModalOTP, setShowModalOTP] = useState(false) 
+  const [isShowModalOTP, setShowModalOTP] = useState(false)
   const [checkForm, setCheckForm] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const handleLogin = async () => {
-    if (email.trim() === '' || password.trim() === '') return setCheckForm(true)
+    HelloYt.toastMXP('Hello mai xuan phi')
+    // if (email.trim() === '' || password.trim() === '') return setCheckForm(true)
 
-    const res = await checkUser2fa(email)
-    if (res.status) return setShowModalOTP(true)
+    // const res = await checkUser2fa(email)
+    // if (res.status) return setShowModalOTP(true)
 
-    const { payload } = await dispatch(loginThunk({ email, password }))
-    !payload.status && Alert.alert(t(payload.message))
+    // const { payload } = await dispatch(loginThunk({ email, password }))
+    // !payload.status && Alert.alert(t(payload.message))
   }
 
   const handleLoginWithTwoFA = async () => {
@@ -63,7 +66,7 @@ const Login = () => {
         checkForm={checkForm}
       />
       <Footer onLogin={handleLogin} />
-      <ModalOTP 
+      <ModalOTP
         show={isShowModalOTP}
         setShow={setShowModalOTP}
         checkForm={checkForm}
