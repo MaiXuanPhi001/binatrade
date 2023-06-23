@@ -14,29 +14,26 @@ import { theme } from '@theme/index'
 import { checkUser2fa } from '@service/userService'
 import ModalOTP from './ModalOTP'
 
-const { HelloYt } = NativeModules
-
 const Login = () => {
   const dispatch = useDispatch()
 
   const { t } = useTranslation()
 
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState('test@gmail.com')
   const [otp, setOtp] = useState('')
-  const [password, setPassword] = useState('')
+  const [password, setPassword] = useState('123123')
   const [isShowModalOTP, setShowModalOTP] = useState(false)
   const [checkForm, setCheckForm] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const handleLogin = async () => {
-    HelloYt.toastMXP('Hello mai xuan phi')
-    // if (email.trim() === '' || password.trim() === '') return setCheckForm(true)
+    if (email.trim() === '' || password.trim() === '') return setCheckForm(true)
 
-    // const res = await checkUser2fa(email)
-    // if (res.status) return setShowModalOTP(true)
+    const res = await checkUser2fa(email)
+    if (res.status) return setShowModalOTP(true)
 
-    // const { payload } = await dispatch(loginThunk({ email, password }))
-    // !payload.status && Alert.alert(t(payload.message))
+    const { payload } = await dispatch(loginThunk({ email, password }))
+    !payload.status && Alert.alert(t(payload.message))
   }
 
   const handleLoginWithTwoFA = async () => {

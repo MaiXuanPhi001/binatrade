@@ -6,8 +6,10 @@ import { fetchPOST } from "./fetchConfig"
 export const login = async (data) => {
     try {
         const res = await axiosInstance.post('/api/user/login', data)
+        console.log(res)
         return callSuccess(res)
     } catch (error) {
+        console.log(error)
         return callFailed()
     }
 }

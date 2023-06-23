@@ -9,6 +9,7 @@ import routes from '@util/routes'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import DrawerCustom from './DrawerCustom'
+import Trading from '@screen/Trading'
 
 const Drawer = createDrawerNavigator()
 
@@ -22,8 +23,8 @@ const AuthNavigation = () => {
     const data = [
         {
             id: 0,
-            name: routes.TRADE,
-            component: Trade,
+            name: routes.TRADING,
+            component: Trading,
         },
         {
             id: 1,

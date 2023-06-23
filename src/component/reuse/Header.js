@@ -71,7 +71,7 @@ const Header = ({ navigation }) => {
           >
             <Box marginRight={15}>
               <Txt size={13}>{t(type === 'live' ? 'Live account' : 'Demo account')}</Txt>
-              <Txt bold>$ {numberCommasDot(type === 'live' ? profile.balance : profile.demoBalance)}</Txt>
+              <Txt bold>$ {numberCommasDot(type === 'live' ? profile.balance?.toFixed(2) : profile.demoBalance?.toFixed(2))}</Txt>
             </Box>
             <Image
               source={require('@images/wallet/next.png')}
@@ -94,7 +94,7 @@ const Header = ({ navigation }) => {
                 </View>
                 <Box>
                   <Txt>{t('Live account')}</Txt>
-                  <Txt bold>$ {numberCommasDot(profile.balance)}</Txt>
+                  <Txt bold>$ {numberCommasDot(profile.balance?.toFixed(2))}</Txt>
                 </Box>
               </TouchableOpacity>
 
