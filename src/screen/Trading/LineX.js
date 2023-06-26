@@ -8,7 +8,8 @@ import { useSelector } from 'react-redux'
 const SIZE = 5
 
 const LineX = ({
-    HEIGHT_CANLES
+    HEIGHT_CANLES,
+    PADDING_TOP,
 }) => {
     const maxHighItem = useSelector(maxHighItemTradingSelector)
     const heighValueChart = useSelector(heighValueChartTradingSelector)
@@ -16,7 +17,7 @@ const LineX = ({
     return (
         <G key={`G_LineX`}>
             {Array.from(new Array(SIZE)).map((_, index) => {
-                let gap_x_line = Number((HEIGHT_CANLES / (SIZE - 1)) * index)
+                let gap_x_line = (HEIGHT_CANLES / (SIZE - 1) * index) + PADDING_TOP 
                 const textValue = Number(maxHighItem?.high) - (heighValueChart / (SIZE - 1)) * index
 
                 return (
