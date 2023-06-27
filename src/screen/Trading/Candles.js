@@ -1,26 +1,51 @@
-import { HEIGHT_CHART } from '@screen/Trade/Candlestick'
-import { candlesTradingSelector, dPathMATradingSelector } from '@selector/tradingSelector'
+import { timeHM } from '@method/date'
+import { numberCommasDot } from '@method/format'
+import { candlesTradingSelector, dPathMATradingSelector, timeTradingSelector } from '@selector/tradingSelector'
+import { colors } from '@theme/colors'
+import { width } from '@util/responsive'
 import { StyleSheet } from 'react-native'
-import { G, Line, Path } from 'react-native-svg'
+import { G, Line, Path, Rect, Text as TextSVG } from 'react-native-svg'
 import { useSelector } from 'react-redux'
+
+const PADDING_BOTTOM = 20
+const HEIGH_SLIDER = 250
 
 const Candles = ({
     GAP_CANDLE,
     WIDTH_CANDLE,
     HEIGHT_SVG,
-    HEIGHT_VOLUME,
+    SIZE_CHART,
+    PADDING_TOP,
 }) => {
     const candles = useSelector(candlesTradingSelector)
     const dPathMA = useSelector(dPathMATradingSelector)
+    const time = useSelector(timeTradingSelector)
+
+    const lastChart = candles[candles.length - 1]
+    const timeCovert = time > 30 ? 61 - time : 31 - time
+    const buyerPercent = lastChart?.buyer * 100 / (lastChart?.buyer + lastChart?.seller)
+    const buyerSVG = HEIGH_SLIDER * buyerPercent / 100
+    const sellerPercent = lastChart?.seller * 100 / (lastChart?.buyer + lastChart?.seller)
 
     return (
         <G key={'G_Candles'}>
+            <Line
+                key={`G_Candles_Item_Line_Last_Candes`}
+                x1={GAP_CANDLE * (SIZE_CHART - 1)}
+                y1={PADDING_TOP}
+                x2={GAP_CANDLE * (SIZE_CHART - 1)}
+                y2={HEIGHT_SVG - PADDING_BOTTOM}
+                stroke={colors.white}
+                strokeWidth={1}
+                strokeDasharray={'6 6'}
+            />
+
             {candles.map((candle, index) => {
                 const x_point = GAP_CANDLE * index
-                console.log(candle.volumeSVG)
+
                 return (
                     <G key={`G_Candle_Item ${candle.id}`}>
-                        {/* <Line
+                        <Line
                             key={`G_Candles_Item_L${candle.id}`}
                             x1={x_point}
                             y1={candle.highSVG}
@@ -37,20 +62,93 @@ const Candles = ({
                             y2={candle.openSVG}
                             stroke={candle.colorChart}
                             strokeWidth={WIDTH_CANDLE}
-                        /> */}
+                        />
 
                         <Line
                             key={`G_Candles_Item_Volume${candle.id}`}
                             x1={x_point}
-                            y1={HEIGHT_SVG}
+                            y1={HEIGHT_SVG - PADDING_BOTTOM}
                             x2={x_point}
-                            y2={candle.volumeSVG}
+                            y2={candle.volumeSVG - PADDING_BOTTOM}
                             stroke={candle.colorChart}
                             strokeWidth={WIDTH_CANDLE}
                         />
+                        {index % 5 === 0 &&
+                            <TextSVG
+                                key={`G_Candles_Item_Time${index}`}
+                                fill={colors.brown2}
+                                textAnchor={'middle'}
+                                fontWeight={'bold'}
+                                x={x_point}
+                                y={HEIGHT_SVG - 5}
+                            >
+                                {timeHM(candle.timestamp)}
+                            </TextSVG>
+                        }
                     </G>
                 )
             })}
+            <Line
+                key={`G_Candles_Line_Bottom_Volume`}
+                x1={0}
+                y1={HEIGHT_SVG - PADDING_BOTTOM}
+                x2={width - (width - (GAP_CANDLE * (SIZE_CHART - 1))) + (WIDTH_CANDLE / 2)}
+                y2={HEIGHT_SVG - PADDING_BOTTOM}
+                stroke={colors.brown2}
+                strokeWidth={0.5}
+            />
+            <Line
+                key={`G_Candles_Line_Close`}
+                x1={0}
+                y1={lastChart?.closeSVG}
+                x2={width}
+                y2={lastChart?.closeSVG}
+                stroke={colors.white}
+                strokeWidth={0.5}
+            />
+
+            <Rect
+                key={`G_Candles_Rect_Close`}
+                x={width - 100}
+                y={lastChart?.closeSVG - 15}
+                fill={colors.sky}
+                height={20}
+                width={200}
+            />
+
+            <TextSVG
+                key={`G_LineX_Text_Close`}
+                x={width - 15}
+                fill={colors.white}
+                y={lastChart?.closeSVG}
+                textAnchor={'end'}
+                fontSize={13}
+                fontWeight={'bold'}
+            >
+                {numberCommasDot(lastChart?.close?.toFixed(2))}
+            </TextSVG>
+
+            <Rect
+                key={`G_Candles_Rect_Time`}
+                x={width - 60}
+                y={lastChart?.closeSVG + 8}
+                fill={colors.sky}
+                height={20}
+                width={50}
+            />
+
+            <TextSVG
+                key={`G_LineX_Text_Time`}
+                x={width - 15}
+                fill={colors.white}
+                y={lastChart?.closeSVG + 23}
+                textAnchor={'end'}
+                fontSize={13}
+                fontWeight={'bold'}
+            >
+                {`00:${timeCovert >= 10 ? timeCovert : '0' + timeCovert}`}
+            </TextSVG>
+
             <Path
                 key={'P_MA5'}
                 d={dPathMA.ma5}
@@ -65,6 +163,50 @@ const Candles = ({
                 stroke={'#c60e65'}
                 fill={'none'}
             />
+
+            <TextSVG
+                key={`G_LineX_Text_Buyer`}
+                x={5}
+                y={10}
+                fill={colors.greenCan}
+                textAnchor={'start'}
+                fontSize={11}
+            >
+                {isNaN(buyerPercent) ? '0%' :
+                    buyerPercent?.toFixed(1) + '%'}
+            </TextSVG>
+
+            <Rect
+                key={`G_Candles_Rect_Seller`}
+                x={5}
+                y={20}
+                fill={colors.red3}
+                height={HEIGH_SLIDER}
+                width={8}
+                rx={5}
+            />
+
+            <Rect
+                key={`G_Candles_Rect_Buyer`}
+                x={5}
+                y={20}
+                fill={colors.greenCan}
+                height={buyerSVG}
+                width={8}
+                rx={5}
+            />
+
+            <TextSVG
+                key={`G_LineX_Text_Seller`}
+                x={5}
+                y={HEIGH_SLIDER + 35}
+                fill={colors.red3}
+                textAnchor={'start'}
+                fontSize={11}
+            >
+                {isNaN(buyerPercent) ? '0%' :
+                    sellerPercent?.toFixed(1) + '%'}
+            </TextSVG>
         </G>
     )
 }

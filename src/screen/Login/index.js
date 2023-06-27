@@ -19,7 +19,7 @@ const Login = () => {
 
   const { t } = useTranslation()
 
-  const [email, setEmail] = useState('test@gmail.com')
+  const [email, setEmail] = useState('maixuanphi555@gmail.com')
   const [otp, setOtp] = useState('')
   const [password, setPassword] = useState('123123')
   const [isShowModalOTP, setShowModalOTP] = useState(false)

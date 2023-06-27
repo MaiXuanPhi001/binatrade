@@ -7,79 +7,355 @@ export const getChartThunk =
         const res = await getChart(data.symbol)
         if (res.status) {
             let array = res.data
-            // let candles = array.slice(array.length - data.size_chart, array.length)
+            let candles = array.slice(array.length - data.size_chart, array.length)
 
-            let candles = [
-                {
-                    "buy": 0,
-                    "buyer": 39267,
-                    "close": 93,
-                    "high": 125,
-                    "closeBuy": 0,
-                    "low": 50,
-                    "open": 75,
-                    "closeCandlestick": 0,
-                    "closeSell": 0,
-                    "id": 1,
-                    "idChart": 0,
-                    "order": 1,
-                    "orderAuto": 1,
-                    "orderBuy": 0,
-                    "orderSell": 0,
-                    "ramdomNumberVol": 9,
-                    "sell": 0,
-                    "seller": 40606,
-                    "symbol": "BTCUSDT",
-                    "timestamp": 1687744560,
-                    "volume": 100
-                },
-                {
-                    "buy": 0,
-                    "buyer": 39267,
-                    "close": 100,
-                    "high": 118,
-                    "closeBuy": 0,
-                    "low": 50,
-                    "open": 75,
-                    "closeCandlestick": 0,
-                    "closeSell": 0,
-                    "id": 2,
-                    "idChart": 0,
-                    "order": 1,
-                    "orderAuto": 1,
-                    "orderBuy": 0,
-                    "orderSell": 0,
-                    "ramdomNumberVol": 9,
-                    "sell": 0,
-                    "seller": 40606,
-                    "symbol": "BTCUSDT",
-                    "timestamp": 1687744560,
-                    "volume": 50
-                },
-                {
-                    "buy": 0,
-                    "buyer": 39267,
-                    "close": 100,
-                    "high": 118,
-                    "closeBuy": 0,
-                    "low": 50,
-                    "open": 75,
-                    "closeCandlestick": 0,
-                    "closeSell": 0,
-                    "id": 3,
-                    "idChart": 0,
-                    "order": 1,
-                    "orderAuto": 1,
-                    "orderBuy": 0,
-                    "orderSell": 0,
-                    "ramdomNumberVol": 9,
-                    "sell": 0,
-                    "seller": 40606,
-                    "symbol": "BTCUSDT",
-                    "timestamp": 1687744560,
-                    "volume": 75
-                },
-            ]
+            // let candles = [
+            //     {
+            //         "buy": 0,
+            //         "buyer": 39267,
+            //         "close": 93,
+            //         "high": 125,
+            //         "closeBuy": 0,
+            //         "low": 50,
+            //         "open": 75,
+            //         "closeCandlestick": 0,
+            //         "closeSell": 0,
+            //         "id": 1,
+            //         "idChart": 0,
+            //         "order": 1,
+            //         "orderAuto": 1,
+            //         "orderBuy": 0,
+            //         "orderSell": 0,
+            //         "ramdomNumberVol": 9,
+            //         "sell": 0,
+            //         "seller": 40606,
+            //         "symbol": "BTCUSDT",
+            //         "timestamp": 1687744560,
+            //         "volume": 100
+            //     },
+            //     {
+            //         "buy": 0,
+            //         "buyer": 39267,
+            //         "close": 100,
+            //         "high": 118,
+            //         "closeBuy": 0,
+            //         "low": 50,
+            //         "open": 75,
+            //         "closeCandlestick": 0,
+            //         "closeSell": 0,
+            //         "id": 2,
+            //         "idChart": 0,
+            //         "order": 1,
+            //         "orderAuto": 1,
+            //         "orderBuy": 0,
+            //         "orderSell": 0,
+            //         "ramdomNumberVol": 9,
+            //         "sell": 0,
+            //         "seller": 40606,
+            //         "symbol": "BTCUSDT",
+            //         "timestamp": 1687744560,
+            //         "volume": 50
+            //     },
+            //     {
+            //         "buy": 0,
+            //         "buyer": 39267,
+            //         "close": 100,
+            //         "high": 118,
+            //         "closeBuy": 0,
+            //         "low": 50,
+            //         "open": 75,
+            //         "closeCandlestick": 0,
+            //         "closeSell": 0,
+            //         "id": 3,
+            //         "idChart": 0,
+            //         "order": 1,
+            //         "orderAuto": 1,
+            //         "orderBuy": 0,
+            //         "orderSell": 0,
+            //         "ramdomNumberVol": 9,
+            //         "sell": 0,
+            //         "seller": 40606,
+            //         "symbol": "BTCUSDT",
+            //         "timestamp": 1687744560,
+            //         "volume": 75
+            //     },
+            //     {
+            //         "buy": 0,
+            //         "buyer": 39267,
+            //         "close": 100,
+            //         "high": 118,
+            //         "closeBuy": 0,
+            //         "low": 50,
+            //         "open": 59.38,
+            //         "closeCandlestick": 0,
+            //         "closeSell": 0,
+            //         "id": 4,
+            //         "idChart": 0,
+            //         "order": 1,
+            //         "orderAuto": 1,
+            //         "orderBuy": 0,
+            //         "orderSell": 0,
+            //         "ramdomNumberVol": 9,
+            //         "sell": 0,
+            //         "seller": 40606,
+            //         "symbol": "BTCUSDT",
+            //         "timestamp": 1687744560,
+            //         "volume": 75
+            //     },
+            //     {
+            //         "buy": 0,
+            //         "buyer": 39267,
+            //         "close": 100,
+            //         "high": 118,
+            //         "closeBuy": 0,
+            //         "low": 50,
+            //         "open": 59.38,
+            //         "closeCandlestick": 0,
+            //         "closeSell": 0,
+            //         "id": 5,
+            //         "idChart": 0,
+            //         "order": 1,
+            //         "orderAuto": 1,
+            //         "orderBuy": 0,
+            //         "orderSell": 0,
+            //         "ramdomNumberVol": 9,
+            //         "sell": 0,
+            //         "seller": 40606,
+            //         "symbol": "BTCUSDT",
+            //         "timestamp": 1687744560,
+            //         "volume": 75
+            //     },
+            //     {
+            //         "buy": 0,
+            //         "buyer": 39267,
+            //         "close": 100,
+            //         "high": 118,
+            //         "closeBuy": 0,
+            //         "low": 50,
+            //         "open": 59.38,
+            //         "closeCandlestick": 0,
+            //         "closeSell": 0,
+            //         "id": 6,
+            //         "idChart": 0,
+            //         "order": 1,
+            //         "orderAuto": 1,
+            //         "orderBuy": 0,
+            //         "orderSell": 0,
+            //         "ramdomNumberVol": 9,
+            //         "sell": 0,
+            //         "seller": 40606,
+            //         "symbol": "BTCUSDT",
+            //         "timestamp": 1687744560,
+            //         "volume": 75
+            //     },
+            //     {
+            //         "buy": 0,
+            //         "buyer": 39267,
+            //         "close": 100,
+            //         "high": 118,
+            //         "closeBuy": 0,
+            //         "low": 50,
+            //         "open": 59.38,
+            //         "closeCandlestick": 0,
+            //         "closeSell": 0,
+            //         "id": 7,
+            //         "idChart": 0,
+            //         "order": 1,
+            //         "orderAuto": 1,
+            //         "orderBuy": 0,
+            //         "orderSell": 0,
+            //         "ramdomNumberVol": 9,
+            //         "sell": 0,
+            //         "seller": 40606,
+            //         "symbol": "BTCUSDT",
+            //         "timestamp": 1687744560,
+            //         "volume": 75
+            //     },
+            //     {
+            //         "buy": 0,
+            //         "buyer": 39267,
+            //         "close": 100,
+            //         "high": 118,
+            //         "closeBuy": 0,
+            //         "low": 50,
+            //         "open": 59.38,
+            //         "closeCandlestick": 0,
+            //         "closeSell": 0,
+            //         "id": 8,
+            //         "idChart": 0,
+            //         "order": 1,
+            //         "orderAuto": 1,
+            //         "orderBuy": 0,
+            //         "orderSell": 0,
+            //         "ramdomNumberVol": 9,
+            //         "sell": 0,
+            //         "seller": 40606,
+            //         "symbol": "BTCUSDT",
+            //         "timestamp": 1687744560,
+            //         "volume": 75
+            //     },
+            //     {
+            //         "buy": 0,
+            //         "buyer": 39267,
+            //         "close": 100,
+            //         "high": 118,
+            //         "closeBuy": 0,
+            //         "low": 50,
+            //         "open": 59.38,
+            //         "closeCandlestick": 0,
+            //         "closeSell": 0,
+            //         "id": 9,
+            //         "idChart": 0,
+            //         "order": 1,
+            //         "orderAuto": 1,
+            //         "orderBuy": 0,
+            //         "orderSell": 0,
+            //         "ramdomNumberVol": 9,
+            //         "sell": 0,
+            //         "seller": 40606,
+            //         "symbol": "BTCUSDT",
+            //         "timestamp": 1687744560,
+            //         "volume": 75
+            //     },
+            //     {
+            //         "buy": 0,
+            //         "buyer": 39267,
+            //         "close": 100,
+            //         "high": 118,
+            //         "closeBuy": 0,
+            //         "low": 50,
+            //         "open": 59.38,
+            //         "closeCandlestick": 0,
+            //         "closeSell": 0,
+            //         "id": 10,
+            //         "idChart": 0,
+            //         "order": 1,
+            //         "orderAuto": 1,
+            //         "orderBuy": 0,
+            //         "orderSell": 0,
+            //         "ramdomNumberVol": 9,
+            //         "sell": 0,
+            //         "seller": 40606,
+            //         "symbol": "BTCUSDT",
+            //         "timestamp": 1687744560,
+            //         "volume": 75
+            //     },
+            //     {
+            //         "buy": 0,
+            //         "buyer": 39267,
+            //         "close": 100,
+            //         "high": 118,
+            //         "closeBuy": 0,
+            //         "low": 50,
+            //         "open": 59.38,
+            //         "closeCandlestick": 0,
+            //         "closeSell": 0,
+            //         "id": 11,
+            //         "idChart": 0,
+            //         "order": 1,
+            //         "orderAuto": 1,
+            //         "orderBuy": 0,
+            //         "orderSell": 0,
+            //         "ramdomNumberVol": 9,
+            //         "sell": 0,
+            //         "seller": 40606,
+            //         "symbol": "BTCUSDT",
+            //         "timestamp": 1687744560,
+            //         "volume": 75
+            //     },
+            //     {
+            //         "buy": 0,
+            //         "buyer": 39267,
+            //         "close": 100,
+            //         "high": 118,
+            //         "closeBuy": 0,
+            //         "low": 50,
+            //         "open": 59.38,
+            //         "closeCandlestick": 0,
+            //         "closeSell": 0,
+            //         "id": 12,
+            //         "idChart": 0,
+            //         "order": 1,
+            //         "orderAuto": 1,
+            //         "orderBuy": 0,
+            //         "orderSell": 0,
+            //         "ramdomNumberVol": 9,
+            //         "sell": 0,
+            //         "seller": 40606,
+            //         "symbol": "BTCUSDT",
+            //         "timestamp": 1687744560,
+            //         "volume": 75
+            //     },
+            //     {
+            //         "buy": 0,
+            //         "buyer": 39267,
+            //         "close": 100,
+            //         "high": 118,
+            //         "closeBuy": 0,
+            //         "low": 50,
+            //         "open": 59.38,
+            //         "closeCandlestick": 0,
+            //         "closeSell": 0,
+            //         "id": 13,
+            //         "idChart": 0,
+            //         "order": 1,
+            //         "orderAuto": 1,
+            //         "orderBuy": 0,
+            //         "orderSell": 0,
+            //         "ramdomNumberVol": 9,
+            //         "sell": 0,
+            //         "seller": 40606,
+            //         "symbol": "BTCUSDT",
+            //         "timestamp": 1687744560,
+            //         "volume": 75
+            //     },
+            //     {
+            //         "buy": 0,
+            //         "buyer": 39267,
+            //         "close": 100,
+            //         "high": 118,
+            //         "closeBuy": 0,
+            //         "low": 50,
+            //         "open": 59.38,
+            //         "closeCandlestick": 0,
+            //         "closeSell": 0,
+            //         "id": 14,
+            //         "idChart": 0,
+            //         "order": 1,
+            //         "orderAuto": 1,
+            //         "orderBuy": 0,
+            //         "orderSell": 0,
+            //         "ramdomNumberVol": 9,
+            //         "sell": 0,
+            //         "seller": 40606,
+            //         "symbol": "BTCUSDT",
+            //         "timestamp": 1687744560,
+            //         "volume": 75
+            //     },
+            //     {
+            //         "buy": 0,
+            //         "buyer": 39267,
+            //         "close": 100,
+            //         "high": 118,
+            //         "closeBuy": 0,
+            //         "low": 50,
+            //         "open": 59.38,
+            //         "closeCandlestick": 0,
+            //         "closeSell": 0,
+            //         "id": 15,
+            //         "idChart": 0,
+            //         "order": 1,
+            //         "orderAuto": 1,
+            //         "orderBuy": 0,
+            //         "orderSell": 0,
+            //         "ramdomNumberVol": 9,
+            //         "sell": 0,
+            //         "seller": 40606,
+            //         "symbol": "BTCUSDT",
+            //         "timestamp": 1687744560,
+            //         "volume": 75
+            //     },
+            // ]
 
             let [maxHighItem, minLowItem, volumeCandles] = [
                 { high: Number.MIN_SAFE_INTEGER },
@@ -105,7 +381,7 @@ export const getChartThunk =
             }
 
             // Tính filed height trong volumeCandles
-            volumeCandles = { ...volumeCandles, height: volumeCandles.max - volumeCandles.min }
+            volumeCandles.height = volumeCandles.max - volumeCandles.min
 
             const heighChart = maxHighItem.high - minLowItem.low
             maxHighItem.high = Number(maxHighItem.high) + (heighChart / 4)
@@ -115,28 +391,26 @@ export const getChartThunk =
             const sectionVolume = (data.height_svg - data.height_volume) / volumeCandles.height
 
             let [dPathMA5, dPathMA10] = ['', '']
+            const max_size = array.length - data.size_chart - 1
 
             candles = candles.map((item, index) => {
                 let highSVG = data.heigh_candle - ((item.high - minLowItem.low) * section) + data.paddingTop
                 let lowSVG = data.heigh_candle - ((item.low - minLowItem.low) * section) + data.paddingTop
                 let closeSVG = data.heigh_candle - ((item.close - minLowItem.low) * section) + data.paddingTop
                 let openSVG = data.heigh_candle - ((item.open - minLowItem.low) * section) + data.paddingTop
-                let volumeSVG = data.height_svg - (item.volume - volumeCandles.min) * sectionVolume
+                let volumeSVG = data.height_svg - (item.volume - volumeCandles.min) * sectionVolume - 3
 
                 let colorChart =
-                    Number(item.close) >= Number(item.open) ? colors.greenCan : colors.red3
+                    item.close >= item.open ? colors.greenCan : colors.red3
 
-                let [ma5, ma10, dma5, dma10] = [item.close, item.close, 0, 0]
-                if (index >= 10) {
-                    [ma5, ma10] = [0, 0]
-                    for (let i = index - 1; i >= (index - 10); i--) {
-                        const close = candles[i].close
-                        ma10 += close
-                        if (i >= (index - 5)) ma5 += close
-                    }
-                    ma5 /= 5
-                    ma10 /= 10
+                let [ma5, ma10, dma5, dma10] = [0, 0, 0, 0]
+                for (let i = (index + max_size); i > (index + max_size - 10); i--) {
+                    const close = array[i].close
+                    if ((index + max_size - i) < 5) ma5 += close
+                    ma10 += close
                 }
+                ma5 /= 5
+                ma10 /= 10
 
                 dma5 = data.heigh_candle - ((ma5 - minLowItem.low) * section) + data.paddingTop
                 dma10 = data.heigh_candle - ((ma10 - minLowItem.low) * section) + data.paddingTop
@@ -168,10 +442,12 @@ export const getChartThunk =
 
             return {
                 ...res,
+                array,
                 candles,
                 maxHighItem,
                 minLowItem,
                 heighValueChart,
+                volumeCandles,
                 dPathMA: {
                     ma5: dPathMA5,
                     ma10: dPathMA10,

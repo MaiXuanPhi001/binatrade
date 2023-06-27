@@ -27,4 +27,7 @@ export const colors = {
     red3: '#F36075',
     ma25: '#a5448c',
     ma99: '#7f70a0',
+    brown: '#383a3d',
+    brown2: '#7d7d7e',
+    sky: '#0a97e7'
 }

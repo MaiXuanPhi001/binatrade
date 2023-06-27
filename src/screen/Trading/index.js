@@ -6,6 +6,8 @@ import { useSelector } from "react-redux"
 import routes from "@util/routes"
 import { View } from "react-native"
 import Chart from "./Chart"
+import Controller from "./Controller"
+import LastResult from "./LastResult"
 
 const Trading = ({ navigation }) => {
     const screenChoose = useSelector(screenChooseUserSelector)
@@ -17,6 +19,8 @@ const Trading = ({ navigation }) => {
                 <View style={{ paddingHorizontal: 5 }}>
                     <Symbol />
                     <Chart />
+                    {/* <Controller /> */}
+                    {/* <LastResult /> */}
                 </View>
             }
         </KeyBoardSafe>
