@@ -1,4 +1,4 @@
-import { getChartThunk } from "@asyncThunk/tradingAsyncThunk";
+import { getAllOrderPendingUserThunk, getChartThunk, orderThunk } from "@asyncThunk/tradingAsyncThunk";
 import { createSlice } from "@reduxjs/toolkit";
 import { colors } from "@theme/colors";
 
@@ -7,6 +7,13 @@ const tradingSlice = createSlice({
     initialState: {
         trade: [],
         candles: [],
+        dots: [],
+        order: {
+            loading: false,
+            amount: 10,
+            profit: 19.5,
+        },
+        orderPending: [],
         maxHighItem: null,
         minLowItem: null,
         heighValueChart: 0,
@@ -22,6 +29,10 @@ const tradingSlice = createSlice({
         },
     },
     reducers: {
+        setOrder: (state, { payload }) => {
+            state.order.amount = payload.amount
+            state.order.profit = (state.order.amount * 0.95) + state.order.amount
+        },
         setLastChart: (state, { payload }) => {
             state.time = payload.timeSocket
             if (state.candles.length === 0) return
@@ -33,6 +44,7 @@ const tradingSlice = createSlice({
                 if (payload.id != lastChart.id) {
                     state.candles.push(payload)
                     state.trade.push(payload)
+                    state.dots.push(state.trade[state.trade.length - 2])
                     state.trade.shift()
                     candles = state.candles
                     candles.shift()
@@ -85,8 +97,8 @@ const tradingSlice = createSlice({
                     let closeSVG = payload.HEIGHT_CANLES - ((item.close - minLowItem.low) * section) + payload.PADDING_TOP
                     let openSVG = payload.HEIGHT_CANLES - ((item.open - minLowItem.low) * section) + payload.PADDING_TOP
                     let volumeSVG = payload.HEIGHT_SVG - (item.volume - volumeCandles.min) * sectionVolume - 3
-                    let colorChart =
-                        item.close >= item.open ? colors.greenCan : colors.red3
+                    let colorChart = item.close > item.open ? colors.greenCan :
+                        item.close < item.open ? colors.red3 : colors.white
 
                     let [ma5, ma10, dma5, dma10] = [0, 0, 0, 0]
                     for (let i = (index + max_size); i > (index + max_size - 10); i--) {
@@ -142,8 +154,8 @@ const tradingSlice = createSlice({
                 let closeSVG = payload.HEIGHT_CANLES - ((payload.close - state.minLowItem.low) * section) + payload.PADDING_TOP
                 let openSVG = payload.HEIGHT_CANLES - ((payload.open - state.minLowItem.low) * section) + payload.PADDING_TOP
                 let volumeSVG = payload.HEIGHT_SVG - (payload.volume - state.volumeCandles.min) * sectionVolume - 3
-                let colorChart =
-                    Number(payload.close) >= Number(payload.open) ? colors.greenCan : colors.red3
+                let colorChart = payload.close > payload.open ? colors.greenCan :
+                    payload.close < payload.open ? colors.red3 : colors.white
 
                 let [ma5, ma10] = [0, 0]
                 for (let i = (state.candles.length - 1); i >= (state.candles.length - 10); i--) {
@@ -176,6 +188,7 @@ const tradingSlice = createSlice({
                 if (candleItem.id != lastChart.id) {
                     state.candles.push(candleItem)
                     state.trade.push(candleItem)
+                    state.dots.push(state.trade[state.trade.length - 2])
                     state.candles.shift()
                     state.trade.shift()
 
@@ -197,7 +210,14 @@ const tradingSlice = createSlice({
                     state.trade[state.trade.length - 1] = candleItem
                 }
             }
-        }
+
+            if (state.dots.length > 60) {
+                state.dots = state.trade.slice(
+                    state.trade.length - 41,
+                    state.trade.length - 1,
+                )
+            }
+        },
     },
     extraReducers: builder => {
         builder
@@ -205,11 +225,26 @@ const tradingSlice = createSlice({
                 if (payload.status) {
                     state.trade = payload.array
                     state.candles = payload.candles
+                    state.dots = payload.dots
                     state.maxHighItem = payload.maxHighItem
                     state.minLowItem = payload.minLowItem
                     state.heighValueChart = payload.heighValueChart
                     state.volumeCandles = payload.volumeCandles
                     state.dPathMA = payload.dPathMA
+                }
+            })
+            .addCase(orderThunk.pending, (state, { payload }) => {
+                state.order.loading = true
+            })
+            .addCase(orderThunk.fulfilled, (state, { payload }) => {
+                state.order.loading = false
+                if (payload.error && payload.status) {
+
+                }
+            })
+            .addCase(getAllOrderPendingUserThunk.fulfilled, (state, { payload }) => {
+                if (payload.status) {
+                    state.orderPending = payload.data
                 }
             })
     }

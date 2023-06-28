@@ -18,6 +18,7 @@ const GAP_CANDLE = width * 4.55 / 100
 const WIDTH_CANDLE = width * 3.052 / 100
 const PADDING_TOP = 15
 const HEIGHT_VOLUME = HEIGHT_CANLES + PADDING_TOP + 40
+const WIDTH_CANDLES = width - (width - (GAP_CANDLE * (SIZE_CHART - 1))) + (WIDTH_CANDLE / 2)
 
 const Chart = () => {
     const dispatch = useDispatch()
@@ -80,6 +81,7 @@ const Chart = () => {
                     {...{
                         GAP_CANDLE,
                         WIDTH_CANDLE,
+                        WIDTH_CANDLES,
                         HEIGHT_SVG,
                         SIZE_CHART,
                         PADDING_TOP,

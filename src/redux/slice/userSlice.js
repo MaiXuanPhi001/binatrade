@@ -10,7 +10,7 @@ const userSlice = createSlice({
         profile: {},
         loading: false,
         sound: true,
-        screenChoose: routes.TRADE,
+        screenChoose: routes.TRADING,
         type: 'live',
         prizePool: [],
         kyc: ''

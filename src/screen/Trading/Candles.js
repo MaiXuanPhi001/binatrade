@@ -13,6 +13,7 @@ const HEIGH_SLIDER = 250
 const Candles = ({
     GAP_CANDLE,
     WIDTH_CANDLE,
+    WIDTH_CANDLES,
     HEIGHT_SVG,
     SIZE_CHART,
     PADDING_TOP,
@@ -42,6 +43,10 @@ const Candles = ({
 
             {candles.map((candle, index) => {
                 const x_point = GAP_CANDLE * index
+                let closeSVG = candle.closeSVG
+                if (Math.abs(candle.closeSVG - candle.openSVG) < 2) {
+                    closeSVG = candle.openSVG + 2
+                } 
 
                 return (
                     <G key={`G_Candle_Item ${candle.id}`}>
@@ -57,7 +62,7 @@ const Candles = ({
                         <Line
                             key={`G_Candles_Item_L2${candle.id}`}
                             x1={x_point}
-                            y1={candle.closeSVG}
+                            y1={closeSVG}
                             x2={x_point}
                             y2={candle.openSVG}
                             stroke={candle.colorChart}
@@ -92,7 +97,7 @@ const Candles = ({
                 key={`G_Candles_Line_Bottom_Volume`}
                 x1={0}
                 y1={HEIGHT_SVG - PADDING_BOTTOM}
-                x2={width - (width - (GAP_CANDLE * (SIZE_CHART - 1))) + (WIDTH_CANDLE / 2)}
+                x2={WIDTH_CANDLES}
                 y2={HEIGHT_SVG - PADDING_BOTTOM}
                 stroke={colors.brown2}
                 strokeWidth={0.5}
@@ -109,8 +114,8 @@ const Candles = ({
 
             <Rect
                 key={`G_Candles_Rect_Close`}
-                x={width - 100}
-                y={lastChart?.closeSVG - 15}
+                x={WIDTH_CANDLES + 5}
+                y={lastChart?.closeSVG - 20}
                 fill={colors.sky}
                 height={20}
                 width={200}
@@ -120,9 +125,9 @@ const Candles = ({
                 key={`G_LineX_Text_Close`}
                 x={width - 15}
                 fill={colors.white}
-                y={lastChart?.closeSVG}
+                y={lastChart?.closeSVG - 5}
                 textAnchor={'end'}
-                fontSize={13}
+                fontSize={12}
                 fontWeight={'bold'}
             >
                 {numberCommasDot(lastChart?.close?.toFixed(2))}
@@ -131,7 +136,7 @@ const Candles = ({
             <Rect
                 key={`G_Candles_Rect_Time`}
                 x={width - 60}
-                y={lastChart?.closeSVG + 8}
+                y={lastChart?.closeSVG + 2}
                 fill={colors.sky}
                 height={20}
                 width={50}
@@ -141,9 +146,9 @@ const Candles = ({
                 key={`G_LineX_Text_Time`}
                 x={width - 15}
                 fill={colors.white}
-                y={lastChart?.closeSVG + 23}
+                y={lastChart?.closeSVG + 16}
                 textAnchor={'end'}
-                fontSize={13}
+                fontSize={12}
                 fontWeight={'bold'}
             >
                 {`00:${timeCovert >= 10 ? timeCovert : '0' + timeCovert}`}

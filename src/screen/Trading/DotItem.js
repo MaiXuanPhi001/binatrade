@@ -1,4 +1,3 @@
-import { colors } from '@theme/colors'
 import { View } from 'react-native'
 
 const DotItem = ({ color, marginEnable }) => {
@@ -6,7 +5,7 @@ const DotItem = ({ color, marginEnable }) => {
         <View
             style={
                 {
-                    backgroundColor: colors.gray5,
+                    backgroundColor: color,
                     marginRight: marginEnable ? 10 : 0,
                     width: 15,
                     height: 15,

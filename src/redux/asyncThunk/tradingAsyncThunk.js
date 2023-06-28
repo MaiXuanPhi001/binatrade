@@ -1,6 +1,21 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
+import { getAllOrderPendingUser, order } from "@service/orderService"
 import { getChart } from "@service/tradeService"
 import { colors } from "@theme/colors"
+
+export const orderThunk = createAsyncThunk('trading/order', async (data) => {
+    const res = await order(data)
+    if (!res.error && res.status) {
+        return { ...res, type: data.type }
+    }
+    return res
+})
+
+export const getAllOrderPendingUserThunk =
+    createAsyncThunk('trading/getAllOrderPendingUser', async (type) => {
+        const res = await getAllOrderPendingUser(type)
+        return { ...res, type: type }
+    })
 
 export const getChartThunk =
     createAsyncThunk('trading/getChartThunk', async (data) => {
@@ -8,6 +23,7 @@ export const getChartThunk =
         if (res.status) {
             let array = res.data
             let candles = array.slice(array.length - data.size_chart, array.length)
+            const dots = array.slice(array.length - 41, array.length - 1)
 
             // let candles = [
             //     {
@@ -399,9 +415,8 @@ export const getChartThunk =
                 let closeSVG = data.heigh_candle - ((item.close - minLowItem.low) * section) + data.paddingTop
                 let openSVG = data.heigh_candle - ((item.open - minLowItem.low) * section) + data.paddingTop
                 let volumeSVG = data.height_svg - (item.volume - volumeCandles.min) * sectionVolume - 3
-
-                let colorChart =
-                    item.close >= item.open ? colors.greenCan : colors.red3
+                let colorChart = item.close > item.open ? colors.greenCan :
+                    item.close < item.open ? colors.red3 : colors.white
 
                 let [ma5, ma10, dma5, dma10] = [0, 0, 0, 0]
                 for (let i = (index + max_size); i > (index + max_size - 10); i--) {
@@ -444,6 +459,7 @@ export const getChartThunk =
                 ...res,
                 array,
                 candles,
+                dots,
                 maxHighItem,
                 minLowItem,
                 heighValueChart,
@@ -456,7 +472,6 @@ export const getChartThunk =
         }
         return res
     })
-
 
             // let candles = [
             //     {

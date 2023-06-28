@@ -3,17 +3,18 @@ import Box from '@commom/Box'
 import Btn from '@commom/Btn'
 import Img from '@commom/Img'
 import Txt from '@commom/Txt'
-import { numberCommasDot } from '@method/format'
+import { kFormatter, numberCommasDot } from '@method/format'
+import { navigate } from '@navigation/navigationRef'
 import { prizePoolUserSelector, profileSelector, typeUserSelector } from '@selector/userSelector'
 import { updateBalanceDemo } from '@service/userService'
 import userSlice from '@slice/userSlice'
+import routes from '@util/routes'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import Animated from 'react-native-reanimated'
 import { useDispatch, useSelector } from 'react-redux'
-import { kFormatter } from '@method/format'
 
 const Header = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -41,6 +42,10 @@ const Header = ({ navigation }) => {
       <Box row alignCenter>
         {/* Prize pool */}
         <Btn
+          onPress={() => {
+            navigate(routes.PRIZE_POOL)
+            dispatch(userSlice.actions.setScreenChoose(routes.PRIZE_POOL))
+          }}
           row
           alignCenter
           marginRight={10}

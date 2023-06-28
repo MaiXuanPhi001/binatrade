@@ -10,6 +10,7 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import DrawerCustom from './DrawerCustom'
 import Trading from '@screen/Trading'
+import PrizePool from '@screen/PrizePool'
 
 const Drawer = createDrawerNavigator()
 
@@ -40,6 +41,11 @@ const AuthNavigation = () => {
             id: 3,
             name: routes.SETTING,
             component: Setting,
+        },
+        {
+            id: 4,
+            name: routes.PRIZE_POOL,
+            component: PrizePool,
         },
     ]
 

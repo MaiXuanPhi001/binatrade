@@ -1,13 +1,19 @@
-import { tradeTradingSelector } from '@selector/tradingSelector'
 import { theme } from '@theme/index'
 import { Image, StyleSheet, Text, View } from 'react-native'
-import { useSelector } from 'react-redux'
 import DotItem from './DotItem'
+import { useSelector } from 'react-redux'
+import { dotsTradingSelector } from '@selector/tradingSelector'
+import { colors } from '@theme/colors'
 
 const LastResult = () => {
-    const trade = useSelector(tradeTradingSelector)
-    const dots = trade.slice(trade.length - 41, trade.length - 1)
+    const dots = useSelector(dotsTradingSelector)
 
+    let [redSum, greenSum] = [0, 0]
+    for (let i = 0 ; i < dots.length ; i++) {
+        (dots[i].close < dots[i].open) && redSum++
+        (dots[i].close > dots[i].open) && greenSum++
+    }
+    
     let postion = 0
 
     return (
@@ -18,14 +24,14 @@ const LastResult = () => {
                         source={require('@images/trade/arrows_up_green.png')}
                         style={styles.image}
                     />
-                    <Text style={styles.sumText}>{27}</Text>
+                    <Text style={styles.sumText}>{greenSum}</Text>
                 </View>
                 <View style={styles.sumContent}>
                     <Image
                         source={require('@images/trade/arrows_down_red.png')}
                         style={styles.image}
                     />
-                    <Text style={styles.sumText}>{26}</Text>
+                    <Text style={styles.sumText}>{redSum}</Text>
                 </View>
             </View>
 
@@ -39,10 +45,18 @@ const LastResult = () => {
                             postion = 0
                         }
                     }
+
+                    let color = '#33404e'
+
+                    if (dots[index]) {
+                        color = dots[index].close > dots[index].open ? colors.green2 :
+                            dots[index].close < dots[index].open ? colors.red3 : colors.white
+                    }
+
                     return (
                         <DotItem
                             key={index}
-                            color={item}
+                            color={color}
                             marginEnable={marginEnable}
                         />
                     )

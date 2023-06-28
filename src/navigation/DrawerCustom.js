@@ -29,8 +29,8 @@ const DrawerCustom = (props) => {
     }
 
     const logOut = async () => {
-        navigate(routes.TRADE)
-        dispatch(userSlice.actions.setScreenChoose(routes.TRADE))
+        navigate(routes.TRADING)
+        dispatch(userSlice.actions.setScreenChoose(routes.TRADING))
         await AsyncStorage.removeItem(contants.TOKEN)
         dispatch(userSlice.actions.signOut())
     }
@@ -40,10 +40,10 @@ const DrawerCustom = (props) => {
             id: 0,
             title: t('Trade'),
             image: require('@images/drawer/rocket1.png'),
-            choose: routes.TRADE === screenChoose,
+            choose: routes.TRADING === screenChoose,
             onPress: () => {
-                navigate(routes.TRADE)
-                dispatch(userSlice.actions.setScreenChoose(routes.TRADE))
+                navigate(routes.TRADING)
+                dispatch(userSlice.actions.setScreenChoose(routes.TRADING))
             },
         },
         {
