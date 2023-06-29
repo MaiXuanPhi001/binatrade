@@ -1,0 +1,1 @@
+export const winningHistoryFundingSelector = state => state.funding.winningHistory

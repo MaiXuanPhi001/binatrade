@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getProfileMegaPoolAfter } from "@service/fundingService";
 import { checKYCUser, getListUserF1, getParentToLevel, getProfile, getValueConfig, login } from "@service/userService";
 import contants from "@util/contants";
 
@@ -27,5 +28,10 @@ export const getValueConfigThunk = createAsyncThunk('user/getValueConfig', async
 
 export const checKYCUserThunk = createAsyncThunk('user/checKYCUser', async () => {
     const res = await checKYCUser()
+    return res
+})
+
+export const getProfileMegaPoolAfterThunk = createAsyncThunk('user/getProfileMegaPoolAfter', async () => {
+    const res = await getProfileMegaPoolAfter()
     return res
 })

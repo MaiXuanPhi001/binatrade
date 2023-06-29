@@ -1,7 +1,7 @@
-import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import contants from "@util/contants";
 import routes from "@util/routes";
-import { checKYCUserThunk, getProfileThunk, getValueConfigThunk, loginThunk } from "../asyncThunk/userAsyncThunk";
+import { checKYCUserThunk, getProfileMegaPoolAfterThunk, getProfileThunk, getValueConfigThunk, loginThunk } from "../asyncThunk/userAsyncThunk";
 
 const userSlice = createSlice({
     name: 'user',
@@ -13,7 +13,11 @@ const userSlice = createSlice({
         screenChoose: routes.TRADING,
         type: 'live',
         prizePool: [],
-        kyc: ''
+        kyc: '',
+        lastWinner: {
+            megaPoolAfter: 0,
+            userNameMegaPool: ''
+        }
     },
     reducers: {
         signOut: (state) => {
@@ -63,6 +67,11 @@ const userSlice = createSlice({
                     } else {
                         state.kyc = contants.NOT_KYC
                     }
+                }
+            })
+            .addCase(getProfileMegaPoolAfterThunk.fulfilled, (state, { payload }) => {
+                if (payload.status) {
+                    state.lastWinner = payload.data
                 }
             })
     }

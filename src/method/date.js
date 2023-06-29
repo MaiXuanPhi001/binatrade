@@ -35,3 +35,11 @@ export const getDate = () => {
 
     return `${year}-${month}-${day}`
 }
+
+export const getPreviousDay = (date = new Date()) => {
+    const previous = new Date(date.getTime());
+    previous.setDate(date.getDate() - 1);
+    const previousDate = `${previous.getDate()}/${previous.getMonth() + 1}/${previous.getFullYear()}`
+
+    return previousDate;
+}

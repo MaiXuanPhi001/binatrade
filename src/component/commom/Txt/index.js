@@ -12,6 +12,7 @@ const Txt = ({
     flexGrow,
     size = 14,
     color = 'white',
+    fontFamily,
     center,
     right,
     left,
@@ -72,7 +73,7 @@ const Txt = ({
         marginVertical && { marginVertical: getSize.m(marginVertical) },
         isNumber(lineHeight) && { lineHeight: getSize.m(lineHeight) },
         { fontSize: getSize.m(size) },
-        // { fontFamily: theme.fonts.fontFamily[fontType] },
+        fontFamily && { fontFamily: fontFamily },
         textDecorationLine && { textDecorationLine },
         { ...StyleSheet.flatten(style) },
     ];

@@ -64,3 +64,21 @@ export const transfer = async (data) => {
         return callFailed()
     }
 }
+
+export const getProfileMegaPoolAfter = async () => {
+    try {
+        const res = await axiosInstance.post('/api/binaryOption/getProfileMegaPoolAfter', {})
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}
+
+export const getListStreak = async (data) => {
+    try {
+        const res = await axiosInstance.post('/api/binaryOption/getListStreak', data)
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}
