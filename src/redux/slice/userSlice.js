@@ -17,7 +17,8 @@ const userSlice = createSlice({
         lastWinner: {
             megaPoolAfter: 0,
             userNameMegaPool: ''
-        }
+        },
+        theme: 'dark',
     },
     reducers: {
         signOut: (state) => {
@@ -36,6 +37,9 @@ const userSlice = createSlice({
         changeType: (state, { payload }) => {
             state.type = payload
         },
+        setTheme: (state, { payload }) => {
+            state.theme = payload
+        }
     },
     extraReducers: buidlder => {
         buidlder

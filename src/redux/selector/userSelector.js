@@ -15,3 +15,5 @@ export const prizePoolUserSelector = state => state.user.prizePool
 export const kycUserSelector = state => state.user.kyc
 
 export const lastWinnerUserSelector = state => state.user.lastWinner
+
+export const themeUserSelector = state => state.user.theme

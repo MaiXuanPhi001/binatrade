@@ -12,6 +12,7 @@ import contants from '@util/contants'
 import { useDispatch, useSelector } from 'react-redux'
 import { soundUserSelector } from '@selector/userSelector'
 import userSlice from '@slice/userSlice'
+import ChangeTheme from './ChangeTheme'
 
 const Setting = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -85,6 +86,8 @@ const Setting = ({ navigation }) => {
           value={sound}
         />
       </Box>
+
+      <ChangeTheme t={t}/>
     </KeyBoardSafe>
   )
 }

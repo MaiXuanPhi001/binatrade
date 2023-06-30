@@ -10,6 +10,7 @@ import styles from '@commom/Box/styles';
 const Img = ({
     source,
     resizeMode,
+    tintColor,
     flex,
     flexShrink,
     flexGrow,
@@ -89,6 +90,7 @@ const Img = ({
         maxHeight && { maxHeight },
         width && { width: width },
         height && { height: height },
+        tintColor && { tintColor },
         row && styles.row,
         column && styles.column,
         shadow && {
@@ -153,7 +155,8 @@ const Img = ({
         <Image
             source={source}
             resizeMode={resizeMode}
-            style={blockStyles} {...rest} />
+            style={blockStyles} {...rest}
+        />
     );
 };
 
