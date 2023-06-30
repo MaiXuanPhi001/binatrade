@@ -1,23 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import KeyBoardSafe from '@reuse/KeyBoardSafe'
-import Header from '@reuse/Header'
 import Box from '@commom/Box'
-import Txt from '@commom/Txt'
-import { useTranslation } from 'react-i18next'
-import Language from '@reuse/Language'
 import Img from '@commom/Img'
-import { Switch } from 'react-native'
+import Txt from '@commom/Txt'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import contants from '@util/contants'
-import { useDispatch, useSelector } from 'react-redux'
-import { soundUserSelector } from '@selector/userSelector'
+import Header from '@reuse/Header'
+import KeyBoardSafe from '@reuse/KeyBoardSafe'
+import Language from '@reuse/Language'
+import { soundUserSelector, themeUserSelector } from '@selector/userSelector'
 import userSlice from '@slice/userSlice'
+import { colors } from '@theme/colors'
+import contants from '@util/contants'
+import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Switch } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 import ChangeTheme from './ChangeTheme'
 
 const Setting = ({ navigation }) => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const sound = useSelector(soundUserSelector)
+  const COLOR = colors[useSelector(themeUserSelector)]
 
   useEffect(() => {
     handleCheckSound()
@@ -34,10 +36,12 @@ const Setting = ({ navigation }) => {
   }
 
   return (
-    <KeyBoardSafe paddingBottom={0}>
+    <KeyBoardSafe paddingBottom={0} bg={COLOR.background}>
       <Header navigation={navigation} />
       <Box padding={10} zIndex={1}>
-        <Txt size={20} bold>{t('Setting')}</Txt>
+        <Txt size={20} bold color={COLOR.white}>
+          {t('Setting')}
+        </Txt>
         <Box
           row
           alignCenter
@@ -50,8 +54,11 @@ const Setting = ({ navigation }) => {
               width={25}
               height={25}
               marginRight={5}
+              tintColor={COLOR.white}
             />
-            <Txt bold size={16}>{t('Language')}</Txt>
+            <Txt bold size={16} color={COLOR.white}>
+              {t('Language')}
+            </Txt>
           </Box>
 
           <Language marginRight={0} />
@@ -74,8 +81,11 @@ const Setting = ({ navigation }) => {
             width={25}
             height={25}
             marginRight={10}
+            tintColor={COLOR.white}
           />
-          <Txt bold size={16}>{t('Sound')}</Txt>
+          <Txt bold size={16} color={COLOR.white}>
+            {t('Sound')}
+            </Txt>
         </Box>
 
         <Switch
@@ -87,7 +97,7 @@ const Setting = ({ navigation }) => {
         />
       </Box>
 
-      <ChangeTheme t={t}/>
+      <ChangeTheme t={t} />
     </KeyBoardSafe>
   )
 }

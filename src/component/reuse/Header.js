@@ -5,9 +5,10 @@ import Img from '@commom/Img'
 import Txt from '@commom/Txt'
 import { kFormatter, numberCommasDot } from '@method/format'
 import { navigate } from '@navigation/navigationRef'
-import { prizePoolUserSelector, profileSelector, typeUserSelector } from '@selector/userSelector'
+import { prizePoolUserSelector, profileSelector, themeUserSelector, typeUserSelector } from '@selector/userSelector'
 import { updateBalanceDemo } from '@service/userService'
 import userSlice from '@slice/userSlice'
+import { colors } from '@theme/colors'
 import routes from '@util/routes'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -23,6 +24,7 @@ const Header = ({ navigation }) => {
   const type = useSelector(typeUserSelector)
   const profile = useSelector(profileSelector)
   const prizePool = useSelector(prizePoolUserSelector)
+  const COLOR = colors[useSelector(themeUserSelector)]
 
   const handleUpdateBalanceDemo = async () => {
     const res = await updateBalanceDemo()
@@ -36,6 +38,7 @@ const Header = ({ navigation }) => {
           source={require('@images/burger-bar.png')}
           width={25}
           height={25}
+          tintColor={COLOR.white}
         />
       </Btn>
 

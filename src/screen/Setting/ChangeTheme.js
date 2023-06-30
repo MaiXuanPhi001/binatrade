@@ -17,17 +17,25 @@ const ChangeTheme = ({ t }) => {
         dispatch(userSlice.actions.setTheme(payload))
     }
 
+    const color = colors[theme]
+
     return (
         <Box row alignCenter justifySpaceBetween paddingHorizontal={10} marginTop={20}>
             <Box row alignCenter>
-                <Img  
+                <Img
                     source={require('@images/profile/palette.png')}
-                    tintColor={colors.white}
+                    tintColor={color.white}
                     width={25}
                     height={25}
                     marginRight={10}
                 />
-                <Txt bold size={16}>{t(textTheme)}</Txt>
+                <Txt
+                    bold
+                    size={16}
+                    color={color.white}
+                >
+                    {t(textTheme)}
+                </Txt>
             </Box>
 
 

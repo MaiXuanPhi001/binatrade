@@ -9,10 +9,14 @@ import Animated from 'react-native-reanimated'
 import { StyleSheet } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import contants from '@util/contants'
+import { colors } from '@theme/colors'
+import { useSelector } from 'react-redux'
+import { themeUserSelector } from '@selector/userSelector'
 
-const Language = ({ marginRight = 20, alignSelf = 'flex-end'}) => {
+const Language = ({ marginRight = 20, alignSelf = 'flex-end' }) => {
     const { t, i18n } = useTranslation()
     const [drop, setDrop] = useState(false)
+    const COLOR = colors[useSelector(themeUserSelector)]
 
     const languages = [
         {
@@ -61,16 +65,17 @@ const Language = ({ marginRight = 20, alignSelf = 'flex-end'}) => {
                     height={25}
                     marginRight={5}
                 />
-                <Txt size={17}>{t(languageChoose.title)}</Txt>
+                <Txt size={17} color={COLOR.white}>{t(languageChoose.title)}</Txt>
             </Btn>
             {drop &&
-                <Animated.View style={[styles.animatedView]}>
+                <Animated.View style={[styles.animatedView, { backgroundColor: COLOR.black2 }]}>
                     {languages.map(language =>
                         <Item
                             key={language.value}
                             language={language}
                             t={t}
                             i18n={i18n}
+                            COLOR={COLOR}
                             onChangeValue={handleChangeValue}
                         />
                     )}
@@ -80,7 +85,7 @@ const Language = ({ marginRight = 20, alignSelf = 'flex-end'}) => {
     )
 }
 
-const Item = ({ language, t, i18n, onChangeValue }) => {
+const Item = ({ language, t, i18n, onChangeValue, COLOR }) => {
     return (
         <Btn
             onPress={() => onChangeValue(language.value)}
@@ -88,7 +93,7 @@ const Item = ({ language, t, i18n, onChangeValue }) => {
             justifyStart
             paddingVertical={5}
             paddingHorizontal={7}
-            backgroundColor={i18n.language === language.value && 'black'}
+            backgroundColor={i18n.language === language.value && COLOR.black}
         >
             <Img
                 source={language.image}
@@ -96,7 +101,9 @@ const Item = ({ language, t, i18n, onChangeValue }) => {
                 height={25}
                 marginRight={5}
             />
-            <Txt size={17}>{t(language.title)}</Txt>
+            <Txt size={17} color={COLOR.white}>
+                {t(language.title)}
+            </Txt>
         </Btn>
     )
 }
@@ -112,6 +119,5 @@ const styles = StyleSheet.create({
         marginTop: 10,
         position: 'absolute',
         top: 35,
-        backgroundColor: theme.colors.background
     }
 })

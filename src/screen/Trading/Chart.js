@@ -74,6 +74,7 @@ const Chart = () => {
                     {...{
                         HEIGHT_CANLES,
                         PADDING_TOP,
+                        WIDTH_CANDLES,
                     }}
                 />
 

@@ -1,6 +1,21 @@
 export const colors = {
     dark: {
-        
+        white: 'white',
+        black: 'black',
+        black2: '#011022',
+        background: '#011022',
+        backgroundProfile: '#011022',
+        border1: '#33404e',
+        border2: '#434343',
+    },
+    light: {
+        white: 'black',
+        black: 'white',
+        black2: '#82898f',
+        background: 'white',
+        backgroundProfile: 'white',
+        border1: '#b6bdc7',
+        border2: '#ebecf0',
     },
     white: 'white',
     black: 'black',

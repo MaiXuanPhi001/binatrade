@@ -1,23 +1,25 @@
-import { View, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
-import { theme } from '@theme/index'
-import Txt from '@commom/Txt'
 import Box from '@commom/Box'
 import Img from '@commom/Img'
-import ButtonUser from '@reuse/ButtonUser'
-import { useTranslation } from 'react-i18next'
 import Input from '@commom/Input'
-import { useSelector } from 'react-redux'
-import { profileSelector } from '@selector/userSelector'
-import ImagePicker from 'react-native-image-crop-picker';
-import ModalImage from './ModalImage'
+import Txt from '@commom/Txt'
+import ButtonUser from '@reuse/ButtonUser'
+import { profileSelector, themeUserSelector } from '@selector/userSelector'
+import { colors } from '@theme/colors'
+import { theme } from '@theme/index'
 import contants from '@util/contants'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { StyleSheet, View } from 'react-native'
+import ImagePicker from 'react-native-image-crop-picker'
+import { useSelector } from 'react-redux'
+import ModalImage from './ModalImage'
 
 const Infomation = () => {
     const { t } = useTranslation()
     const profile = useSelector(profileSelector)
     const [image, setImage] = useState('')
     const [showModalImg, setShowModalImg] = useState(false)
+    const COLOR = colors[useSelector(themeUserSelector)]
 
     const handleOpenCamera = () => {
         ImagePicker.openPicker({
@@ -32,8 +34,10 @@ const Infomation = () => {
     }
 
     return (
-        <View style={styles.container}>
-            <Txt bold color={theme.colors.blueText} size={18}>{t('Profile')}</Txt>
+        <View style={[styles.container, { borderColor: COLOR.border1 }]}>
+            <Txt bold color={theme.colors.blueText} size={18}>
+                {t('Profile')}
+            </Txt>
             <Box
                 row
                 justifySpaceBetween
@@ -43,10 +47,10 @@ const Infomation = () => {
                 <Box
                     radius={50}
                     borderWidth={2}
-                    borderColor={theme.colors.gray5}
+                    borderColor={COLOR.border1}
                 >
                     <Img
-                        source={{uri: contants.HOSTING + profile.avatar}}
+                        source={{ uri: contants.HOSTING + profile.avatar }}
                         width={60}
                         height={60}
                         radius={50}
@@ -62,23 +66,23 @@ const Infomation = () => {
                 />
             </Box>
             <Box marginTop={10}>
-                <Txt bold>Email</Txt>
+                <Txt bold color={COLOR.white}>Email</Txt>
                 <Input
                     value={profile.email}
                     disabled={false}
-                    style={styles.input}
+                    style={[styles.input, { borderColor: COLOR.border2 }]}
                 />
             </Box>
 
             <Box marginTop={10}>
-                <Txt bold>{t('Username')}</Txt>
+                <Txt bold color={COLOR.white}>{t('Username')}</Txt>
                 <Input
                     value={profile.userName}
                     disabled={false}
-                    style={styles.input}
+                    style={[styles.input, { borderColor: COLOR.border2 }]}
                 />
             </Box>
-            <ModalImage 
+            <ModalImage
                 show={showModalImg}
                 setShow={setShowModalImg}
                 path={image}
@@ -93,17 +97,16 @@ export default Infomation
 export const styles = StyleSheet.create({
     container: {
         borderWidth: 1,
-        borderColor: theme.colors.gray5,
+        borderColor: colors.gray3,
         padding: 10,
         borderRadius: 10,
     },
     input: {
         borderWidth: 1,
-        backgroundColor: theme.colors.blue2,
         color: '#56606c',
         padding: 10,
         borderRadius: 5,
-        borderColor: theme.colors.gray4,
+        borderColor: colors.gray3,
         marginTop: 5,
     }
 })
