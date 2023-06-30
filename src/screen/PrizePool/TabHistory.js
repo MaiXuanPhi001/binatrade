@@ -2,10 +2,13 @@ import Box from '@commom/Box'
 import Btn from '@commom/Btn'
 import Txt from '@commom/Txt'
 import { colors } from '@theme/colors'
+import { useTranslation } from 'react-i18next'
 
 const SIZE_TEXT = 17
 
 const TabHistory = ({ tab, setTab }) => {
+    const { t } = useTranslation()
+    
     return (
         <Box
             row
@@ -26,7 +29,7 @@ const TabHistory = ({ tab, setTab }) => {
                     bold
                     color={tab === 'winning' ? colors.sky : colors.white}
                 >
-                    Winning History
+                    {t('Winning History')}   
                 </Txt>
             </Btn>
 
@@ -42,7 +45,7 @@ const TabHistory = ({ tab, setTab }) => {
                     bold
                     color={tab === 'your' ? colors.sky : colors.white}
                 >
-                    Your history
+                    {t('Your history')}
                 </Txt>
             </Btn>
         </Box>

@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
+import { loginThunk } from '@asyncThunk/userAsyncThunk'
+import { navigate } from '@navigation/navigationRef'
 import Banner from '@reuse/Banner'
-import Form from './Form'
-import Footer from './Footer'
-import { useDispatch } from 'react-redux'
-import { useTranslation } from 'react-i18next'
 import KeyBoardSafe from '@reuse/KeyBoardSafe'
 import Language from '@reuse/Language'
-import { navigate } from '@navigation/navigationRef'
-import routes from '@util/routes'
-import { loginThunk } from '@asyncThunk/userAsyncThunk'
-import { Alert, NativeModules } from 'react-native'
-import { theme } from '@theme/index'
 import { checkUser2fa } from '@service/userService'
+import { theme } from '@theme/index'
+import routes from '@util/routes'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Alert } from 'react-native'
+import { useDispatch } from 'react-redux'
+import Footer from './Footer'
+import Form from './Form'
 import ModalOTP from './ModalOTP'
 
 const Login = () => {
@@ -19,7 +19,7 @@ const Login = () => {
 
   const { t } = useTranslation()
 
-  const [email, setEmail] = useState('maixuanphi555@gmail.com')
+  const [email, setEmail] = useState('test@gmail.com')
   const [otp, setOtp] = useState('')
   const [password, setPassword] = useState('123123')
   const [isShowModalOTP, setShowModalOTP] = useState(false)

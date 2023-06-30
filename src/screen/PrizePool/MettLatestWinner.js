@@ -7,20 +7,22 @@ import { lastWinnerUserSelector } from '@selector/userSelector'
 import { colors } from '@theme/colors'
 import { fonts } from '@theme/fonts'
 import { width } from '@util/responsive'
+import { useTranslation } from 'react-i18next'
 import { StyleSheet } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { useSelector } from 'react-redux'
 
 const MettLatestWinner = () => {
+    const { t } = useTranslation()
     const latestWinner = useSelector(lastWinnerUserSelector)
 
     return (
         <Box alignCenter>
             <Txt marginTop={80} size={15} bold color='#55577d'>
-                Meet The Lastest Winners
+                {t('Meet The Lastest Winners')}
             </Txt>
             <Txt marginTop={15} fontFamily={fonts.Frizon} size={25}>
-                LATEST WINNERS
+                {t('LATEST WINNERS')}
             </Txt>
 
             <Box marginTop={40} alignCenter>
@@ -30,7 +32,9 @@ const MettLatestWinner = () => {
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 0 }}
                 >
-                    <Txt bold color={colors.yellow3} size={13}>MEGA JACKPOT WINNER</Txt>
+                    <Txt bold color={colors.yellow3} size={13}>
+                        MEGA JACKPOT WINNER
+                    </Txt>
                 </LinearGradient>
                 <LinearGradient
                     colors={['#1d111c', '#794900', '#3b2900']}

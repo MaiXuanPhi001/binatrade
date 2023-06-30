@@ -1,6 +1,5 @@
 import { callFailed, callSuccess } from "@method/requestResult"
 import axiosInstance from "./axios"
-import { fetchPOST, fetchUploadImg } from "./fetchConfig"
 
 export const createWallet = async (data) => {
     try {
@@ -77,6 +76,24 @@ export const getProfileMegaPoolAfter = async () => {
 export const getListStreak = async (data) => {
     try {
         const res = await axiosInstance.post('/api/binaryOption/getListStreak', data)
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}
+
+export const getPrizePoolUser = async (data) => {
+    try {
+        const res = await axiosInstance.post('/api/binaryOption/getPrizePoolUser', data)
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}
+
+export const confirmPrizePoolUser = async (data) => {
+    try {
+        const res = await axiosInstance.post('/api/binaryOption/confirmPrizePoolUser', data)
         return callSuccess(res)
     } catch (error) {
         return callFailed()

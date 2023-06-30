@@ -6,10 +6,14 @@ import Img from '@commom/Img'
 import Txt from '@commom/Txt'
 import { useTranslation } from 'react-i18next'
 
-const NoDataTable = () => {
+const NoDataTable = ({ style }) => {
     const { t } = useTranslation()
     return (
-        <Box width={width} alignCenter>
+        <Box
+            style={style}
+            width={width}
+            alignCenter
+        >
             <Img
                 source={require('@images/option/empty-box.png')}
                 width={50}

@@ -1,4 +1,4 @@
-import { getListStreakThunk } from '@asyncThunk/fundingAsyncThunk'
+import { getListStreakThunk, getPrizePoolUserThunk } from '@asyncThunk/fundingAsyncThunk'
 import Box from '@commom/Box'
 import { useEffect, useState } from 'react'
 import { ImageBackground } from 'react-native'
@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import MettLatestWinner from './MettLatestWinner'
 import TabHistory from './TabHistory'
 import WinningHistory from './WinningHistory'
+import YourHistory from './YourHistory'
 
 const HistoryLatestWinner = () => {
   const dispatch = useDispatch()
@@ -16,10 +17,12 @@ const HistoryLatestWinner = () => {
   }, [])
 
   const handleGetDataFromApi = async () => {
-    await dispatch(getListStreakThunk({
-      limit: 10,
-      page: 1,
-    }))
+    const req = {
+        limit: 10,
+        page: 1,
+    }
+    await dispatch(getListStreakThunk(req))
+    await dispatch(getPrizePoolUserThunk(req))
   }
 
   return (
@@ -31,7 +34,10 @@ const HistoryLatestWinner = () => {
         <MettLatestWinner />
         <Box paddingHorizontal={15}>
           <TabHistory {...{ tab, setTab }} />
-          <WinningHistory />
+          {
+            tab === 'winning' ?
+              <WinningHistory /> : <YourHistory />  
+          }
         </Box>
       </ImageBackground>
     </Box>

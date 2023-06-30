@@ -1,6 +1,7 @@
 const contants = {
-    HOSTING: 'https://binatrade.net',
-    // HOSTING: 'https://trade.dk-tech.vn',
+    // HOSTING: 'https://binatrade.net',
+    HOSTING: 'https://trade.dk-tech.vn',
+    // HOSTING: 'https://bo.dk-tech.vn',
     TOKEN: 'token',
     TIME_CRYPTO: 'timeCrypto',
     CRYPTO_ONE: 'cryptoOne',
