@@ -19,7 +19,7 @@ const Warning = ({ text }) => {
                 width={20}
                 height={20}
                 marginRight={10}
-                tintColor={COLOR.white}
+                tintColor={COLOR.iconWarning}
             />
             <Txt color={COLOR.white}>
                 {text}

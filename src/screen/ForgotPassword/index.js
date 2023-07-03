@@ -6,15 +6,17 @@ import ButtonUser from '@reuse/ButtonUser'
 import KeyBoardSafe from '@reuse/KeyBoardSafe'
 import Language from '@reuse/Language'
 import TextError from '@reuse/TextError'
+import { themeUserSelector } from '@selector/userSelector'
 import { sendMailForgotPassword } from '@service/userService'
 import userSlice from '@slice/userSlice'
+import { colors } from '@theme/colors'
 import { theme } from '@theme/index'
 import routes from '@util/routes'
 import React from 'react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const ForgotPassword = () => {
   const dispacth = useDispatch()
@@ -22,6 +24,8 @@ const ForgotPassword = () => {
 
   const [email, setEmail] = useState('')
   const [checkForm, setCheckForm] = useState(false)
+
+  const COLOR = colors[useSelector(themeUserSelector)]
 
   const handleForgotPassword = async () => {
     if (email.trim() == '') {
@@ -35,7 +39,7 @@ const ForgotPassword = () => {
   }
 
   return (
-    <KeyBoardSafe bg={theme.colors.drawer}>
+    <KeyBoardSafe bg={COLOR.backgroundProfile}>
       <Language />
       <Banner
         firtText={'ForgotPass'}
@@ -47,6 +51,9 @@ const ForgotPassword = () => {
         <Input
           value={email}
           onChangeText={setEmail}
+          color={COLOR.white}
+          colorIcon={COLOR.white}
+          hintColor={COLOR.white4}
           borderColor={theme.colors.grayBorderInput}
           borderWidth={1}
           height={50}

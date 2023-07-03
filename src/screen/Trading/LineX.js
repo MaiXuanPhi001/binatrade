@@ -1,5 +1,6 @@
 import { numberWithCommas } from '@method/format'
 import { heighValueChartTradingSelector, maxHighItemTradingSelector } from '@selector/tradingSelector'
+import { themeUserSelector } from '@selector/userSelector'
 import { colors } from '@theme/colors'
 import { G, Line, Text as TextSVG } from 'react-native-svg'
 import { useSelector } from 'react-redux'
@@ -13,6 +14,7 @@ const LineX = ({
 }) => {
     const maxHighItem = useSelector(maxHighItemTradingSelector)
     const heighValueChart = useSelector(heighValueChartTradingSelector)
+    const COLOR = colors[useSelector(themeUserSelector)]
 
     return (
         <G key={`G_LineX`}>
@@ -35,7 +37,7 @@ const LineX = ({
                         <TextSVG
                             key={`G_LineX_Text${index}`}
                             x={WIDTH_CANDLES + 10}
-                            fill={colors.white}
+                            fill={COLOR.white}
                             y={gap_x_line}
                             textAnchor={'start'}
                             fontSize={12}

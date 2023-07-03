@@ -26,8 +26,8 @@ const UpdateInfomation = () => {
             <Warning text={t('Please fill in the information correctly. Once the identity verification is complete, the information cannot be edited anymore.')} />
 
             {kyc === '' ? <LoadingWhite /> :
-                kyc === contants.KYC_APPROVED ? <KYCSuccess /> :
-                    kyc === contants.KYC_PENDING ? <KYCPending /> : <Kyc />}
+                kyc === contants.KYC_APPROVED ? <KYCSuccess COLOR={COLOR} /> :
+                    kyc === contants.KYC_PENDING ? <KYCPending COLOR={COLOR} /> : <Kyc COLOR={COLOR} />}
         </View>
     )
 }

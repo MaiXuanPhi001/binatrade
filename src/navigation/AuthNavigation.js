@@ -10,6 +10,7 @@ import routes from '@util/routes'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import DrawerCustom from './DrawerCustom'
+import Orders from '@screen/Orders'
 
 const Drawer = createDrawerNavigator()
 
@@ -28,21 +29,26 @@ const AuthNavigation = () => {
         },
         {
             id: 1,
+            name: routes.ORDERS,
+            component: Orders,
+        },
+        {
+            id: 2,
             name: routes.WALLET,
             component: Wallet,
         },
         {
-            id: 2,
+            id: 3,
             name: routes.PROFILE,
             component: Profile,
         },
         {
-            id: 3,
+            id: 4,
             name: routes.SETTING,
             component: Setting,
         },
         {
-            id: 4,
+            id: 5,
             name: routes.PRIZE_POOL,
             component: PrizePool,
         },

@@ -5,10 +5,11 @@ import Img from '@commom/Img'
 import Txt from '@commom/Txt'
 import { kFormatter, numberCommasDot } from '@method/format'
 import { navigate } from '@navigation/navigationRef'
-import { prizePoolUserSelector, profileSelector, themeUserSelector, typeUserSelector } from '@selector/userSelector'
+import { prizePoolUserSelector, profileSelector, screenChooseUserSelector, themeUserSelector, typeUserSelector } from '@selector/userSelector'
 import { updateBalanceDemo } from '@service/userService'
 import userSlice from '@slice/userSlice'
 import { colors } from '@theme/colors'
+import contants from '@util/contants'
 import routes from '@util/routes'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -25,11 +26,14 @@ const Header = ({ navigation }) => {
   const profile = useSelector(profileSelector)
   const prizePool = useSelector(prizePoolUserSelector)
   const COLOR = colors[useSelector(themeUserSelector)]
+  const screenChoose = useSelector(screenChooseUserSelector)
 
   const handleUpdateBalanceDemo = async () => {
     const res = await updateBalanceDemo()
     res.status && dispatch(await getProfileThunk())
   }
+
+  const sceen = screenChoose === routes.PRIZE_POOL ? true : false
 
   return (
     <View style={styles.container}>
@@ -38,7 +42,7 @@ const Header = ({ navigation }) => {
           source={require('@images/burger-bar.png')}
           width={25}
           height={25}
-          tintColor={COLOR.white}
+          tintColor={sceen ? colors.white : COLOR.white}
         />
       </Btn>
 

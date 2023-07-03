@@ -6,9 +6,13 @@ import { navigate } from '@navigation/navigationRef'
 import routes from '@util/routes'
 import ButtonUser from '@reuse/ButtonUser'
 import { useTranslation } from 'react-i18next'
+import { colors } from '@theme/colors'
+import { useSelector } from 'react-redux'
+import { themeUserSelector } from '@selector/userSelector'
 
 const Footer = ({ onLogin }) => {
     const { t } = useTranslation()
+    const COLOR = colors[useSelector(themeUserSelector)]
 
     return (
         <Box
@@ -18,7 +22,7 @@ const Footer = ({ onLogin }) => {
         >
             <Box width={'100%'} alignEnd marginVertical={20}>
                 <Btn onPress={() => navigate(routes.FORGOT_PASSWORD)}>
-                    <Txt>{t('ForgotPass')}</Txt>
+                    <Txt color={COLOR.white}>{t('ForgotPass')}</Txt>
                 </Btn>
             </Box>
 

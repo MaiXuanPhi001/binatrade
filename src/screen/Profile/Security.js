@@ -2,8 +2,9 @@ import Box from '@commom/Box'
 import Txt from '@commom/Txt'
 import ButtonLiner from '@reuse/ButtonLiner'
 import ButtonUser from '@reuse/ButtonUser'
-import { profileSelector } from '@selector/userSelector'
+import { profileSelector, themeUserSelector } from '@selector/userSelector'
 import { generateOTPToken } from '@service/userService'
+import { colors } from '@theme/colors'
 import { theme } from '@theme/index'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -17,6 +18,8 @@ import ModalQRCode2FA from './ModalQRCode2FA'
 const Security = () => {
     const { t } = useTranslation()
     const profile = useSelector(profileSelector)
+    const COLORS = colors[useSelector(themeUserSelector)]
+
     const [OTPToken, setOTPToken] = useState({})
     const [isShowModal2FA, setShowModal2FA] = useState(false)
     const [isShowModalAuth2FA, setShowModalAuth2FA] = useState(false)
@@ -50,13 +53,15 @@ const Security = () => {
     }
 
     return (
-        <View style={[styles.container, { marginTop: 20 }]}>
+        <View style={[styles.container, { marginTop: 20, borderColor: COLORS.border1 }]}>
             <Txt bold color={theme.colors.blueText} size={18}>{t('Security')}</Txt>
 
             <Box marginTop={10}>
                 <Box row justifySpaceBetween alignCenter>
                     <Box width={'60%'}>
-                        <Txt bold size={16}>{t('Password')}</Txt>
+                        <Txt bold size={16} color={COLORS.white}>
+                            {t('Password')}
+                        </Txt>
                         {!twofa && <Txt color={'red'}>{t('* You must turn on 2FA to change password')}</Txt>}
                     </Box>
                     <ButtonUser
@@ -70,8 +75,12 @@ const Security = () => {
 
                 <Box row justifySpaceBetween alignCenter marginTop={20}>
                     <Box width={'60%'}>
-                        <Txt bold size={16}>{t('2FA')}</Txt>
-                        <Txt>{t('Required to withdraw or update the security')}</Txt>
+                        <Txt bold size={16} color={COLORS.white}>
+                            {t('2FA')}
+                        </Txt>
+                        <Txt color={COLORS.white}>
+                            {t('Required to withdraw or update the security')}
+                        </Txt>
                     </Box>
                     <ButtonLiner
                         onPress={handleShowModal}
@@ -83,7 +92,7 @@ const Security = () => {
                     />
                 </Box>
             </Box>
-            <ModalChangePassword 
+            <ModalChangePassword
                 show={isShowModalChangePassword}
                 setShow={setShowModalChangePassword}
                 t={t}

@@ -43,3 +43,16 @@ export const getPreviousDay = (date = new Date()) => {
 
     return previousDate;
 }
+
+export function convertDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const hour = date.getHours()
+    const minutes = date.getMinutes()
+    const second = date.getSeconds()
+    const ampm = hour % 12 === 0 ? 'AM' : 'PM';
+  
+    return `${month}/${day}/${year}, ${hour}:${minutes}:${second} ${ampm}`;
+  }

@@ -3,7 +3,7 @@ import Img from '@commom/Img'
 import Txt from '@commom/Txt'
 import { useTranslation } from 'react-i18next'
 
-const KYCSuccess = () => {
+const KYCSuccess = ({ COLOR }) => {
     const { t } = useTranslation()
 
     return (
@@ -11,7 +11,7 @@ const KYCSuccess = () => {
             row
             alignCenter
             marginTop={20}
-            backgroundColor={'#162312'}
+            backgroundColor={COLOR.kycSuccess}
             padding={10}
         >
             <Img

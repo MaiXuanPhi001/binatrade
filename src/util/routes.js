@@ -26,7 +26,8 @@ const routes = {
     WALLET: 'Wallet',
     TRADE: 'Trade',
     TRADING: 'Trading',
-    PRIZE_POOL: 'PrizePool'
+    PRIZE_POOL: 'PrizePool',
+    ORDERS: 'Orders',
 }
 
 export default routes

@@ -1,14 +1,15 @@
 import { orderTradingSelector } from '@selector/tradingSelector'
+import { themeUserSelector } from '@selector/userSelector'
 import tradingSlice from '@slice/tradingSlice'
-import { theme } from '@theme/index'
+import { colors } from '@theme/colors'
 import { width } from '@util/responsive'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
 const Amount = () => {
     const dispatch = useDispatch()
-    // const amount = useSelector(amountTradeSelector)
     const order = useSelector(orderTradingSelector)
+    const COLOR = colors[useSelector(themeUserSelector)]
 
     const handleChangeAmount = (action) => {
         let price = action === '+' ? order.amount + 5 : order.amount - 5
@@ -22,7 +23,7 @@ const Amount = () => {
         <View style={styles.container}>
             <TouchableOpacity
                 onPress={() => handleChangeAmount('-')}
-                style={styles.button}
+                style={[styles.button, { backgroundColor: COLOR.border1 }]}
             >
                 <Text style={styles.textButton}>-</Text>
             </TouchableOpacity>
@@ -35,16 +36,16 @@ const Amount = () => {
                         amount: Number(text),
                     }))}
                     keyboardType={'decimal-pad'}
-                    style={styles.input}
+                    style={[styles.input, {backgroundColor: COLOR.white3}]}
                 />
-                <View style={styles.dollarContainer}>
-                    <Text style={styles.dollar}>$</Text>
+                <View style={[styles.dollarContainer, { borderColor: colors.gray2 }]}>
+                    <Text style={[styles.dollar, colors.white]}>$</Text>
                 </View>
             </View>
 
             <TouchableOpacity
                 onPress={() => handleChangeAmount('+')}
-                style={styles.button}
+                style={[styles.button, { backgroundColor: COLOR.border1 }]}
             >
                 <Text style={styles.textButton}>+</Text>
             </TouchableOpacity>
@@ -57,7 +58,6 @@ export default Amount
 const styles = StyleSheet.create({
     dollar: {
         fontWeight: 'bold',
-        color: 'white',
         fontSize: 18,
     },
     dollarContainer: {
@@ -66,11 +66,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderWidth: 1,
-        borderColor: theme.colors.gray,
         borderRadius: 5,
     },
     input: {
-        backgroundColor: 'white',
         borderRadius: 7,
         height: '100%',
         paddingHorizontal: 10,
@@ -91,7 +89,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     button: {
-        backgroundColor: theme.colors.gray5,
         flex: 1,
         height: '100%',
         alignItems: 'center',

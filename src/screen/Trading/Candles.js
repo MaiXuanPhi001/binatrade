@@ -1,6 +1,7 @@
 import { timeHM } from '@method/date'
 import { numberCommasDot } from '@method/format'
 import { candlesTradingSelector, dPathMATradingSelector, timeTradingSelector } from '@selector/tradingSelector'
+import { themeUserSelector } from '@selector/userSelector'
 import { colors } from '@theme/colors'
 import { width } from '@util/responsive'
 import { StyleSheet } from 'react-native'
@@ -21,6 +22,7 @@ const Candles = ({
     const candles = useSelector(candlesTradingSelector)
     const dPathMA = useSelector(dPathMATradingSelector)
     const time = useSelector(timeTradingSelector)
+    const COLOR = colors[useSelector(themeUserSelector)]
 
     const lastChart = candles[candles.length - 1]
     const timeCovert = time > 30 ? 61 - time : 31 - time
@@ -36,7 +38,7 @@ const Candles = ({
                 y1={PADDING_TOP}
                 x2={GAP_CANDLE * (SIZE_CHART - 1)}
                 y2={HEIGHT_SVG - PADDING_BOTTOM}
-                stroke={colors.white}
+                stroke={COLOR.white}
                 strokeWidth={1}
                 strokeDasharray={'6 6'}
             />
@@ -65,7 +67,7 @@ const Candles = ({
                             y1={closeSVG}
                             x2={x_point}
                             y2={candle.openSVG}
-                            stroke={candle.colorChart}
+                            stroke={candle.colorChart === 'white' ? COLOR.white : candle.colorChart}
                             strokeWidth={WIDTH_CANDLE}
                         />
 
@@ -75,7 +77,7 @@ const Candles = ({
                             y1={HEIGHT_SVG - PADDING_BOTTOM}
                             x2={x_point}
                             y2={candle.volumeSVG - PADDING_BOTTOM}
-                            stroke={candle.colorChart}
+                            stroke={candle.colorChart === 'white' ? COLOR.white : candle.colorChart}
                             strokeWidth={WIDTH_CANDLE}
                         />
                         {index % 5 === 0 &&
@@ -108,7 +110,7 @@ const Candles = ({
                 y1={lastChart?.closeSVG}
                 x2={width}
                 y2={lastChart?.closeSVG}
-                stroke={colors.white}
+                stroke={COLOR.white}
                 strokeWidth={0.5}
             />
 

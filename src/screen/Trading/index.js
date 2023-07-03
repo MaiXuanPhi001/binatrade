@@ -1,9 +1,9 @@
 import Box from "@commom/Box"
 import Header from "@reuse/Header"
 import KeyBoardSafe from "@reuse/KeyBoardSafe"
-import { screenChooseUserSelector } from "@selector/userSelector"
+import { screenChooseUserSelector, themeUserSelector } from "@selector/userSelector"
 import userSlice from "@slice/userSlice"
-import { theme } from "@theme/index"
+import { colors } from "@theme/colors"
 import routes from "@util/routes"
 import { useEffect } from "react"
 import { View } from "react-native"
@@ -17,6 +17,7 @@ import Symbol from "./Symbol"
 const Trading = ({ navigation }) => {
     const dispatch = useDispatch()
     const screenChoose = useSelector(screenChooseUserSelector)
+    const COLOR = colors[useSelector(themeUserSelector)]
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
@@ -27,19 +28,17 @@ const Trading = ({ navigation }) => {
     }, [])
 
     return (
-        <Box flex={1} backgroundColor={theme.colors.background} paddingBottom={20}>
+        <Box flex={1} backgroundColor={COLOR.backgroundProfile} paddingBottom={20}>
             {screenChoose === routes.TRADING &&
                 <>
-                    <KeyBoardSafe paddingBottom={0}>
+                    <KeyBoardSafe paddingBottom={0} bg={COLOR.backgroundProfile}>
                         <Header navigation={navigation} />
-
                         <View style={{ paddingHorizontal: 5 }}>
                             <Symbol />
                             <Chart />
                             {/* <Controller /> */}
                             <LastResult />
                         </View>
-
                     </KeyBoardSafe>
                     <Box>
                         <Profit />

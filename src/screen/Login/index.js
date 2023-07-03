@@ -3,20 +3,20 @@ import { navigate } from '@navigation/navigationRef'
 import Banner from '@reuse/Banner'
 import KeyBoardSafe from '@reuse/KeyBoardSafe'
 import Language from '@reuse/Language'
+import { themeUserSelector } from '@selector/userSelector'
 import { checkUser2fa } from '@service/userService'
-import { theme } from '@theme/index'
+import { colors } from '@theme/colors'
 import routes from '@util/routes'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Footer from './Footer'
 import Form from './Form'
 import ModalOTP from './ModalOTP'
 
 const Login = () => {
   const dispatch = useDispatch()
-
   const { t } = useTranslation()
 
   const [email, setEmail] = useState('test@gmail.com')
@@ -25,6 +25,8 @@ const Login = () => {
   const [isShowModalOTP, setShowModalOTP] = useState(false)
   const [checkForm, setCheckForm] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  const COLOR = colors[useSelector(themeUserSelector)]
 
   const handleLogin = async () => {
     if (email.trim() === '' || password.trim() === '') return setCheckForm(true)
@@ -47,7 +49,7 @@ const Login = () => {
   }
 
   return (
-    <KeyBoardSafe bg={theme.colors.drawer}>
+    <KeyBoardSafe bg={COLOR.backgroundProfile}>
       <Language />
       <Banner
         firtText={'Log in to your account'}

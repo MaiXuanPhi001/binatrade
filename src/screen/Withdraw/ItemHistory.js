@@ -4,6 +4,7 @@ import Txt from '@commom/Txt'
 import { converNetwork } from '@method/format'
 import Btn from '@commom/Btn'
 import Img from '@commom/Img'
+import { colors } from '@theme/colors'
 
 export const THEME = {
     SUCCESS: {
@@ -20,10 +21,16 @@ export const THEME = {
     },
 }
 
-const ItemHistory = ({ history, onShowDetailHistory, t }) => {
+const ItemHistory = ({ history, onShowDetailHistory, t, COLOR }) => {
     const sizeText = 13
 
-    const status = history?.status === 1 ? THEME.SUCCESS : THEME.CANCEL 
+    const status = history?.status === 1 ? {
+        text: 'Success',
+        bg: colors.green3,
+    } : {
+        text: 'Success',
+        bg: colors.red4,
+    }
 
     return (
         <Box
@@ -37,14 +44,18 @@ const ItemHistory = ({ history, onShowDetailHistory, t }) => {
                 paddingHorizontal={5}
                 width={'29%'}
             >
-                <Txt size={sizeText}>{converNetwork(history?.network)}</Txt>
+                <Txt size={sizeText} color={COLOR.white}>
+                    {converNetwork(history?.network)}
+                </Txt>
             </Box>
 
             <Box
                 paddingHorizontal={5}
                 width={'29%'}
             >
-                <Txt size={sizeText} bold>$ {history?.amount}</Txt>
+                <Txt size={sizeText} bold color={COLOR.white2}>
+                    $ {history?.amount}
+                </Txt>
             </Box>
 
             <Box
@@ -57,11 +68,11 @@ const ItemHistory = ({ history, onShowDetailHistory, t }) => {
                     justifyCenter
                     padding={3}
                     radius={5}
-                    backgroundColor={status.background}
-                    borderWidth={1}
-                    borderColor={status.border}
+                    backgroundColor={status.bg}
                 >
-                    <Txt size={sizeText} color={status.color}>{t(status.text)}</Txt>
+                    <Txt size={sizeText} color={'white'} bold>
+                        {t(status.text)}
+                    </Txt>
                 </Box>
             </Box>
 
@@ -74,6 +85,7 @@ const ItemHistory = ({ history, onShowDetailHistory, t }) => {
                         source={require('@images/wallet/next.png')}
                         width={20}
                         height={20}
+                        tintColor={COLOR.white3}
                     />
                 </Btn>
             </Box>

@@ -1,11 +1,11 @@
-import React from 'react'
 import Box from '@commom/Box'
-import Txt from '@commom/Txt'
-import { converNetwork } from '@method/format'
 import Btn from '@commom/Btn'
 import Img from '@commom/Img'
+import Txt from '@commom/Txt'
+import { converNetwork } from '@method/format'
+import { colors } from '@theme/colors'
 
-const ItemHistory = ({ history, onShowDetailHistory, t }) => {
+const ItemHistory = ({ history, onShowDetailHistory, t, COLOR }) => {
     const sizeText = 13
 
     return (
@@ -14,20 +14,24 @@ const ItemHistory = ({ history, onShowDetailHistory, t }) => {
             alignCenter
             height={45}
             borderBottomWidth={0.5}
-            borderColor={'#2a2c2e'}
+            borderColor={COLOR.gray}
         >
             <Box
                 paddingHorizontal={5}
                 width={'29%'}
             >
-                <Txt size={sizeText}>{converNetwork(history?.coin_key)}</Txt>
+                <Txt size={sizeText} color={COLOR.white}>
+                    {converNetwork(history?.coin_key)}
+                </Txt>
             </Box>
 
             <Box
                 paddingHorizontal={5}
                 width={'29%'}
             >
-                <Txt size={sizeText} bold>$ {history?.amount}</Txt>
+                <Txt size={sizeText} bold color={COLOR.white2}>
+                    $ {history?.amount}
+                </Txt>
             </Box>
 
             <Box
@@ -40,11 +44,9 @@ const ItemHistory = ({ history, onShowDetailHistory, t }) => {
                     justifyCenter
                     padding={3}
                     radius={5}
-                    backgroundColor={'#162311'}
-                    borderWidth={1}
-                    borderColor={'#274916'}
+                    backgroundColor={colors.green2}
                 >
-                    <Txt size={sizeText} color={'#69bd38'}>{t('Success')}</Txt>
+                    <Txt size={sizeText} color={'white'} bold>{t('Success')}</Txt>
                 </Box>
             </Box>
 
@@ -57,6 +59,7 @@ const ItemHistory = ({ history, onShowDetailHistory, t }) => {
                         source={require('@images/wallet/next.png')}
                         width={20}
                         height={20}
+                        tintColor={COLOR.white3}
                     />
                 </Btn>
             </Box>

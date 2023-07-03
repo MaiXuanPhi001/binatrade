@@ -1,9 +1,11 @@
 import Box from '@commom/Box'
 import Img from '@commom/Img'
 import Txt from '@commom/Txt'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { themeUserSelector } from '@selector/userSelector'
 import userSlice from '@slice/userSlice'
 import { colors } from '@theme/colors'
+import contants from '@util/contants'
 import { Switch } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -14,6 +16,7 @@ const ChangeTheme = ({ t }) => {
 
     const handleChangeTheme = async (value) => {
         const payload = value ? 'dark' : 'light'
+        await AsyncStorage.setItem(contants.THEME, payload)
         dispatch(userSlice.actions.setTheme(payload))
     }
 

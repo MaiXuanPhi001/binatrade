@@ -22,7 +22,12 @@ const Hello = ({ navigation }) => {
             i18n.changeLanguage(lng)
 
             const sound = await AsyncStorage.getItem(contants.SOUND) || true
-            dispatch(userSlice.actions.setSound(JSON.parse(sound)))
+            const theme = await AsyncStorage.getItem(contants.THEME) || 'dark'
+
+            dispatch(userSlice.actions.setSetting({
+                sound: JSON.parse(sound),
+                theme: theme
+            }))
 
             const token = await AsyncStorage.getItem(contants.TOKEN) || null
             if (token) {

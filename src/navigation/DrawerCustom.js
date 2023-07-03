@@ -48,6 +48,16 @@ const DrawerCustom = (props) => {
         },
         {
             id: 1,
+            title: t('Order'),
+            image: require('@images/drawer/orders.png'),
+            choose: routes.ORDERS === screenChoose,
+            onPress: () => {
+                navigate(routes.ORDERS)
+                dispatch(userSlice.actions.setScreenChoose(routes.ORDERS))
+            },
+        },
+        {
+            id: 2,
             title: t('Wallet'),
             image: require('@images/drawer/ewallet.png'),
             choose: routes.WALLET === screenChoose,
@@ -57,7 +67,7 @@ const DrawerCustom = (props) => {
             },
         },
         {
-            id: 2,
+            id: 3,
             title: t('Profile'),
             image: require('@images/drawer/user.png'),
             choose: routes.PROFILE === screenChoose,
@@ -67,7 +77,7 @@ const DrawerCustom = (props) => {
             },
         },
         {
-            id: 3,
+            id: 4,
             title: t('Setting'),
             image: require('@images/drawer/settings.png'),
             choose: routes.SETTING === screenChoose,

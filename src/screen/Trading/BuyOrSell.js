@@ -2,7 +2,7 @@ import { getAllOrderPendingUserThunk, orderThunk } from '@asyncThunk/tradingAsyn
 import { getProfileThunk } from '@asyncThunk/userAsyncThunk'
 import LoadingWhite from '@reuse/LoadingWhite'
 import { candlesTradingSelector, orderPendingTradingSelector, orderTradingSelector, timeTradingSelector } from '@selector/tradingSelector'
-import { typeUserSelector } from '@selector/userSelector'
+import { themeUserSelector, typeUserSelector } from '@selector/userSelector'
 import { theme } from '@theme/index'
 import { useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -10,6 +10,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import ModalWin from './ModalWin'
 import ToastOrder from './ToastOrder'
+import { colors } from '@theme/colors'
 
 const BuyOrSell = () => {
   const dispatch = useDispatch()
@@ -21,6 +22,7 @@ const BuyOrSell = () => {
   const timeServer = useSelector(timeTradingSelector)
   const type = useSelector(typeUserSelector)
   const toastRef = useRef(null)
+  const COLOR = colors[useSelector(themeUserSelector)]
 
   const [isShowModalWin, setShowModalWin] = useState(false)
   const [profit, setProfit] = useState(0)
@@ -77,7 +79,7 @@ const BuyOrSell = () => {
         disabled={disable || order.loading}
         style={[
           styles.button,
-          { backgroundColor: disable ? theme.colors.gray5 : theme.colors.redNen }
+          { backgroundColor: disable ? COLOR.border1 : theme.colors.redNen }
         ]}
       >
         {order.loading ? <LoadingWhite /> :
@@ -103,7 +105,7 @@ const BuyOrSell = () => {
         disabled={disable || order.loading}
         style={[styles.button,
         {
-          backgroundColor: disable ? theme.colors.gray5 : theme.colors.greenNen
+          backgroundColor: disable ? COLOR.border1 : theme.colors.greenNen
         }]}
       >
         {order.loading ? <LoadingWhite /> :

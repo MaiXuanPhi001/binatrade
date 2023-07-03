@@ -1,11 +1,15 @@
 import Box from '@commom/Box'
 import Txt from '@commom/Txt'
+import { themeUserSelector } from '@selector/userSelector'
+import { colors } from '@theme/colors'
 import { theme } from '@theme/index'
 import { height } from '@util/responsive'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 
 const Banner = ({ firtText, secondText, thirdText, onPress }) => {
     const { t } = useTranslation()
+    const COLOR = colors[useSelector(themeUserSelector)]
 
     return (
         <Box
@@ -22,11 +26,15 @@ const Banner = ({ firtText, secondText, thirdText, onPress }) => {
                 paddingHorizontal={20}
                 alignSelf={'flex-start'}
             >
-                <Txt size={23} bold color={theme.colors.blueText}>
+                <Txt
+                    size={23}
+                    bold
+                    color={theme.colors.blueText}
+                >
                     {t(firtText)}
                 </Txt>
-                <Txt size={16} marginVertical={10}>
-                    {t(secondText)} 
+                <Txt size={16} marginVertical={10} color={COLOR.white}>
+                    {t(secondText)}
                     <Txt
                         onPress={onPress}
                         bold

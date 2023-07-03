@@ -11,7 +11,7 @@ import ItemHistory from './ItemHistory'
 import ModalDetailHistory from './ModalDetailHistory'
 import LoadingWhite from '@reuse/LoadingWhite'
 
-const History = () => {
+const History = ({ COLOR }) => {
     const { t } = useTranslation()
     const [historys, setHistorys] = useState([])
     const [page, setPage] = useState(1)
@@ -66,6 +66,7 @@ const History = () => {
                             history={history}
                             onShowDetailHistory={handleShowDetailHistory}
                             t={t}
+                            COLOR={COLOR}
                         />
                     )}
                 </>

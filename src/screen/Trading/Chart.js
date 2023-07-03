@@ -3,7 +3,7 @@ import tradingSlice from '@slice/tradingSlice'
 import contants from '@util/contants'
 import { height, width } from '@util/responsive'
 import { useEffect, useRef } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 import { Svg } from 'react-native-svg'
 import { useDispatch } from 'react-redux'
 import socketIOClient from 'socket.io-client'
@@ -113,5 +113,3 @@ const Chart = () => {
 }
 
 export default Chart
-
-const styles = StyleSheet.create({})

@@ -31,6 +31,10 @@ const userSlice = createSlice({
         setSound: (state, { payload }) => {
             state.sound = payload
         },
+        setSetting: (state, { payload }) => {
+            state.sound = payload.sound
+            state.theme = payload.theme
+        },
         setScreenChoose: (state, { payload }) => {
             state.screenChoose = payload
         },
