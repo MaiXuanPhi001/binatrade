@@ -79,21 +79,23 @@ const BuyOrSell = () => {
         disabled={disable || order.loading}
         style={[
           styles.button,
-          { backgroundColor: disable ? COLOR.border1 : theme.colors.redNen }
+          { backgroundColor: disable ? COLOR.gray4 : theme.colors.redNen }
         ]}
       >
         {order.loading ? <LoadingWhite /> :
           <>
-            <Text style={styles.textButton}>{t('SELL')}</Text>
+            <Text style={[styles.textButton, { color: disable ? COLOR.white : colors.white }]}>
+              {t('SELL')}
+            </Text>
             <Image
               source={require('@images/trade/rise_down.png')}
-              style={styles.imageButton}
+              style={[styles.imageButton, { tintColor: disable ? COLOR.white : colors.white }]}
             />
           </>
         }
       </TouchableOpacity>
 
-      <View style={styles.timeContainer}>
+      <View style={[styles.timeContainer]}>
         <Text style={[styles.textTime, { color }]} numberOfLines={1}>
           {t(!disable ? 'Please trade' : 'Wait time')}
         </Text>
@@ -105,15 +107,17 @@ const BuyOrSell = () => {
         disabled={disable || order.loading}
         style={[styles.button,
         {
-          backgroundColor: disable ? COLOR.border1 : theme.colors.greenNen
+          backgroundColor: disable ? COLOR.gray4 : theme.colors.greenNen
         }]}
       >
         {order.loading ? <LoadingWhite /> :
           <>
-            <Text style={styles.textButton}>{t('BUY')}</Text>
+            <Text style={[styles.textButton, { color: disable ? COLOR.white : colors.white }]}>
+              {t('BUY')}
+            </Text>
             <Image
               source={require('@images/trade/rise_up.png')}
-              style={styles.imageButton}
+              style={[styles.imageButton, { tintColor: disable ? COLOR.white : colors.white }]}
             />
           </>
         }
@@ -139,6 +143,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
+    marginHorizontal: 10.
   },
   button: {
     flexDirection: 'row',

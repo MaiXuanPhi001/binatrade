@@ -28,7 +28,11 @@ const Trading = ({ navigation }) => {
     }, [])
 
     return (
-        <Box flex={1} backgroundColor={COLOR.backgroundProfile} paddingBottom={20}>
+        <Box
+            flex={1}
+            backgroundColor={COLOR.backgroundProfile}
+            paddingBottom={20}
+        >
             {screenChoose === routes.TRADING &&
                 <>
                     <KeyBoardSafe paddingBottom={0} bg={COLOR.backgroundProfile}>

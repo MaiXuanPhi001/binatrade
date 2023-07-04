@@ -9,7 +9,6 @@ import { prizePoolUserSelector, profileSelector, screenChooseUserSelector, theme
 import { updateBalanceDemo } from '@service/userService'
 import userSlice from '@slice/userSlice'
 import { colors } from '@theme/colors'
-import contants from '@util/contants'
 import routes from '@util/routes'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -18,7 +17,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import Animated from 'react-native-reanimated'
 import { useDispatch, useSelector } from 'react-redux'
 
-const Header = ({ navigation }) => {
+const Header = ({ navigation, colorIcon }) => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [drop, setDrop] = useState(false)
@@ -28,12 +27,13 @@ const Header = ({ navigation }) => {
   const COLOR = colors[useSelector(themeUserSelector)]
   const screenChoose = useSelector(screenChooseUserSelector)
 
+  let colorBar = COLOR.white
+  colorIcon && (colorBar = colorIcon)
+
   const handleUpdateBalanceDemo = async () => {
     const res = await updateBalanceDemo()
     res.status && dispatch(await getProfileThunk())
   }
-
-  const sceen = screenChoose === routes.PRIZE_POOL ? true : false
 
   return (
     <View style={styles.container}>
@@ -42,7 +42,7 @@ const Header = ({ navigation }) => {
           source={require('@images/burger-bar.png')}
           width={25}
           height={25}
-          tintColor={sceen ? colors.white : COLOR.white}
+          tintColor={colorBar}
         />
       </Btn>
 

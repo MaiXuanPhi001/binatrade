@@ -23,9 +23,9 @@ const Amount = () => {
         <View style={styles.container}>
             <TouchableOpacity
                 onPress={() => handleChangeAmount('-')}
-                style={[styles.button, { backgroundColor: COLOR.border1 }]}
+                style={[styles.button, { backgroundColor: COLOR.gray4 }]}
             >
-                <Text style={styles.textButton}>-</Text>
+                <Text style={[styles.textButton, { color: COLOR.white }]}>-</Text>
             </TouchableOpacity>
 
             <View style={styles.inputContainer}>
@@ -36,18 +36,18 @@ const Amount = () => {
                         amount: Number(text),
                     }))}
                     keyboardType={'decimal-pad'}
-                    style={[styles.input, {backgroundColor: COLOR.white3}]}
+                    style={[styles.input, { backgroundColor: COLOR.white3 }]}
                 />
                 <View style={[styles.dollarContainer, { borderColor: colors.gray2 }]}>
-                    <Text style={[styles.dollar, colors.white]}>$</Text>
+                    <Text style={[styles.dollar, { color: COLOR.white }]}>$</Text>
                 </View>
             </View>
 
             <TouchableOpacity
                 onPress={() => handleChangeAmount('+')}
-                style={[styles.button, { backgroundColor: COLOR.border1 }]}
+                style={[styles.button, { backgroundColor: COLOR.gray4 }]}
             >
-                <Text style={styles.textButton}>+</Text>
+                <Text style={[styles.textButton, { color: COLOR.white }]}>+</Text>
             </TouchableOpacity>
         </View>
     )
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     textButton: {
-        color: 'white',
         fontWeight: 'bold'
     },
     button: {

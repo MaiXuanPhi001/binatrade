@@ -21,19 +21,19 @@ const LastResult = () => {
     return (
         <View style={styles.container}>
             <View style={styles.sumContainer}>
-                <View style={[styles.sumContent, { backgroundColor: COLOR.border1 }]}>
+                <View style={[styles.sumContent, { backgroundColor: COLOR.gray3 }]}>
                     <Image
                         source={require('@images/trade/arrows_up_green.png')}
                         style={styles.image}
                     />
-                    <Text style={styles.sumText}>{greenSum}</Text>
+                    <Text style={[styles.sumText, { color: COLOR.white }]}>{greenSum}</Text>
                 </View>
-                <View style={[styles.sumContent, { backgroundColor: COLOR.border1 }]}>
+                <View style={[styles.sumContent, { backgroundColor: COLOR.gray3 }]}>
                     <Image
                         source={require('@images/trade/arrows_down_red.png')}
                         style={styles.image}
                     />
-                    <Text style={styles.sumText}>{redSum}</Text>
+                    <Text style={[styles.sumText, { color: COLOR.white }]}>{redSum}</Text>
                 </View>
             </View>
 
@@ -48,11 +48,11 @@ const LastResult = () => {
                         }
                     }
 
-                    let color = COLOR.border1
+                    let color = COLOR.gray4
 
                     if (dots[index]) {
                         color = dots[index].close > dots[index].open ? colors.green2 :
-                            dots[index].close < dots[index].open ? colors.red3 : COLOR.white
+                            dots[index].close < dots[index].open ? colors.red3 : COLOR.white5
                     }
 
                     return (

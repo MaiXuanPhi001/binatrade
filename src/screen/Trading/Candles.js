@@ -38,7 +38,7 @@ const Candles = ({
                 y1={PADDING_TOP}
                 x2={GAP_CANDLE * (SIZE_CHART - 1)}
                 y2={HEIGHT_SVG - PADDING_BOTTOM}
-                stroke={COLOR.white}
+                stroke={COLOR.gray6}
                 strokeWidth={1}
                 strokeDasharray={'6 6'}
             />
@@ -67,7 +67,7 @@ const Candles = ({
                             y1={closeSVG}
                             x2={x_point}
                             y2={candle.openSVG}
-                            stroke={candle.colorChart === 'white' ? COLOR.white : candle.colorChart}
+                            stroke={candle.colorChart === 'white' ? COLOR.white5 : candle.colorChart}
                             strokeWidth={WIDTH_CANDLE}
                         />
 
@@ -77,13 +77,13 @@ const Candles = ({
                             y1={HEIGHT_SVG - PADDING_BOTTOM}
                             x2={x_point}
                             y2={candle.volumeSVG - PADDING_BOTTOM}
-                            stroke={candle.colorChart === 'white' ? COLOR.white : candle.colorChart}
+                            stroke={candle.colorChart === 'white' ? COLOR.white5 : candle.colorChart}
                             strokeWidth={WIDTH_CANDLE}
                         />
                         {index % 5 === 0 &&
                             <TextSVG
                                 key={`G_Candles_Item_Time${index}`}
-                                fill={colors.brown2}
+                                fill={COLOR.gray6}
                                 textAnchor={'middle'}
                                 fontWeight={'bold'}
                                 x={x_point}
@@ -104,13 +104,14 @@ const Candles = ({
                 stroke={colors.brown2}
                 strokeWidth={0.5}
             />
+
             <Line
                 key={`G_Candles_Line_Close`}
                 x1={0}
                 y1={lastChart?.closeSVG}
                 x2={width}
                 y2={lastChart?.closeSVG}
-                stroke={COLOR.white}
+                stroke={COLOR.gray6}
                 strokeWidth={0.5}
             />
 

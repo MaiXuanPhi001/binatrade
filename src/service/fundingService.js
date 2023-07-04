@@ -99,3 +99,12 @@ export const confirmPrizePoolUser = async (data) => {
         return callFailed()
     }
 }
+
+export const dayHistoryOrder = async (data) => {
+    try {
+        const res = await axiosInstance.post('/api/binaryOption/dayHistoryOrder', data)
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}

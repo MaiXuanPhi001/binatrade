@@ -30,14 +30,14 @@ const LineX = ({
                             y1={gap_x_line}
                             x2={WIDTH_CANDLES}
                             y2={gap_x_line}
-                            stroke={colors.brown}
+                            stroke={colors.gray5}
                             strokeWidth={1}
                             strokeDasharray={'6 6'}
                         />
                         <TextSVG
                             key={`G_LineX_Text${index}`}
                             x={WIDTH_CANDLES + 10}
-                            fill={COLOR.white}
+                            fill={COLOR.gray6}
                             y={gap_x_line}
                             textAnchor={'start'}
                             fontSize={12}

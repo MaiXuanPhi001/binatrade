@@ -28,6 +28,7 @@ const routes = {
     TRADING: 'Trading',
     PRIZE_POOL: 'PrizePool',
     ORDERS: 'Orders',
+    VIPMEMBER: 'Vipmember',
 }
 
 export default routes
