@@ -5,7 +5,7 @@ import Img from '@commom/Img'
 import Txt from '@commom/Txt'
 import { kFormatter, numberCommasDot } from '@method/format'
 import { navigate } from '@navigation/navigationRef'
-import { prizePoolUserSelector, profileSelector, screenChooseUserSelector, themeUserSelector, typeUserSelector } from '@selector/userSelector'
+import { prizePoolUserSelector, profileSelector, themeUserSelector, typeUserSelector } from '@selector/userSelector'
 import { updateBalanceDemo } from '@service/userService'
 import userSlice from '@slice/userSlice'
 import { colors } from '@theme/colors'
@@ -25,7 +25,6 @@ const Header = ({ navigation, colorIcon }) => {
   const profile = useSelector(profileSelector)
   const prizePool = useSelector(prizePoolUserSelector)
   const COLOR = colors[useSelector(themeUserSelector)]
-  const screenChoose = useSelector(screenChooseUserSelector)
 
   let colorBar = COLOR.white
   colorIcon && (colorBar = colorIcon)

@@ -14,7 +14,8 @@ const ButtonUser = ({
     height = 45,
     width = '100%',
     marginTop,
-    size = 16
+    size = 16,
+    style,
 }) => {
     return (
         <Btn
@@ -24,6 +25,7 @@ const ButtonUser = ({
             width={width}
             marginTop={marginTop}
             disabled={loadingUser()}
+            style={style}
         >
             <LinearGradient
                 colors={['#1998e6', '#4cb0d9', '#7ccdc9']}

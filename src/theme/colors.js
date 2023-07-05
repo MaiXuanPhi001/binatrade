@@ -70,6 +70,7 @@ export const colors = {
     grayBlue3: '#858e9c',
     yellow2: '#f7a72e',
     yellow3: '#f4a52d',
+    yellow4: '#d48a00',
     lightYellow: '#fff6d8',
     lightYellow2: '#36352f',
     yellow: '#fbd434',
@@ -91,4 +92,5 @@ export const colors = {
     brown: '#383a3d',
     brown2: '#7d7d7e',
     sky: '#0a97e7',
+    blueGreen: '#30d6ce',
 }

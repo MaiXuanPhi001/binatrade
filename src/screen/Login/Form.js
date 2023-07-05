@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
 import Box from '@commom/Box'
 import Input from '@commom/Input'
-import { theme } from '@theme/index'
-import TextError from '@reuse/TextError'
-import { useTranslation } from 'react-i18next'
 import Txt from '@commom/Txt'
+import TextError from '@reuse/TextError'
 import { themeUserSelector } from '@selector/userSelector'
-import { useSelector } from 'react-redux'
 import { colors } from '@theme/colors'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 
 const Form = ({ email, setEmail, password, setPassword, checkForm }) => {
     const { t } = useTranslation()
