@@ -1,11 +1,12 @@
 import Box from '@commom/Box'
 import Txt from '@commom/Txt'
-import { themeUserSelector } from '@selector/userSelector'
+import { profileSelector, themeUserSelector } from '@selector/userSelector'
 import { colors } from '@theme/colors'
 import { useSelector } from 'react-redux'
 
 const ReferralSponsor = () => {
     const COLOR = colors[useSelector(themeUserSelector)]
+    const profile = useSelector(profileSelector)
 
     return (
         <Box
@@ -30,7 +31,7 @@ const ReferralSponsor = () => {
                             Total referrals
                         </Txt>
                         <Txt size={17} color={colors.blueGreen} bold marginVertical={10}>
-                            1
+                            {profile?.totalMember}
                         </Txt>
                     </Box>
                     <Box>
@@ -38,7 +39,7 @@ const ReferralSponsor = () => {
                             Total agencies
                         </Txt>
                         <Txt size={17} color={'#15b3f9'} bold marginVertical={10}>
-                            2
+                            {profile?.totalMemberVip}
                         </Txt>
                     </Box>
                 </Box>
@@ -49,7 +50,7 @@ const ReferralSponsor = () => {
                             Trading commission
                         </Txt>
                         <Txt size={17} color={'#e22b5a'} bold marginVertical={10}>
-                            5.8
+                            {profile?.totalCommission?.toFixed(1)}
                         </Txt>
                     </Box>
                     <Box>
@@ -57,7 +58,7 @@ const ReferralSponsor = () => {
                             VIP commission
                         </Txt>
                         <Txt size={17} color={COLOR.white} bold marginVertical={10}>
-                            62.5
+                            {profile?.commissionMemberVip}
                         </Txt>
                     </Box>
                 </Box>

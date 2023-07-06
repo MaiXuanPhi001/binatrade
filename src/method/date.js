@@ -53,6 +53,15 @@ export function convertDate(dateString) {
     const minutes = date.getMinutes()
     const second = date.getSeconds()
     const ampm = hour % 12 === 0 ? 'AM' : 'PM';
-  
+
     return `${month}/${day}/${year}, ${hour}:${minutes}:${second} ${ampm}`;
-  }
+}
+
+export const dateDMY = (dateString) => {
+    const date = new Date(dateString)
+    const day = date.getDate()
+    const month = date.getMonth() + 1
+    const year = date.getFullYear()
+
+    return `${day}/${month}/${year}`;
+}

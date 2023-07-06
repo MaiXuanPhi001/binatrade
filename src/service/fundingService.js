@@ -126,3 +126,12 @@ export const getChartStatisticsUser = async (data) => {
         return callFailed()
     }
 }
+
+export const weekStatisticsOrder = async (type) => {
+    try {
+        const res = await axiosInstance.post('/api/binaryOption/weekStatisticsOrder', { type })
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}

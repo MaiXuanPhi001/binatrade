@@ -4,10 +4,10 @@ import Txt from '@commom/Txt'
 import { themeUserSelector } from '@selector/userSelector'
 import { colors } from '@theme/colors'
 import { theme } from '@theme/index'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import LastMonth from './LastMonth'
 import ThisMonth from './ThisMonth'
-import { getChartStatisticsUser } from '@service/fundingService'
 
 const tabs = [
     {
@@ -23,25 +23,6 @@ const tabs = [
 const RecentStatistics = () => {
     const COLOR = colors[useSelector(themeUserSelector)]
     const [tab, setTab] = useState('this')
-    const [data, setData] = useState([])
-
-    useEffect(() => {
-        handleGetChartStatisticsUser()
-    }, [])
-
-    const handleGetChartStatisticsUser = async () => {
-        let dateNow = new Date()
-        let start = new Date(dateNow.getFullYear(), dateNow.getMonth(), 1).getTime()
-        let end = new Date(dateNow.getFullYear(), dateNow.getMonth() + 1, 0).getTime()
-
-        const res = await getChartStatisticsUser({
-            start,
-            end,
-        })
-        if (res.status) {
-            setData(res.data)
-        }
-    }
 
     return (
         <Box
@@ -78,8 +59,9 @@ const RecentStatistics = () => {
             <Txt size={18} bold marginVertical={30}>
                 Recent Statistics
             </Txt>
-
-            <ThisMonth />
+            {tab === 'this' ?
+                <ThisMonth /> : <LastMonth />
+            }
         </Box>
     )
 }

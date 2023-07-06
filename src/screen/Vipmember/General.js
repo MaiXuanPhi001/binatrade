@@ -6,16 +6,16 @@ import Level from './Level'
 import ReferralSponsor from './ReferralSponsor'
 import Link from './Link'
 import RecentStatistics from './RecentStatistics'
+import NetWorkVolStats from './NetWorkVolStats'
 
 const General = () => {
-    const COLOR = colors[useSelector(themeUserSelector)]
-
     return (
         <Box marginTop={15}>
             <Level />
             <ReferralSponsor />
             <Link />
             <RecentStatistics />
+            <NetWorkVolStats />
         </Box>
     )
 }

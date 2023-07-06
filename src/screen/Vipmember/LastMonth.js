@@ -19,40 +19,9 @@ const WIDTH_PATH = WIDTH_SVG - 50
 const PADDING_LEFT = 20
 const PADDING_TOP = 20
 
-// const DB = [
-//     {
-//         "totalMember": 10,
-//         "totalMemberVipF1": 0,
-//     },
-//     {
-//         "totalMember": 8,
-//         "totalMemberVipF1": 0,
-//     },
-//     {
-//         "totalMember": 5,
-//         "totalMemberVipF1": 0,
-//     },
-//     {
-//         "totalMember": 0,
-//         "totalMemberVipF1": 11,
-//     },
-//     {
-//         "totalMember": 0,
-//         "totalMemberVipF1": 5,
-//     },
-//     {
-//         "totalMember": 0,
-//         "totalMemberVipF1": 4,
-//     },
-//     {
-//         "totalMember": 0,
-//         "totalMemberVipF1": 6,
-//     }
-// ]
-
 const LineAnimated = Animated.createAnimatedComponent(Line)
 
-const ThisMonth = () => {
+const LastMonth = () => {
     const COLOR = colors[useSelector(themeUserSelector)]
     const [data, setData] = useState([])
     const [inputRange, setInputRange] = useState([0, 1])
@@ -69,8 +38,8 @@ const ThisMonth = () => {
 
     const handleGetChartStatisticsUser = async () => {
         let dateNow = new Date()
-        let start = new Date(dateNow.getFullYear(), dateNow.getMonth(), 1).getTime()
-        let end = new Date(dateNow.getFullYear(), dateNow.getMonth() + 1, 0).getTime()
+        let start = new Date(dateNow.getFullYear(), dateNow.getMonth() - 1, 1).getTime()
+        let end = new Date(dateNow.getFullYear(), dateNow.getMonth(), 0).getTime()
 
         const res = await getChartStatisticsUser({
             start,
@@ -78,6 +47,7 @@ const ThisMonth = () => {
         })
 
         if (res.status) {
+            console.log(res.data.length)
             let max = Number.MIN_SAFE_INTEGER
             let min = Number.MAX_SAFE_INTEGER
             for (let i = 0; i < res.data.length; i++) {
@@ -204,9 +174,10 @@ const ThisMonth = () => {
     const agenciesText = useDerivedValue(() => {
         return `${agencies.value}`
     })
+
     const dayText = useDerivedValue(() => {
-        const month = new Date().getMonth() + 1
-        return `${day.value}/${month}`
+        const month = new Date().getMonth()
+        return `${day.value}/${month === 0 ? 12 : month}`
     })
 
     return (
@@ -318,4 +289,4 @@ const ThisMonth = () => {
     )
 }
 
-export default ThisMonth
+export default LastMonth
