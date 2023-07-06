@@ -3,7 +3,7 @@ import Img from '@commom/Img'
 import Txt from '@commom/Txt'
 import { useTranslation } from 'react-i18next'
 
-const KYCPending = () => {
+const KYCPending = ({ COLOR }) => {
     const { t } = useTranslation()
 
     return (
@@ -11,7 +11,7 @@ const KYCPending = () => {
             row
             alignCenter
             marginTop={20}
-            backgroundColor={'#2b2111'}
+            backgroundColor={COLOR.brown}
             padding={10}
         >
             <Img

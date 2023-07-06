@@ -1,6 +1,7 @@
 import { getAllOrderPendingUserThunk } from '@asyncThunk/tradingAsyncThunk'
 import { orderTradingSelector } from '@selector/tradingSelector'
-import { typeUserSelector } from '@selector/userSelector'
+import { themeUserSelector, typeUserSelector } from '@selector/userSelector'
+import { colors } from '@theme/colors'
 import { theme } from '@theme/index'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -12,6 +13,7 @@ const Profit = () => {
     const { t } = useTranslation()
     const order = useSelector(orderTradingSelector)
     const typeUser = useSelector(typeUserSelector)
+    const COLOR = colors[useSelector(themeUserSelector)]
 
     useEffect(() => {
         handleGellAllOrderPendingUser()
@@ -23,7 +25,7 @@ const Profit = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.textPercent}>{t('Profit')}
+            <Text style={[styles.textPercent, {color: COLOR.white}]}>{t('Profit')}
                 <Text style={styles.text95}> 95%</Text>
                 <Text style={styles.textProfit}>   ${order.profit.toFixed(2)}</Text>
             </Text>
@@ -42,7 +44,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     textPercent: {
-        color: 'white',
         fontWeight: 'bold',
     },
     container: {

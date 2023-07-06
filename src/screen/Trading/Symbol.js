@@ -1,8 +1,13 @@
+import { themeUserSelector } from '@selector/userSelector'
+import { colors } from '@theme/colors'
 import { Image, StyleSheet, Text, View } from 'react-native'
+import { useSelector } from 'react-redux'
 
 const Symbol = () => {
+  const COLOR = colors[useSelector(themeUserSelector)]
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: COLOR.border1 }]}>
       <Image
         source={require('@images/crypto/bitcoin.png')}
         style={styles.img}
@@ -24,7 +29,6 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   container: {
-    backgroundColor: '#33404e',
     alignSelf: 'flex-start',
     flexDirection: 'row',
     alignItems: 'center',

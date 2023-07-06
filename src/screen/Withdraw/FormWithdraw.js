@@ -17,7 +17,7 @@ import TextError from '@reuse/TextError'
 export const BEP20 = 'BEP20'
 export const TRC20 = 'TRC20'
 
-const FormWithdraw = ({ t }) => {
+const FormWithdraw = ({ t, COLOR }) => {
     const dispatch = useDispatch()
     const [wallet, setWallet] = useState(BEP20)
     const [USDT, setUSDT] = useState('')
@@ -84,6 +84,7 @@ const FormWithdraw = ({ t }) => {
                     <InputWallet
                         value={USDT}
                         onChangeText={setUSDT}
+                        COLOR={COLOR}
                         title={t('Wallet USDT')}
                         error={checkForm && USDT.trim() === ''}
                         messError={t('Wallet USDT is empty')}

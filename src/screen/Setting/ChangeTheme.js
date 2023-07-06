@@ -1,9 +1,11 @@
 import Box from '@commom/Box'
 import Img from '@commom/Img'
 import Txt from '@commom/Txt'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { themeUserSelector } from '@selector/userSelector'
 import userSlice from '@slice/userSlice'
 import { colors } from '@theme/colors'
+import contants from '@util/contants'
 import { Switch } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -14,20 +16,29 @@ const ChangeTheme = ({ t }) => {
 
     const handleChangeTheme = async (value) => {
         const payload = value ? 'dark' : 'light'
+        await AsyncStorage.setItem(contants.THEME, payload)
         dispatch(userSlice.actions.setTheme(payload))
     }
+
+    const color = colors[theme]
 
     return (
         <Box row alignCenter justifySpaceBetween paddingHorizontal={10} marginTop={20}>
             <Box row alignCenter>
-                <Img  
+                <Img
                     source={require('@images/profile/palette.png')}
-                    tintColor={colors.white}
+                    tintColor={color.white}
                     width={25}
                     height={25}
                     marginRight={10}
                 />
-                <Txt bold size={16}>{t(textTheme)}</Txt>
+                <Txt
+                    bold
+                    size={16}
+                    color={color.white}
+                >
+                    {t(textTheme)}
+                </Txt>
             </Box>
 
 

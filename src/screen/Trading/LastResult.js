@@ -4,34 +4,36 @@ import DotItem from './DotItem'
 import { useSelector } from 'react-redux'
 import { dotsTradingSelector } from '@selector/tradingSelector'
 import { colors } from '@theme/colors'
+import { themeUserSelector } from '@selector/userSelector'
 
 const LastResult = () => {
     const dots = useSelector(dotsTradingSelector)
+    const COLOR = colors[useSelector(themeUserSelector)]
 
     let [redSum, greenSum] = [0, 0]
-    for (let i = 0 ; i < dots.length ; i++) {
+    for (let i = 0; i < dots.length; i++) {
         (dots[i].close < dots[i].open) && redSum++
         (dots[i].close > dots[i].open) && greenSum++
     }
-    
+
     let postion = 0
 
     return (
         <View style={styles.container}>
             <View style={styles.sumContainer}>
-                <View style={styles.sumContent}>
+                <View style={[styles.sumContent, { backgroundColor: COLOR.gray3 }]}>
                     <Image
                         source={require('@images/trade/arrows_up_green.png')}
                         style={styles.image}
                     />
-                    <Text style={styles.sumText}>{greenSum}</Text>
+                    <Text style={[styles.sumText, { color: COLOR.white }]}>{greenSum}</Text>
                 </View>
-                <View style={styles.sumContent}>
+                <View style={[styles.sumContent, { backgroundColor: COLOR.gray3 }]}>
                     <Image
                         source={require('@images/trade/arrows_down_red.png')}
                         style={styles.image}
                     />
-                    <Text style={styles.sumText}>{redSum}</Text>
+                    <Text style={[styles.sumText, { color: COLOR.white }]}>{redSum}</Text>
                 </View>
             </View>
 
@@ -46,11 +48,11 @@ const LastResult = () => {
                         }
                     }
 
-                    let color = '#33404e'
+                    let color = COLOR.gray4
 
                     if (dots[index]) {
                         color = dots[index].close > dots[index].open ? colors.green2 :
-                            dots[index].close < dots[index].open ? colors.red3 : colors.white
+                            dots[index].close < dots[index].open ? colors.red3 : COLOR.white5
                     }
 
                     return (
@@ -86,12 +88,11 @@ const styles = StyleSheet.create({
         marginRight: 7,
     },
     sumContent: {
-        backgroundColor: theme.colors.gray5,
         borderRadius: 5,
         flexDirection: 'row',
         alignItems: 'center',
         padding: 3,
-        marginHorizontal: 5
+        marginHorizontal: 5,
     },
     sumContainer: {
         alignSelf: 'flex-end',

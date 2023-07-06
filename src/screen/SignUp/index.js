@@ -6,10 +6,15 @@ import { theme } from '@theme/index'
 import routes from '@util/routes'
 import React from 'react'
 import Form from './Form'
+import { colors } from '@theme/colors'
+import { useSelector } from 'react-redux'
+import { themeUserSelector } from '@selector/userSelector'
 
 const SignUp = () => {
+  const COLOR = colors[useSelector(themeUserSelector)]
+
   return (
-    <KeyBoardSafe bg={theme.colors.drawer}>
+    <KeyBoardSafe bg={COLOR.backgroundProfile}>
       <Language />
       <Banner
         firtText={'Create your account'}

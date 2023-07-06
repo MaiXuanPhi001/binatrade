@@ -11,7 +11,7 @@ import Warning from './Warning'
 import LoadingWhite from '@reuse/LoadingWhite'
 import Clipboard from '@react-native-clipboard/clipboard';
 
-const USDT = ({ toastTopRef }) => {
+const USDT = ({ toastTopRef, COLOR }) => {
     const { t } = useTranslation()
     const [loading, setLoading] = useState(true)
     const [wallet, setWallet] = useState()
@@ -36,7 +36,7 @@ const USDT = ({ toastTopRef }) => {
     }
 
     return (
-        <Box style={[styles.container, { marginTop: 10 }]}>
+        <Box style={[styles.container, { marginTop: 10, borderColor: COLOR.border1 }]}>
             <Txt bold color={theme.colors.blueText} size={18}>{t('Wallet USDT')}</Txt>
             {loading ? (
                 <LoadingWhite />
@@ -52,8 +52,8 @@ const USDT = ({ toastTopRef }) => {
                     {wallet?.address &&
                         <Box alignCenter marginTop={20}>
                             <QRCode
-                                color={'white'}
-                                backgroundColor={theme.colors.btnLogin}
+                                color={COLOR.white}
+                                backgroundColor={COLOR.bgQR}
                                 value={wallet?.address}
                                 size={150}
                             />

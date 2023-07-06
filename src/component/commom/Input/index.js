@@ -13,6 +13,7 @@ import Img from '@commom/Img';
 const Input = ({
     value,
     onChangeText,
+    colorIcon,
     hint,
     hintColor = 'white',
     security,
@@ -167,7 +168,10 @@ const Input = ({
         <Box width={width} height={height} marginBottom={marginBottom} marginTop={marginTop}>
             {iconOne &&
                 <Box height={'100%'} justifyCenter absolute left={12}>
-                    <Image style={stylesSheet.iconOne} source={iconOne} />
+                    <Image
+                        style={colorIcon && { tintColor: colorIcon }}
+                        source={iconOne}
+                    />
                 </Box>
             }
             <TextInput
@@ -188,7 +192,10 @@ const Input = ({
                     height={'100%'}
                     right={12}
                 >
-                    <Img source={iconTwo} />
+                    <Img
+                        style={colorIcon && { tintColor: colorIcon }}
+                        source={iconTwo}
+                    />
                 </Btn>
             }
         </Box>

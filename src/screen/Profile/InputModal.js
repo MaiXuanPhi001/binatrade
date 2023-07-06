@@ -3,12 +3,16 @@ import Btn from '@commom/Btn'
 import Img from '@commom/Img'
 import Txt from '@commom/Txt'
 import TextError from '@reuse/TextError'
-import { theme } from '@theme/index'
+import { themeUserSelector } from '@selector/userSelector'
+import { colors } from '@theme/colors'
+import { useSelector } from 'react-redux'
 
 const InputModal = ({ title, value, error, messError, onPress, image }) => {
+    const COLORS = colors[useSelector(themeUserSelector)]
+
     return (
         <Box marginBottom={10} width={'100%'}>
-            <Txt bold>{title}</Txt>
+            <Txt bold color={COLORS.white}>{title}</Txt>
             <Btn
                 row
                 onPress={onPress}
@@ -16,7 +20,7 @@ const InputModal = ({ title, value, error, messError, onPress, image }) => {
                 paddingHorizontal={10}
                 height={40}
                 borderWidth={1}
-                borderColor={theme.colors.gray4}
+                borderColor={COLORS.border2}
                 radius={5}
                 marginTop={5}
                 justifySpaceBetween
@@ -30,6 +34,7 @@ const InputModal = ({ title, value, error, messError, onPress, image }) => {
                     height={20}
                     opacity={0.5}
                     marginLeft={10}
+                    tintColor={COLORS.white}
                 />
             </Btn>
 

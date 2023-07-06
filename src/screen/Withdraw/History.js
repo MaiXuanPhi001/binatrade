@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 import ItemHistory from './ItemHistory'
 import ModalHistoryDetail from './ModalHistoryDetail'
 
-const History = () => {
+const History = ({ COLOR }) => {
     const { t } = useTranslation()
     const [historys, setHistorys] = useState([])
     const [loading, setLoading] = useState(true)
@@ -63,6 +63,7 @@ const History = () => {
                             history={history}
                             onShowDetailHistory={handleShowDetailHistory}
                             t={t}
+                            COLOR={COLOR}
                         />
                     )}
                 </>

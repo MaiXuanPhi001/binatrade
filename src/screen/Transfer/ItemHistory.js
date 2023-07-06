@@ -5,8 +5,9 @@ import { converNetwork } from '@method/format'
 import Btn from '@commom/Btn'
 import Img from '@commom/Img'
 import { theme } from '@theme/index'
+import { colors } from '@theme/colors'
 
-const ItemHistory = ({ history, onShowDetailHistory, t, email }) => {
+const ItemHistory = ({ history, onShowDetailHistory, t, email, COLOR }) => {
     const sizeText = 13
 
     return (
@@ -21,7 +22,9 @@ const ItemHistory = ({ history, onShowDetailHistory, t, email }) => {
                 paddingHorizontal={5}
                 width={'29%'}
             >
-                <Txt size={sizeText}>{converNetwork(history?.created_at)}</Txt>
+                <Txt size={sizeText} color={COLOR.white}>
+                    {converNetwork(history?.created_at)}
+                </Txt>
             </Box>
 
             <Box
@@ -44,11 +47,11 @@ const ItemHistory = ({ history, onShowDetailHistory, t, email }) => {
                     justifyCenter
                     padding={3}
                     radius={5}
-                    backgroundColor={'#162311'}
-                    borderWidth={1}
-                    borderColor={'#274916'}
+                    backgroundColor={colors.green3}
                 >
-                    <Txt size={sizeText} color={'#69bd38'}>{t('Success')}</Txt>
+                    <Txt size={sizeText} color={'white'} bold>
+                        {t('Success')}
+                    </Txt>
                 </Box>
             </Box>
 
@@ -61,6 +64,7 @@ const ItemHistory = ({ history, onShowDetailHistory, t, email }) => {
                         source={require('@images/wallet/next.png')}
                         width={20}
                         height={20}
+                        tintColor={COLOR.white3}
                     />
                 </Btn>
             </Box>

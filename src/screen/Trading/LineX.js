@@ -1,19 +1,20 @@
-import { numberCommasDot, numberWithCommas } from '@method/format'
+import { numberWithCommas } from '@method/format'
 import { heighValueChartTradingSelector, maxHighItemTradingSelector } from '@selector/tradingSelector'
+import { themeUserSelector } from '@selector/userSelector'
 import { colors } from '@theme/colors'
-import { width } from '@util/responsive'
 import { G, Line, Text as TextSVG } from 'react-native-svg'
 import { useSelector } from 'react-redux'
 
 const SIZE = 5
-const PADDING_RIGHT = 45
 
 const LineX = ({
     HEIGHT_CANLES,
     PADDING_TOP,
+    WIDTH_CANDLES,
 }) => {
     const maxHighItem = useSelector(maxHighItemTradingSelector)
     const heighValueChart = useSelector(heighValueChartTradingSelector)
+    const COLOR = colors[useSelector(themeUserSelector)]
 
     return (
         <G key={`G_LineX`}>
@@ -27,18 +28,18 @@ const LineX = ({
                             key={`G_LineX_LINE${index}`}
                             x1={0}
                             y1={gap_x_line}
-                            x2={width - PADDING_RIGHT}
+                            x2={WIDTH_CANDLES}
                             y2={gap_x_line}
-                            stroke={colors.brown}
+                            stroke={colors.gray5}
                             strokeWidth={1}
                             strokeDasharray={'6 6'}
                         />
                         <TextSVG
                             key={`G_LineX_Text${index}`}
-                            x={width - PADDING_RIGHT}
-                            fill={colors.white}
+                            x={WIDTH_CANDLES + 10}
+                            fill={COLOR.gray6}
                             y={gap_x_line}
-                            textAnchor={'end'}
+                            textAnchor={'start'}
                             fontSize={12}
                             fontWeight={'bold'}
                         >

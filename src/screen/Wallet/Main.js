@@ -1,22 +1,22 @@
-import { View } from 'react-native'
-import React, { useState } from 'react'
-import { styles } from '@screen/Profile/Infomation'
 import Box from '@commom/Box'
-import { useTranslation } from 'react-i18next'
 import Btn from '@commom/Btn'
 import Txt from '@commom/Txt'
-import { theme } from '@theme/index'
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import routes from '@util/routes'
-import Deposit from '@screen/Deposit'
-import Withdraw from '@screen/Withdraw'
 import { navigate } from '@navigation/navigationRef'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
+import Deposit from '@screen/Deposit'
+import { styles } from '@screen/Profile/Infomation'
 import Transfer from '@screen/Transfer'
+import Withdraw from '@screen/Withdraw'
+import { theme } from '@theme/index'
 import { height } from '@util/responsive'
+import routes from '@util/routes'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { View } from 'react-native'
 
 const Tab = createMaterialTopTabNavigator();
 
-const Main = () => {
+const Main = ({ COLOR }) => {
     const { t } = useTranslation()
     const [tabChoose, setTabchoose] = useState('Deposit')
 
@@ -48,12 +48,18 @@ const Main = () => {
     ]
 
     return (
-        <View style={[styles.container, { marginTop: 20, height: height -190 }]}>
+        <View
+            style={[
+                styles.container,
+                { marginTop: 20, height: height - 190, borderColor: COLOR.border1 },
+            ]}
+        >
             <Box row>
                 {data.map(item =>
                     <Item
                         key={item.title}
                         item={item}
+                        COLOR={COLOR}
                     />
                 )}
             </Box>
@@ -74,19 +80,25 @@ const Main = () => {
     )
 }
 
-const Item = ({ item }) => {
+const Item = ({ item, COLOR }) => {
     return (
         <Btn
             onPress={item.onPress}
-            backgroundColor={item.choose ? theme.colors.black2 : '#0b192b'}
+            // backgroundColor={item.choose ? theme.colors.black2 : '#0b192b'}
+            backgroundColor={item.choose ? COLOR.black3 : COLOR.black4}
             margin={5}
             paddingHorizontal={15}
             paddingVertical={10}
             borderWidth={1}
             radius={5}
-            borderColor={theme.colors.gray4}
+            borderColor={COLOR.border2}
         >
-            <Txt bold color={item.choose ? theme.colors.blueText : 'white'}>{item.title}</Txt>
+            <Txt
+                bold
+                color={item.choose ? theme.colors.blueText : COLOR.white}
+            >
+                {item.title}
+            </Txt>
         </Btn>
     )
 }

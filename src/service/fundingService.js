@@ -53,7 +53,7 @@ export const getValueConfig = async (name) => {
     } catch (error) {
         return callFailed()
     }
-} 
+}
 
 export const transfer = async (data) => {
     try {
@@ -94,6 +94,42 @@ export const getPrizePoolUser = async (data) => {
 export const confirmPrizePoolUser = async (data) => {
     try {
         const res = await axiosInstance.post('/api/binaryOption/confirmPrizePoolUser', data)
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}
+
+export const dayHistoryOrder = async (data) => {
+    try {
+        const res = await axiosInstance.post('/api/binaryOption/dayHistoryOrder', data)
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}
+
+export const buyMemberVip = async () => {
+    try {
+        const res = await axiosInstance.post('/api/binaryOption/buyMemberVip', {})
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}
+
+export const getChartStatisticsUser = async (data) => {
+    try {
+        const res = await axiosInstance.post('/api/binaryOption/getChartStatisticsUser', data)
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}
+
+export const weekStatisticsOrder = async (type) => {
+    try {
+        const res = await axiosInstance.post('/api/binaryOption/weekStatisticsOrder', { type })
         return callSuccess(res)
     } catch (error) {
         return callFailed()

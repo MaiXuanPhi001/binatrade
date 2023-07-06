@@ -1,4 +1,4 @@
-import { getListStreakThunk, getPrizePoolUserThunk } from "@asyncThunk/fundingAsyncThunk";
+import { dayHistoryOrderThunk, getListStreakThunk, getPrizePoolUserThunk } from "@asyncThunk/fundingAsyncThunk";
 import { createSlice } from "@reduxjs/toolkit";
 
 const fundingSlice = createSlice({
@@ -16,13 +16,19 @@ const fundingSlice = createSlice({
             page: 1,
             total: 0,
         },
+        dayWeekHistoryOrder: {
+            data: [],
+            loading: false,
+            page: 1,
+            total: 0,
+        },
     },
     reducers: {
 
     },
     extraReducers: buidlder => {
-        buidlder.
-            addCase(getListStreakThunk.pending, (state) => {
+        buidlder
+            .addCase(getListStreakThunk.pending, (state) => {
                 state.winningHistory.loading = true
             })
             .addCase(getListStreakThunk.fulfilled, (state, { payload }) => {
@@ -42,6 +48,17 @@ const fundingSlice = createSlice({
                     state.yourHistory.data = payload.data.array
                     state.yourHistory.page = payload.page
                     state.yourHistory.total = payload.data.total
+                }
+            })
+            .addCase(dayHistoryOrderThunk.pending, (state, { payload }) => {
+                state.dayWeekHistoryOrder.loading = true
+            })
+            .addCase(dayHistoryOrderThunk.fulfilled, (state, { payload }) => {
+                state.dayWeekHistoryOrder.loading = false
+                if (payload.status) {
+                    state.dayWeekHistoryOrder.data = payload.data.array
+                    state.dayWeekHistoryOrder.page = payload.page
+                    state.dayWeekHistoryOrder.total = payload.data.total
                 }
             })
     }

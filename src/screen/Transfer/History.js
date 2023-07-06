@@ -12,7 +12,7 @@ import HeaderTableHistory from './HeaderTableHistory'
 import ItemHistory from './ItemHistory'
 import ModalHistoryDetail from './ModalHistoryDetail'
 
-const History = () => {
+const History = ({ COLOR }) => {
     const { t } = useTranslation()
     const profile = useSelector(profileSelector)
     const [historys, setHistorys] = useState([])
@@ -67,6 +67,7 @@ const History = () => {
                             onShowDetailHistory={handleShowDetailHistory}
                             t={t}
                             email={profile.email}
+                            COLOR={COLOR}
                         />
                     )}
                 </>

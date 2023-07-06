@@ -2,7 +2,7 @@ import { getAllOrderPendingUserThunk, orderThunk } from '@asyncThunk/tradingAsyn
 import { getProfileThunk } from '@asyncThunk/userAsyncThunk'
 import LoadingWhite from '@reuse/LoadingWhite'
 import { candlesTradingSelector, orderPendingTradingSelector, orderTradingSelector, timeTradingSelector } from '@selector/tradingSelector'
-import { typeUserSelector } from '@selector/userSelector'
+import { themeUserSelector, typeUserSelector } from '@selector/userSelector'
 import { theme } from '@theme/index'
 import { useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -10,6 +10,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import ModalWin from './ModalWin'
 import ToastOrder from './ToastOrder'
+import { colors } from '@theme/colors'
 
 const BuyOrSell = () => {
   const dispatch = useDispatch()
@@ -21,6 +22,7 @@ const BuyOrSell = () => {
   const timeServer = useSelector(timeTradingSelector)
   const type = useSelector(typeUserSelector)
   const toastRef = useRef(null)
+  const COLOR = colors[useSelector(themeUserSelector)]
 
   const [isShowModalWin, setShowModalWin] = useState(false)
   const [profit, setProfit] = useState(0)
@@ -77,21 +79,23 @@ const BuyOrSell = () => {
         disabled={disable || order.loading}
         style={[
           styles.button,
-          { backgroundColor: disable ? theme.colors.gray5 : theme.colors.redNen }
+          { backgroundColor: disable ? COLOR.gray4 : theme.colors.redNen }
         ]}
       >
         {order.loading ? <LoadingWhite /> :
           <>
-            <Text style={styles.textButton}>{t('SELL')}</Text>
+            <Text style={[styles.textButton, { color: disable ? COLOR.white : colors.white }]}>
+              {t('SELL')}
+            </Text>
             <Image
               source={require('@images/trade/rise_down.png')}
-              style={styles.imageButton}
+              style={[styles.imageButton, { tintColor: disable ? COLOR.white : colors.white }]}
             />
           </>
         }
       </TouchableOpacity>
 
-      <View style={styles.timeContainer}>
+      <View style={[styles.timeContainer]}>
         <Text style={[styles.textTime, { color }]} numberOfLines={1}>
           {t(!disable ? 'Please trade' : 'Wait time')}
         </Text>
@@ -103,15 +107,17 @@ const BuyOrSell = () => {
         disabled={disable || order.loading}
         style={[styles.button,
         {
-          backgroundColor: disable ? theme.colors.gray5 : theme.colors.greenNen
+          backgroundColor: disable ? COLOR.gray4 : theme.colors.greenNen
         }]}
       >
         {order.loading ? <LoadingWhite /> :
           <>
-            <Text style={styles.textButton}>{t('BUY')}</Text>
+            <Text style={[styles.textButton, { color: disable ? COLOR.white : colors.white }]}>
+              {t('BUY')}
+            </Text>
             <Image
               source={require('@images/trade/rise_up.png')}
-              style={styles.imageButton}
+              style={[styles.imageButton, { tintColor: disable ? COLOR.white : colors.white }]}
             />
           </>
         }
@@ -137,6 +143,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
+    marginHorizontal: 10.
   },
   button: {
     flexDirection: 'row',

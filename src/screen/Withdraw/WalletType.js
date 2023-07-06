@@ -2,14 +2,18 @@ import Box from '@commom/Box'
 import Btn from '@commom/Btn'
 import Txt from '@commom/Txt'
 import ButtonLiner from '@reuse/ButtonLiner'
-import { theme } from '@theme/index'
 import { StyleSheet } from 'react-native'
 import { BEP20, TRC20 } from './FormWithdraw'
+import { colors } from '@theme/colors'
+import { useSelector } from 'react-redux'
+import { themeUserSelector } from '@selector/userSelector'
 const HEIGHT_BUTTON = 35
 const WIDTH_BUTTON = 80
 const SIZE = 14
 
 const WalletType = ({ wallet, setWallet, t }) => {
+    const COLOR = colors[useSelector(themeUserSelector)]
+
     return (
         <Box row marginTop={20} marginBottom={30}>
             {wallet === BEP20 ?
@@ -20,10 +24,13 @@ const WalletType = ({ wallet, setWallet, t }) => {
                     size={SIZE}
                 /> :
                 <Btn
-                    style={[styles.buttonWallet, { marginRight: 10 }]}
+                    style={[
+                        styles.buttonWallet,
+                        { marginLeft: 10, borderColor: COLOR.border2 },
+                    ]}
                     onPress={() => setWallet(BEP20)}
                 >
-                    <Txt>{t('BEP20')}</Txt>
+                    <Txt color={COLOR.white}>{t('BEP20')}</Txt>
                 </Btn>
             }
 
@@ -35,10 +42,13 @@ const WalletType = ({ wallet, setWallet, t }) => {
                     size={SIZE}
                 /> :
                 <Btn
-                    style={[styles.buttonWallet, { marginLeft: 10 }]}
+                    style={[
+                        styles.buttonWallet,
+                        { marginLeft: 10, borderColor: COLOR.border2 },
+                    ]}
                     onPress={() => setWallet(TRC20)}
                 >
-                    <Txt>{t('TRC20')}</Txt>
+                    <Txt color={COLOR.white}>{t('TRC20')}</Txt>
                 </Btn>
             }
         </Box>
@@ -53,6 +63,5 @@ const styles = StyleSheet.create({
         width: WIDTH_BUTTON,
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: theme.colors.gray4,
     }
 })

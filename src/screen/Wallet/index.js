@@ -1,20 +1,27 @@
-import React from 'react'
-import KeyBoardSafe from '@reuse/KeyBoardSafe'
-import TotalAssets from './TotalAssets'
 import Box from '@commom/Box'
-import Main from './Main'
 import Header from '@reuse/Header'
+import KeyBoardSafe from '@reuse/KeyBoardSafe'
+import Main from './Main'
+import TotalAssets from './TotalAssets'
+import { colors } from '@theme/colors'
+import { useSelector } from 'react-redux'
+import { themeUserSelector } from '@selector/userSelector'
 
 const Wallet = ({ navigation }) => {
+  const COLOR = colors[useSelector(themeUserSelector)]
+
   return (
-    <KeyBoardSafe paddingBottom={0}>
+    <KeyBoardSafe
+      bg={COLOR.backgroundProfile}
+      paddingBottom={0}
+    >
       <Header navigation={navigation} />
       <Box
         paddingHorizontal={10}
         marginTop={10}
       >
-        <TotalAssets />
-        <Main />
+        <TotalAssets COLOR={COLOR} />
+        <Main COLOR={COLOR} />
       </Box>
     </KeyBoardSafe>
   )
