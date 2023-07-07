@@ -65,3 +65,21 @@ export const dateDMY = (dateString) => {
 
     return `${day}/${month}/${year}`;
 }
+
+export const getToDayYMD = () => {
+    const today = new Date()
+    const year = today.getFullYear()
+    const month = today.getMonth() + 1
+    const date = today.getDate()
+
+    return year + '-' + month.toString().padStart(2, '0') + '-' + date.toString().padStart(2, '0');
+}
+
+export const dateYMD = (dateString) => {
+    const date = new Date(dateString)
+    const day = date.getDate()
+    const month = date.getMonth() + 1
+    const year = date.getFullYear()
+
+    return `${year}-${month}-${day}`;
+}

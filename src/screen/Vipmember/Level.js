@@ -108,7 +108,7 @@ const Level = () => {
                 </Box>
                 <Box row justifySpaceBetween alignCenter>
                     <Txt size={16} bold>
-                        ${indicator.totalOrderF1} / <Txt bold>${numberWithCommas(indicator.f1Volume)}</Txt>
+                        ${indicator.totalOrderF1} / <Txt bold>${numberWithCommas(indicator.f1Volume || 0)}</Txt>
                     </Txt>
                     <Txt size={16} bold>
                         {indicator.totalMemberVipF1} / <Txt bold>{indicator.f1Vip}</Txt>

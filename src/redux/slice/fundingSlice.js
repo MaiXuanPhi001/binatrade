@@ -1,4 +1,4 @@
-import { dayHistoryOrderThunk, getListStreakThunk, getPrizePoolUserThunk } from "@asyncThunk/fundingAsyncThunk";
+import { dayHistoryOrderThunk, getHistoryCommissionToTimeThunk, getListStreakThunk, getParentListThunk, getPrizePoolUserThunk } from "@asyncThunk/fundingAsyncThunk";
 import { createSlice } from "@reduxjs/toolkit";
 
 const fundingSlice = createSlice({
@@ -22,9 +22,34 @@ const fundingSlice = createSlice({
             page: 1,
             total: 0,
         },
+        historyCommission: {
+            data: [],
+            loading: false,
+            page: 1,
+            total: 0,
+            timeStart: '',
+            timeEnd: '',
+        },
+        parentList: {
+            data: [],
+            fieldTotal: 'totalOrder',
+            fieldCommission: 'totalCommission',
+            filterName: '',
+            level: 1,
+        },
     },
     reducers: {
-
+        setHistoryCommission: (state, { payload }) => {
+            state.historyCommission = payload
+        },
+        setParentList: (state, { payload }) => {
+            state.parentList = payload
+        },
+        searchParentList: (state) => {
+            state.parentList.data = state.parentList.data.filter(
+                item => item.level === state.parentList.level
+            )
+        }
     },
     extraReducers: buidlder => {
         buidlder
@@ -59,6 +84,19 @@ const fundingSlice = createSlice({
                     state.dayWeekHistoryOrder.data = payload.data.array
                     state.dayWeekHistoryOrder.page = payload.page
                     state.dayWeekHistoryOrder.total = payload.data.total
+                }
+            })
+            .addCase(getHistoryCommissionToTimeThunk.fulfilled, (state, { payload }) => {
+                state.historyCommission.loading = false
+                if (payload.status) {
+                    state.historyCommission.data = payload.data.array
+                    state.historyCommission.page = payload.page
+                    state.historyCommission.total = payload.data.total
+                }
+            })
+            .addCase(getParentListThunk.fulfilled, (state, { payload }) => {
+                if (payload.status) {
+                    state.parentList.data = payload.data
                 }
             })
     }

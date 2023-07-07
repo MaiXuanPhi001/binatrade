@@ -135,3 +135,21 @@ export const weekStatisticsOrder = async (type) => {
         return callFailed()
     }
 }
+
+export const getHistoryCommissionToTime = async (data) => {
+    try {
+        const res = await axiosInstance.post('/api/binaryOption/getHistoryCommissionToTime', data)
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}
+
+export const getParentList = async (userid) => {
+    try {
+        const res = await axiosInstance.post('/api/user/getParentList', { userid })
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}

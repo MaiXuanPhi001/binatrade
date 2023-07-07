@@ -1,15 +1,10 @@
 import Box from '@commom/Box'
 import Txt from '@commom/Txt'
-import { themeUserSelector } from '@selector/userSelector'
 import { getChartStatisticsUser } from '@service/fundingService'
 import { colors } from '@theme/colors'
 import { width } from '@util/responsive'
 import { useEffect, useState } from 'react'
-import { GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-handler'
-import Animated, { Extrapolation, interpolate, useAnimatedGestureHandler, useAnimatedStyle, useDerivedValue, useSharedValue } from 'react-native-reanimated'
-import { ReText } from 'react-native-redash'
-import { G, Line, Path, Svg, Text as TextSVG } from 'react-native-svg'
-import { useSelector } from 'react-redux'
+import LineChart from './LineChart'
 
 const PADDING = 60
 const WIDTH_SVG = width - PADDING
@@ -50,10 +45,7 @@ const PADDING_TOP = 20
 //     }
 // ]
 
-const LineAnimated = Animated.createAnimatedComponent(Line)
-
 const ThisMonth = () => {
-    const COLOR = colors[useSelector(themeUserSelector)]
     const [data, setData] = useState([])
     const [inputRange, setInputRange] = useState([0, 1])
     const [outputRange, setOutputRange] = useState([0, 1])
@@ -146,69 +138,6 @@ const ThisMonth = () => {
         }
     }
 
-    const positionX = useSharedValue(0)
-    const opacity = useSharedValue(0)
-    const day = useSharedValue(1)
-    const referrals = useSharedValue(0)
-    const agencies = useSharedValue(0)
-
-    const gestureEvent = useAnimatedGestureHandler({
-        onStart: (_, ctx) => {
-            ctx.translateX = positionX.value
-            opacity.value = 1
-        },
-        onActive: (e, ctx) => {
-            const translateX = e.translationX + ctx.translateX
-            if (translateX > WIDTH_PATH) {
-                positionX.value = WIDTH_PATH
-            } else if (translateX < 0) {
-                positionX.value = 0
-            } else {
-                positionX.value = translateX
-            }
-        },
-        onEnd: (e, ctx) => {
-            opacity.value = 0
-        }
-    })
-
-    const cursorStyle = useAnimatedStyle(() => {
-        const local = interpolate(
-            positionX.value,
-            inputRange,
-            outputRange,
-            {
-                extrapolateLeft: Extrapolation.IDENTITY,
-                extrapolateRight: Extrapolation.IDENTITY,
-            }
-        )
-        const index = (local / (WIDTH_PATH / (data.length - 1))).toFixed(0)
-        day.value = new Date(data[index]?.created_at).getDate() || 1
-        referrals.value = data[index]?.totalMember || 0
-        agencies.value = data[index]?.totalMemberVipF1 || 0
-
-        return {
-            transform: [
-                {
-                    translateX: local,
-                },
-            ],
-            opacity: opacity.value
-        }
-    })
-
-    const referralsText = useDerivedValue(() => {
-        return `${referrals.value}`
-    })
-
-    const agenciesText = useDerivedValue(() => {
-        return `${agencies.value}`
-    })
-    const dayText = useDerivedValue(() => {
-        const month = new Date().getMonth() + 1
-        return `${day.value}/${month}`
-    })
-
     return (
         <Box>
             <Txt size={15} color={colors.blueGreen} bold>
@@ -218,102 +147,16 @@ const ThisMonth = () => {
                 Total new agencies({indicator.totalMemberVipF1})
             </Txt>
 
-            <GestureHandlerRootView>
-                <PanGestureHandler onGestureEvent={gestureEvent}>
-                    <Animated.View style={{
-                        borderWidth: 1,
-                        borderColor: COLOR.border1,
-                        borderRadius: 10,
-                        backgroundColor: '#011022',
-                    }}>
-                        <Svg
-                            width={WIDTH_SVG}
-                            height={HEIGH_SVG}
-                        >
-                            <Path
-                                key={'Path_This_Month'}
-                                d={path}
-                                strokeWidth={3}
-                                stroke={colors.blueGreen}
-                                fill={'none'}
-                            />
-                            <Path
-                                key={'Path_This_Month_Vip'}
-                                d={pathVip}
-                                strokeWidth={3}
-                                stroke={colors.sky}
-                                fill={'none'}
-                            />
-                            {Array.from(new Array(3)).map((item, index) => {
-                                const x_point = (WIDTH_PATH / (2) * index) + PADDING_LEFT
-
-                                return (
-                                    <G key={`G_${index}`}>
-                                        <Line
-                                            key={`L_X_${index}`}
-                                            x1={x_point}
-                                            y1={0}
-                                            x2={x_point}
-                                            y2={HEIGH_PATH + PADDING_TOP}
-                                            stroke={colors.line}
-                                            strokeWidth={0.5}
-                                        />
-                                    </G>
-                                )
-                            })}
-
-                            {Array.from(new Array(6)).map((item, index) => {
-                                const y_point = (HEIGH_PATH - (HEIGH_PATH / (5) * index)) + PADDING_TOP
-                                const value = indicator.max / 5 * index
-
-                                return (
-                                    <G key={`G_T${index}`}>
-                                        <TextSVG
-                                            x={WIDTH_SVG - 20}
-                                            y={y_point}
-                                            fill={'white'}
-                                            fontWeight={'bold'}
-                                        >
-                                            {value.toFixed(0)}
-                                        </TextSVG>
-                                    </G>
-                                )
-                            })}
-
-                            <LineAnimated
-                                key={`L_Cursor`}
-                                x1={PADDING_LEFT}
-                                y1={0}
-                                x2={PADDING_LEFT}
-                                y2={HEIGH_PATH + PADDING_TOP}
-                                stroke={colors.yellow}
-                                strokeWidth={2}
-                                style={cursorStyle}
-                            />
-                        </Svg>
-                        <Box row alignCenter justifySpaceBetween marginBottom={10} paddingHorizontal={10}>
-                            <ReText
-                                text={dayText}
-                                style={{ color: "white", fontWeight: 'bold' }}
-                            />
-                            <Box row alignCenter>
-                                <Box radius={50} height={10} width={10} backgroundColor={colors.blueGreen} marginRight={5} />
-                                <ReText
-                                    text={referralsText}
-                                    style={{ color: "white", fontWeight: 'bold' }}
-                                />
-                            </Box>
-                            <Box row alignCenter>
-                                <Box radius={50} height={10} width={10} backgroundColor={colors.sky} marginRight={5} />
-                                <ReText
-                                    text={agenciesText}
-                                    style={{ color: "white", fontWeight: 'bold' }}
-                                />
-                            </Box>
-                        </Box>
-                    </Animated.View>
-                </PanGestureHandler>
-            </GestureHandlerRootView>
+            <LineChart
+                {...{
+                    data,
+                    inputRange,
+                    outputRange,
+                    indicator,
+                    pathVip,
+                    path,
+                }}
+            />
         </Box>
     )
 }

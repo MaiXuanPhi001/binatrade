@@ -1,9 +1,7 @@
-import React from 'react'
 import Box from '@commom/Box'
 import Btn from '@commom/Btn'
 import Img from '@commom/Img'
 import Txt from '@commom/Txt'
-import { theme } from '@theme/index'
 
 const Pagination = ({
     indexPage,

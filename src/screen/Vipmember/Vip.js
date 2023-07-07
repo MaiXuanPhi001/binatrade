@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux'
 import TabVip from './TabVip'
 import Box from '@commom/Box'
 import General from './General'
+import Commission from './Commission'
+import NetworkManager from './NetworkManager'
 
 const Vip = () => {
     const navigation = useNavigation()
@@ -19,7 +21,10 @@ const Vip = () => {
             <Header navigation={navigation} colorIcon={'white'} />
             <Box paddingHorizontal={10}>
                 <TabVip {...{ tab, setTab }} />
-                <General />
+                {tab === 'general' ?
+                    <General /> : tab === 'commission' ?
+                        <Commission /> : <NetworkManager />
+                }
             </Box>
         </KeyBoardSafe>
     )

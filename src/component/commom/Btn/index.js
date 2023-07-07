@@ -72,6 +72,8 @@ const Btn = ({
     zIndex,
     borderTopLeftRadius,
     borderTopRightRadius,
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
     ...rest
 }) => {
     const insets = useSafeAreaInsets();
@@ -146,6 +148,8 @@ const Btn = ({
         zIndex && { zIndex },
         borderTopLeftRadius && { borderTopLeftRadius },
         borderTopRightRadius && { borderTopRightRadius },
+        borderBottomLeftRadius && { borderBottomLeftRadius },
+        borderBottomRightRadius && { borderBottomRightRadius },
         { ...StyleSheet.flatten(style) },
     ];
 
