@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import LastMonth from './LastMonth'
 import ThisMonth from './ThisMonth'
+import { useTranslation } from 'react-i18next'
 
 const tabs = [
     {
@@ -21,6 +22,7 @@ const tabs = [
 ]
 
 const RecentStatistics = () => {
+    const { t } = useTranslation()
     const COLOR = colors[useSelector(themeUserSelector)]
     const [tab, setTab] = useState('this')
 
@@ -50,14 +52,14 @@ const RecentStatistics = () => {
                             bold
                             color={item.value === tab ? theme.colors.blueText : COLOR.white}
                         >
-                            {item.title}
+                            {t(item.title)}
                         </Txt>
                     </Btn>
                 )}
             </Box>
 
-            <Txt size={18} bold marginVertical={30}>
-                Recent Statistics
+            <Txt size={18} bold marginVertical={30} color={COLOR.white}>
+                {t('Recent Statistics')}
             </Txt>
             {tab === 'this' ?
                 <ThisMonth /> : <LastMonth />

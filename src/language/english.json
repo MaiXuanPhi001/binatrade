@@ -3,30 +3,25 @@
         "language": "Language",
         "setting": "Setting",
         "level": "Level",
-
         "welcome": "Welcome",
         "loginToAccount": "Login to account",
         "pass": "Password",
         "ForgotPass": "Forgot password",
         "login": "Login",
         "signUp": "SignUp",
-
         "createYourAccount": "Create your acccount",
         "username": "username",
         "confirmPass": "Confirm password",
         "createAccount": "Create account",
-
         "emailEmpty": "Email is empty",
         "passwordEmpty": "Password is empty",
         "usernameEmpty": "Username is empty",
         "ConfirmPassEmpty": "Confirm password is empty",
         "PassNotMatch": "Password not match",
-
         "checkEmail": "Please check your email !",
         "cannotConnect": "Cannot connect to server, please try again!",
         "loginFail": "Incorrect account or password!",
         "noData": "No data",
-
         "history": "History",
         "commission": "Commission",
         "funding": "Funding",
@@ -38,7 +33,6 @@
         "profile": "Profile",
         "accountManager": "Account managemer",
         "logout": "Log out",
-
         "statistics": "Statistics",
         "Today": "Today",
         "This week": "This week",
@@ -58,14 +52,12 @@
         "PENDING": "PENDING",
         "WIN": "WIN",
         "LOSE": "LOSE",
-
         "totalIB": "Total IB",
         "transferCommission": "Transfer Commission",
         "userOrder": "Username order",
         "amountReceive": "Amount Receive",
         "percent": "Percent",
         "balance": "Balance",
-
         "wallet USDT": "Wallet USDT",
         "wallet BUSD": "wallet BUSD",
         "warnUSDTOne": "You have to deposit at least 5 USDT to be credited. Any deposit that is less than 5 USDT will not be refunded.",
@@ -73,24 +65,20 @@
         "coppyAddress": "Copy address",
         "warnBUSDOne": "You have to deposit at least 5 BUSD to be credited. Any deposit that is less than 5 BUSD will not be refunded.",
         "warnBUSDTwo": "This deposit address only accepts BUSD. Do not send other coins to it.",
-
         "amountMonney": "Amount",
         "chooseBank": "Method",
         "confirm": "Confirm",
         "submitImg": "Submit",
         "done": "Done",
-
         "Enter amount": "Enter amount",
         "VND amount": "VND amount",
         "USD amount": "USD amount",
         "biggerEqual100000VND": "Must be bigger than or equal to 100,000 VND",
         "warnAmountDepositeVND": "VND deposit is free. However, in some instances, you may have to bear a small transaction fee charged directly by the processing bank.",
         "next": "Next",
-
         "selectBank": "Select the bank you want to transfer money to",
         "pleaseSelectBank": "Please select a transaction bank",
         "back": "Back",
-
         "Confirmation deposit info": "Confirmation deposit info",
         "Please confirm again": "Please confirm again",
         "The money amount you will transfer:": "The money amount you will transfer:",
@@ -101,7 +89,6 @@
         "Transfer Contents": "Transfer Contents",
         "Copy": "Copy",
         "Paste": "Dán",
-
         "VNDR deposit order is ready": "VNDR deposit order is ready",
         "Transfer money to ": "Transfer money to ",
         "Account number ": "Account number ",
@@ -111,7 +98,6 @@
         "to be automatically confirmed by the system for this transaction": "to be automatically confirmed by the system for this transaction",
         "Cancel": "Cancel",
         "I've sent the payment": "I've sent the payment",
-
         "Update infomation": "Update infomation",
         "Pending": "Pending",
         "Your KYC pending for approval": "Your KYC pending for approval",
@@ -133,7 +119,6 @@
         "Two-Factor Authentication (2FA) is now ON": "Two-Factor Authentication (2FA) is now ON",
         "Turn off 2FA": "Turn off 2FA",
         "Code is empty!": "Code is empty!",
-
         "Referral link": "Referral link",
         "OR code": "QR code",
         "Share": "Share",
@@ -147,7 +132,6 @@
         "Parent Name": "Parent Name",
         "History": "History",
         "List users F1": "List users F1",
-
         "User F1 ID:": "User F1 ID:",
         "Statistics": "Statistics",
         "Begin balance": "Begin balance",
@@ -164,7 +148,6 @@
         "Amount": "Amount",
         "Status": "Status",
         "Time": "Time",
-
         "Submit payment proof": "Submit payment proof",
         "Click here to upload": "Click here to upload",
         "Submit": "Submit",
@@ -175,7 +158,6 @@
         "Submit payment proof successfully": "Submit payment proof successfully",
         "Confirm payment": "Confirm payment",
         "You are about to confirm that you have already sent the payment": "You are about to confirm that you have already sent the payment",
-
         "Your account is not KYC": "Your account is not KYC",
         "Cannot use this function because your account is not KYC. For more information please contact administrator.": "Cannot use this function because your account is not KYC. For more information please contact administrator.",
         "Withdrawal history": "Withdrawal history",
@@ -186,7 +168,6 @@
         "Hash": "Hash",
         "You have to KYC your profile to be able to withdraw": "You have to KYC your profile to be able to withdraw",
         "Go to profile": "Go to profile",
-
         "Withdraw VND": "Withdraw VND",
         "Add bank account": "Add bank account",
         "Bank is empty": "Bank is empty",
@@ -203,21 +184,18 @@
         "Withdraw fee: 25%": "Withdraw fee: 25%",
         "Withdraw exchange: 1 USD = ": "Withdraw exchange: 1 USD = ",
         "Confirm": "Confirm",
-
         "Deposit VND history": "Deposit VND history",
         "Bank": "Bank",
         "Content": "Content",
         "Image": "Image",
         "See image": "See image",
         "Withdraw VND history": "Withdraw VND history",
-
         "Account": "Account",
         "Two-Factor Authentication (2FA) is currently off": "Two-Factor Authentication (2FA) is currently off",
         "Please turn on 2FA to be able to transfer. For more information please contact administrator.": "Please turn on 2FA to be able to transfer. For more information please contact administrator.",
         "From": "From",
         "To": "To",
         "History transfer": "History transfer",
-
         "Traders sentiments": "Traders sentiments",
         "Order success": "Order success",
         "Order failed": "Order failed",
@@ -236,6 +214,7 @@
         "History transferr": "History transfer",
         "Cancell": "Cancel",
         "Upload avatarr": "Upload avatar",
-        "Pending2": "Pending"
+        "Pending2": "Pending",
+        "Level2": "Level"
     }
 }

@@ -7,6 +7,7 @@ import { themeUserSelector } from '@selector/userSelector'
 import fundingSlice from '@slice/fundingSlice'
 import { colors } from '@theme/colors'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
 const levels = [
@@ -20,6 +21,7 @@ const levels = [
 ]
 
 const SelectLevel = () => {
+    const { t } = useTranslation()
     const dispatch = useDispatch()
     const COLOR = colors[useSelector(themeUserSelector)]
     const parentList = useSelector(parentListTradingSelector)
@@ -35,8 +37,8 @@ const SelectLevel = () => {
 
     return (
         <Box zIndex={1}>
-            <Txt size={15} marginTop={15} marginBottom={5}>
-                View referrals by level
+            <Txt size={15} marginTop={15} marginBottom={5} color={COLOR.white}>
+                {t('View referrals by level')}
             </Txt>
             <Box width={200}>
                 <Btn
@@ -50,7 +52,7 @@ const SelectLevel = () => {
                     width={'100%'}
                     radius={7}
                 >
-                    <Txt>Level {parentList.level}</Txt>
+                    <Txt color={COLOR.white}>Level {parentList.level}</Txt>
                     <Img
                         source={require('@images/vip/down.png')}
                         tintColor={colors.white}

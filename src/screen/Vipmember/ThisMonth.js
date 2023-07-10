@@ -5,6 +5,7 @@ import { colors } from '@theme/colors'
 import { width } from '@util/responsive'
 import { useEffect, useState } from 'react'
 import LineChart from './LineChart'
+import { useTranslation } from 'react-i18next'
 
 const PADDING = 60
 const WIDTH_SVG = width - PADDING
@@ -46,6 +47,7 @@ const PADDING_TOP = 20
 // ]
 
 const ThisMonth = () => {
+    const { t } = useTranslation()
     const [data, setData] = useState([])
     const [inputRange, setInputRange] = useState([0, 1])
     const [outputRange, setOutputRange] = useState([0, 1])
@@ -141,10 +143,10 @@ const ThisMonth = () => {
     return (
         <Box>
             <Txt size={15} color={colors.blueGreen} bold>
-                Total new referrals({indicator.totalMember})
+                {t('Total new referrals') + `(${indicator.totalMember})`}
             </Txt>
             <Txt size={15} bold color={colors.sky} marginVertical={10}>
-                Total new agencies({indicator.totalMemberVipF1})
+                {t('Total new agencies') + `(${indicator.totalMemberVipF1})`}
             </Txt>
 
             <LineChart

@@ -29,6 +29,7 @@ const routes = {
     PRIZE_POOL: 'PrizePool',
     ORDERS: 'Orders',
     VIPMEMBER: 'Vipmember',
+    NOTIFICATIONS: 'Notifications',
 }
 
 export default routes

@@ -34,7 +34,7 @@ const TradingPayoutDetails = () => {
             marginTop={20}
         >
             <Txt bold size={18}>
-                Trading payout details
+                {t('Trading payout details')}
             </Txt>
 
             <Pagination

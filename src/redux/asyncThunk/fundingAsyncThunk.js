@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { dayHistoryOrder, getHistoryCommissionToTime, getListStreak, getParentList, getPrizePoolUser } from "@service/fundingService"
+import { dayHistoryOrder, getChartStatisticsUser, getHistoryCommissionToTime, getListStreak, getParentList, getPrizePoolUser } from "@service/fundingService"
 
 export const getListStreakThunk =
     createAsyncThunk('funding/getListStreak', async (data) => {
@@ -21,7 +21,6 @@ export const dayHistoryOrderThunk =
 
 export const getHistoryCommissionToTimeThunk =
     createAsyncThunk('funding/getHistoryCommissionToTime', async (data) => {
-        console.log('data: ', data)
         const res = await getHistoryCommissionToTime(data)
         return { ...res, page: data.page }
     })

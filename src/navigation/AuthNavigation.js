@@ -1,4 +1,4 @@
-import { checKYCUserThunk } from '@asyncThunk/userAsyncThunk'
+import { checKYCUserThunk, getListNotificationThunk } from '@asyncThunk/userAsyncThunk'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import PrizePool from '@screen/PrizePool'
 import Profile from '@screen/Profile'
@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux'
 import DrawerCustom from './DrawerCustom'
 import Orders from '@screen/Orders'
 import Vipmember from '@screen/Vipmember'
+import Notifications from '@screen/Notifications'
 
 const Drawer = createDrawerNavigator()
 
@@ -20,6 +21,10 @@ const AuthNavigation = () => {
 
     useEffect(() => {
         dispatch(checKYCUserThunk())
+        dispatch(getListNotificationThunk({
+            limit: 1000,
+            page: 1,
+        }))
     })
 
     const data = [
@@ -57,6 +62,11 @@ const AuthNavigation = () => {
             id: 6,
             name: routes.PRIZE_POOL,
             component: PrizePool,
+        },
+        {
+            id: 7,
+            name: routes.NOTIFICATIONS,
+            component: Notifications,
         },
     ]
 

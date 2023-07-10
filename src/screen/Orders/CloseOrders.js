@@ -44,7 +44,7 @@ const CloseOrders = ({ dayHistoryOrder, COLOR }) => {
             type: type,
         }))
     }
-    console.log(dayHistoryOrder.total)
+
     return (
         <Box>
             <Pagination

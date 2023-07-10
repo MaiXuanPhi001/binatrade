@@ -99,7 +99,7 @@ const LineChart = ({
                         borderWidth: 1,
                         borderColor: COLOR.border1,
                         borderRadius: 10,
-                        backgroundColor: '#011022',
+                        backgroundColor: COLOR.backgroundColor,
                     }}>
                         <Svg
                             width={WIDTH_SVG}
@@ -146,7 +146,7 @@ const LineChart = ({
                                         <TextSVG
                                             x={WIDTH_PATH + PADDING_LEFT + 10}
                                             y={y_point}
-                                            fill={'white'}
+                                            fill={COLOR.white}
                                             fontWeight={'bold'}
                                             textAnchor={'start'}
                                         >
@@ -170,13 +170,13 @@ const LineChart = ({
                         <Box row alignCenter justifySpaceBetween marginBottom={10} paddingHorizontal={10}>
                             <ReText
                                 text={dayText}
-                                style={{ color: "white", fontWeight: 'bold' }}
+                                style={{ color: COLOR.white, fontWeight: 'bold' }}
                             />
                             <Box row alignCenter>
                                 <Box radius={50} height={10} width={10} backgroundColor={colors.blueGreen} marginRight={5} />
                                 <ReText
                                     text={referralsText}
-                                    style={{ color: "white", fontWeight: 'bold' }}
+                                    style={{ color: COLOR.white, fontWeight: 'bold' }}
                                 />
                             </Box>
                             {pathVip &&
@@ -184,7 +184,7 @@ const LineChart = ({
                                     <Box radius={50} height={10} width={10} backgroundColor={colors.sky} marginRight={5} />
                                     <ReText
                                         text={agenciesText}
-                                        style={{ color: "white", fontWeight: 'bold' }}
+                                        style={{ color: COLOR.white, fontWeight: 'bold' }}
                                     />
                                 </Box>}
                         </Box>

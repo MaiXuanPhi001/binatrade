@@ -138,3 +138,12 @@ export const getValueConfig = async (name) => {
         return callFailed()
     }
 }
+
+export const getListNotification = async (data) => {
+    try {
+        const res = await axiosInstance.post('/api/binaryOption/getListNotification', data)
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}

@@ -13,11 +13,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import ModalCalendar from './ModalCalendar'
 import { historyCommissionTradingSelelctor } from '@selector/fundingSelector'
 import fundingSlice from '@slice/fundingSlice'
+import { useTranslation } from 'react-i18next'
 
 const SIZE_TEXT = 15
 
 const SearchDay = () => {
     const dispath = useDispatch()
+    const { t } = useTranslation()
     const historyCommission = useSelector(historyCommissionTradingSelelctor)
     const COLOR = colors[useSelector(themeUserSelector)]
     const [type, setType] = useState('Trading commission')
@@ -56,10 +58,14 @@ const SearchDay = () => {
 
     return (
         <Box>
-            <Txt size={18} bold>Commission</Txt>
+            <Txt size={18} bold color={COLOR.white}>
+                {t('Commission')}
+            </Txt>
 
             <Box marginTop={20} alignSelf={'flex-start'}>
-                <Txt size={SIZE_TEXT}>Commission type</Txt>
+                <Txt size={SIZE_TEXT} color={COLOR.white}>
+                    {t('Commission type')}
+                </Txt>
                 <Box>
                     <Btn
                         onPress={() => setDrop(!drop)}
@@ -71,7 +77,9 @@ const SearchDay = () => {
                         radius={5}
                         alignSelf={'flex-start'}
                     >
-                        <Txt size={SIZE_TEXT}>{type}</Txt>
+                        <Txt size={SIZE_TEXT} color={COLOR.white}>
+                            {t(type)}
+                        </Txt>
                         <Img
                             source={require('@images/vip/down.png')}
                             tintColor={colors.white}
@@ -90,7 +98,7 @@ const SearchDay = () => {
                                 alignCenter={false}
                                 padding={10}
                             >
-                                <Txt>Trading commission</Txt>
+                                <Txt>{t('Trading commission')}</Txt>
                             </Btn>
                             <Btn
                                 onPress={() => {
@@ -100,7 +108,7 @@ const SearchDay = () => {
                                 alignCenter={false}
                                 padding={10}
                             >
-                                <Txt>VIP commission</Txt>
+                                <Txt>{t('VIP commission')}</Txt>
                             </Btn>
                         </Box>
                     }
@@ -108,14 +116,15 @@ const SearchDay = () => {
             </Box>
 
             <Box marginTop={20} alignSelf={'flex-start'}>
-                <Txt size={SIZE_TEXT}>Time</Txt>
+                <Txt size={SIZE_TEXT} color={COLOR.white}>
+                    {t('Time')}
+                </Txt>
                 <Box row>
                     <Btn
                         onPress={() => {
                             setTypeDate('start')
                             setShowModalCalendar(true)
-                        }
-                        }
+                        }}
                         row
                         borderWidth={1}
                         borderColor={COLOR.border1}
@@ -125,8 +134,8 @@ const SearchDay = () => {
                         marginRight={10}
                         alignSelf={'flex-start'}
                     >
-                        <Txt size={SIZE_TEXT}>
-                            {historyCommission.timeStart ? dateYMD(historyCommission.timeStart) : 'Start date'}
+                        <Txt size={SIZE_TEXT} color={COLOR.white}>
+                            {historyCommission.timeStart ? dateYMD(historyCommission.timeStart) : t('Start date')}
                         </Txt>
                         <Img
                             source={require('@images/vip/calendar.png')}
@@ -150,8 +159,8 @@ const SearchDay = () => {
                         radius={5}
                         alignSelf={'flex-start'}
                     >
-                        <Txt size={SIZE_TEXT}>
-                            {historyCommission.timeEnd ? dateYMD(historyCommission.timeEnd) : 'End date'}
+                        <Txt size={SIZE_TEXT} color={COLOR.white}>
+                            {historyCommission.timeEnd ? dateYMD(historyCommission.timeEnd) : t('End date')}
                         </Txt>
                         <Img
                             source={require('@images/vip/calendar.png')}
@@ -166,13 +175,15 @@ const SearchDay = () => {
 
             <ButtonLiner
                 onPress={handleGetHistoryCommissionToTime}
-                text={'Search'}
+                text={t('Search')}
                 width={100}
                 height={35}
                 marginTop={10}
             />
 
-            <Txt marginTop={20}><Txt color={colors.sky}>Note:</Txt> Each new day, you will receive commissions from all the trading volume of your peers yesterday.</Txt>
+            <Txt marginTop={20} color={COLOR.white}>
+                <Txt color={colors.sky}>{t('Note')}:</Txt> {t('Each new day, you will receive commissions from all the trading volume of your peers yesterday.')}
+            </Txt>
 
             <ModalCalendar
                 show={isShowModalCalendar}

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import LineChart from './LineChart'
 import Txt from '@commom/Txt'
+import { useTranslation } from 'react-i18next'
 
 const PADDING = 60
 const WIDTH_SVG = width - PADDING
@@ -16,38 +17,8 @@ const WIDTH_PATH = WIDTH_SVG - 80
 const PADDING_LEFT = 20
 const PADDING_TOP = 20
 
-// const DB = [
-//     {
-//         "totalMember": 10,
-//         "totalMemberVipF1": 0,
-//     },
-//     {
-//         "totalMember": 8,
-//         "totalMemberVipF1": 0,
-//     },
-//     {
-//         "totalMember": 5,
-//         "totalMemberVipF1": 0,
-//     },
-//     {
-//         "totalMember": 0,
-//         "totalMemberVipF1": 11,
-//     },
-//     {
-//         "totalMember": 0,
-//         "totalMemberVipF1": 5,
-//     },
-//     {
-//         "totalMember": 0,
-//         "totalMemberVipF1": 4,
-//     },
-//     {
-//         "totalMember": 0,
-//         "totalMemberVipF1": 6,
-//     }
-// ]
-
 const TradingPayoutChart = () => {
+  const { t } = useTranslation()
   const COLOR = colors[useSelector(themeUserSelector)]
   const [data, setData] = useState([])
   const [inputRange, setInputRange] = useState([0, 1])
@@ -74,7 +45,7 @@ const TradingPayoutChart = () => {
     if (res.status) {
       let max = Number.MIN_SAFE_INTEGER
       let min = Number.MAX_SAFE_INTEGER
- 
+
       for (let i = 0; i < res.data.length; i++) {
         if (res.data[i].commissionBalance > max) max = res.data[i].commissionBalance
         if (res.data[i].commissionBalance < min) min = res.data[i].commissionBalance
@@ -124,7 +95,7 @@ const TradingPayoutChart = () => {
       setOutputRange(outputRange)
       setPath(dPath)
       setData(res.data)
-      setIndicator({ max, min, height})
+      setIndicator({ max, min, height })
     }
   }
 
@@ -136,7 +107,9 @@ const TradingPayoutChart = () => {
       padding={20}
       marginTop={20}
     >
-      <Txt size={18} bold marginBottom={20}>Trading payout chart</Txt>
+      <Txt size={18} bold marginBottom={20} color={COLOR.white}>
+        {t('Trading payout chart')}
+      </Txt>
       <LineChart
         {...{
           data,

@@ -32,6 +32,7 @@ const fundingSlice = createSlice({
         },
         parentList: {
             data: [],
+            dataFilter: [],
             fieldTotal: 'totalOrder',
             fieldCommission: 'totalCommission',
             filterName: '',
@@ -46,8 +47,11 @@ const fundingSlice = createSlice({
             state.parentList = payload
         },
         searchParentList: (state) => {
-            state.parentList.data = state.parentList.data.filter(
+            state.parentList.dataFilter = state.parentList.data.filter(
                 item => item.level === state.parentList.level
+            )
+            state.parentList.dataFilter = state.parentList.dataFilter.filter(
+                item => item.userName.toLowerCase().includes(state.parentList.filterName.toLowerCase())
             )
         }
     },
@@ -97,6 +101,7 @@ const fundingSlice = createSlice({
             .addCase(getParentListThunk.fulfilled, (state, { payload }) => {
                 if (payload.status) {
                     state.parentList.data = payload.data
+                    state.parentList.dataFilter = payload.data
                 }
             })
     }

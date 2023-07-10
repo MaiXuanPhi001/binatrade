@@ -6,9 +6,11 @@ import { profileSelector, themeUserSelector } from '@selector/userSelector'
 import { weekStatisticsOrder } from '@service/fundingService'
 import { colors } from '@theme/colors'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 
 const Level = () => {
+    const { t } = useTranslation()
     const COLOR = colors[useSelector(themeUserSelector)]
     const profile = useSelector(profileSelector)
     const [indicator, setIndicator] = useState({})
@@ -87,31 +89,39 @@ const Level = () => {
                     paddingHorizontal={40}
                     paddingVertical={7}
                     radius={10}
-                    backgroundColor={colors.black}
+                    backgroundColor={COLOR.black}
                     marginLeft={-20}
                 >
                     <Txt size={15} bold color={colors.yellow4}>
-                        Level ?
+                        {t('Level2')} ?
                     </Txt>
                 </Box>
             </Box>
 
             <Box marginTop={20}>
-                <Txt size={16} bold>Rank Conditions</Txt>
+                <Txt size={16} bold color={colors.gray5}>
+                    {t('Rank Conditions')}
+                </Txt>
                 <Box row justifySpaceBetween alignCenter marginVertical={10}>
                     <Txt color={colors.gray5} size={15} bold>
-                        F1 volume(This Week)
+                        {`F1 volume(${t('This Week')})`}
                     </Txt>
                     <Txt color={colors.gray5} size={15} bold>
                         F1 VIP
                     </Txt>
                 </Box>
                 <Box row justifySpaceBetween alignCenter>
-                    <Txt size={16} bold>
-                        ${indicator.totalOrderF1} / <Txt bold>${numberWithCommas(indicator.f1Volume || 0)}</Txt>
+                    <Txt size={16} bold color={COLOR.white}>
+                        {`$${indicator.totalOrderF1} / `}
+                        <Txt bold color={COLOR.white}>
+                            ${numberWithCommas(indicator.f1Volume || 0)}
+                        </Txt>
                     </Txt>
-                    <Txt size={16} bold>
-                        {indicator.totalMemberVipF1} / <Txt bold>{indicator.f1Vip}</Txt>
+                    <Txt size={16} bold color={COLOR.white}>
+                        {indicator.totalMemberVipF1} /
+                        <Txt bold color={COLOR.white}>
+                            {` ${indicator.f1Vip}`}
+                        </Txt>
                     </Txt>
                 </Box>
             </Box>

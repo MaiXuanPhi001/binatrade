@@ -46,7 +46,9 @@ const NetWorkVolStats = () => {
             padding={20}
             marginTop={20}
         >
-            <Txt size={18} bold>Network Vol Stats</Txt>
+            <Txt size={18} bold color={COLOR.white}>
+                {t('Network Vol Stats')}
+            </Txt>
             <HeaderTableVolStats />
             {data.map((item) =>
                 <Item

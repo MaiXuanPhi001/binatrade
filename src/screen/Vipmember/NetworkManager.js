@@ -32,7 +32,7 @@ const NetworkManager = () => {
             <Scroll horizontal>
                 <Box>
                     <HeaderTableAffiliate />
-                    {parentList.data.map((item) =>
+                    {parentList.dataFilter.map((item) =>
                         <Item
                             key={item.id}
                             item={item}

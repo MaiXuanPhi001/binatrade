@@ -1,14 +1,14 @@
-import Box from '@commom/Box'
 import Btn from '@commom/Btn'
-import Scroll from '@commom/Scroll'
 import Txt from '@commom/Txt'
 import { themeUserSelector } from '@selector/userSelector'
 import { colors } from '@theme/colors'
 import { theme } from '@theme/index'
+import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
 import { useSelector } from 'react-redux'
 
 const TabVip = ({ tab, setTab }) => {
+    const { t } = useTranslation()
     const COLOR = colors[useSelector(themeUserSelector)]
 
     const tabs = [
@@ -50,7 +50,7 @@ const TabVip = ({ tab, setTab }) => {
                         bold
                         color={item.value === tab ? theme.colors.blueText : COLOR.white}
                     >
-                        {item.title}
+                        {t(item.title)}
                     </Txt>
                 </Btn>
             )}

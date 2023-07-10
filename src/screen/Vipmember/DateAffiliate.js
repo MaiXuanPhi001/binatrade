@@ -6,6 +6,7 @@ import { themeUserSelector } from '@selector/userSelector'
 import fundingSlice from '@slice/fundingSlice'
 import userSlice from '@slice/userSlice'
 import { colors } from '@theme/colors'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
 const times = [
@@ -16,6 +17,7 @@ const times = [
 ]
 
 const DateAffiliate = () => {
+    const { t } = useTranslation()
     const dispath = useDispatch()
     const COLOR = colors[useSelector(themeUserSelector)]
     const parentList = useSelector(parentListTradingSelector)
@@ -45,11 +47,13 @@ const DateAffiliate = () => {
                         padding={5}
                         key={item.title}
                         flex={1}
-                        borderRightWidth={(index < times.length - 2) ? 1 : 0}
+                        borderRightWidth={(index < times.length - 1) ? 1 : 0}
                         borderColor={COLOR.border1}
                         backgroundColor={item.value === parentList.fieldTotal && colors.sky}
                     >
-                        <Txt>{item.title}</Txt>
+                        <Txt color={COLOR.white}>
+                            {t(item.title)}
+                        </Txt>
                     </Btn>
                 )}
             </Box>

@@ -18,7 +18,7 @@ const Vip = () => {
 
     return (
         <KeyBoardSafe paddingBottom={0} bg={COLOR.backgroundProfile}>
-            <Header navigation={navigation} colorIcon={'white'} />
+            <Header navigation={navigation} />
             <Box paddingHorizontal={10}>
                 <TabVip {...{ tab, setTab }} />
                 {tab === 'general' ?

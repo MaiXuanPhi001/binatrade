@@ -5,7 +5,7 @@ import Img from '@commom/Img'
 import Txt from '@commom/Txt'
 import { kFormatter, numberCommasDot } from '@method/format'
 import { navigate } from '@navigation/navigationRef'
-import { prizePoolUserSelector, profileSelector, themeUserSelector, typeUserSelector } from '@selector/userSelector'
+import { notificationsSelector, prizePoolUserSelector, profileSelector, themeUserSelector, typeUserSelector } from '@selector/userSelector'
 import { updateBalanceDemo } from '@service/userService'
 import userSlice from '@slice/userSlice'
 import { colors } from '@theme/colors'
@@ -24,6 +24,7 @@ const Header = ({ navigation, colorIcon }) => {
   const type = useSelector(typeUserSelector)
   const profile = useSelector(profileSelector)
   const prizePool = useSelector(prizePoolUserSelector)
+  const notifications = useSelector(notificationsSelector)
   const COLOR = colors[useSelector(themeUserSelector)]
 
   let colorBar = COLOR.white
@@ -138,7 +139,11 @@ const Header = ({ navigation, colorIcon }) => {
         </Box>
 
         {/* No tification */}
-        {/* <Btn
+        <Btn
+          onPress={() => {
+            navigate(routes.NOTIFICATIONS)
+            dispatch(userSlice.actions.setScreenChoose(routes.WALLET))
+          }}
           alignCenter
           justifyCenter
           paddingLeft={10}
@@ -147,13 +152,16 @@ const Header = ({ navigation, colorIcon }) => {
           <Box
             backgroundColor={'#ee475e'}
             radius={50}
-            padding={2}
+            width={30}
+            paddingVertical={2}
+            alignCenter
+            justifyCenter
             absolute
             zIndex={1}
             top={0}
             right={-10}
           >
-            <Txt size={12}>14</Txt>
+            <Txt size={12}>{notifications.watched}</Txt>
           </Box>
 
           <Img
@@ -161,7 +169,7 @@ const Header = ({ navigation, colorIcon }) => {
             width={20}
             height={20}
           />
-        </Btn> */}
+        </Btn>
       </Box>
     </View>
   )
