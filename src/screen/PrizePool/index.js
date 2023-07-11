@@ -7,7 +7,7 @@ import Guidelines from './Guidelines'
 const PrizePool = ({ navigation }) => {
     return (
         <KeyBoardSafe paddingBottom={0}>
-            <Header navigation={navigation} />
+            <Header navigation={navigation} colorIcon={'white'} />
             <SteakChallenge />
             <HistoryLatestWinner />
             <Guidelines />

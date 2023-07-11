@@ -106,13 +106,21 @@ const userSlice = createSlice({
 const convertDetailByLangue = (state, array) => {
     if (i18next.language === 'vn') {
         state.notifications.data = array.map((item, index) => {
-            let detail = ''
+            let detail = item.detail
+            let title = item.title
             if (item.type === 0) detail = `Thành viên cấp dưới của bạn vừa trở thành VIP. Bạn nhận được $${item.amountRoseMemberVip} tiền hoa hồng`
             if (item.type === 3) detail = `Bạn nhận thành công $${numberCommasDot(item.amountCommission.toFixed(2))} hoa hồng từ giao dịch vào ngày ${item.timeCommission}`
             if (item.type === 4) detail = `Người nhận: ${item.userNameTransfer}\nSố tiền: $${numberCommasDot(item.amountTransfer.toFixed(2))}\nMemo: ${item.memo}`
             if (item.type === 6) detail = `Bạn đã nạp $${numberCommasDot(item.amountDeposit.toFixed(2))}`
-            // if (item.type === 7) detail = ``
-            return { ...item, detail }
+            if (item.type === 8) detail = item.messageVN
+            if (item.type === 8) detail = item.titleVN
+            if (item.type === 9) detail = `Đã tắt xác thực 2FA thành công`
+            if (item.type === 10) detail = `Đã bật xác thực 2FA thành công`
+            if (item.type === 11) detail = `Xác thực KYC không thành công`
+            if (item.type === 12) detail = `Xác thực KYC thành công`
+            if (item.type === 13) detail = `Xác thực KYC đang chờ phê duyệt`
+            if (item.type === 14) detail = `Có tổng cộng ${item?.peoplePool} tài khoản đã trúng giải độc đắc trị giá $${numberCommasDot(item?.totalPool?.toFixed(2))} và tài khoản ${item?.userNamePool} đã trúng giải Mega trị giá ${numberCommasDot(item?.megaPool?.toFixed(2))} vào ngày hôm qua.`
+            return { ...item, detail, title }
         })
     }
 }

@@ -9,7 +9,7 @@ import { styled } from '@theme/styled'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
-const RESULT = {
+export const RESULT = {
     pending: {
         text: 'PENDING',
         color: colors.yellow3,

@@ -30,6 +30,7 @@ const routes = {
     ORDERS: 'Orders',
     VIPMEMBER: 'Vipmember',
     NOTIFICATIONS: 'Notifications',
+    DASHBOARD: 'Dashboard', 
 }
 
 export default routes

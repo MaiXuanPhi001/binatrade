@@ -1,4 +1,4 @@
-import { dayHistoryOrderThunk, getHistoryCommissionToTimeThunk, getListStreakThunk, getParentListThunk, getPrizePoolUserThunk } from "@asyncThunk/fundingAsyncThunk";
+import { dayHistoryOrderThunk, getHistoryCommissionToTimeThunk, getListStreakThunk, getParentListThunk, getPrizePoolUserThunk, weekHistoryOrderThunk } from "@asyncThunk/fundingAsyncThunk";
 import { createSlice } from "@reduxjs/toolkit";
 
 const fundingSlice = createSlice({
@@ -83,6 +83,15 @@ const fundingSlice = createSlice({
                 state.dayWeekHistoryOrder.loading = true
             })
             .addCase(dayHistoryOrderThunk.fulfilled, (state, { payload }) => {
+                state.dayWeekHistoryOrder.loading = false
+                if (payload.status) {
+                    state.dayWeekHistoryOrder.data = payload.data.array
+                    state.dayWeekHistoryOrder.page = payload.page
+                    state.dayWeekHistoryOrder.total = payload.data.total
+                }
+            })
+            .addCase(weekHistoryOrderThunk.fulfilled, (state, { payload }) => {
+                console.log('payload: ', payload)
                 state.dayWeekHistoryOrder.loading = false
                 if (payload.status) {
                     state.dayWeekHistoryOrder.data = payload.data.array

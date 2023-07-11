@@ -168,6 +168,7 @@ const Header = ({ navigation, colorIcon }) => {
             source={require('@images/bell.png')}
             width={20}
             height={20}
+            tintColor={colorBar}
           />
         </Btn>
       </Box>

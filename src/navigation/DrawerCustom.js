@@ -88,6 +88,16 @@ const DrawerCustom = (props) => {
         },
         {
             id: 5,
+            title: t('Dashboard'),
+            image: require('@images/dashboard/speedometer.png'),
+            choose: routes.DASHBOARD === screenChoose,
+            onPress: () => {
+                navigate(routes.DASHBOARD)
+                dispatch(userSlice.actions.setScreenChoose(routes.DASHBOARD))
+            },
+        },
+        {
+            id: 6,
             title: t('Setting'),
             image: require('@images/drawer/settings.png'),
             choose: routes.SETTING === screenChoose,

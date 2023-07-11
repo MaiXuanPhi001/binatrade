@@ -35,6 +35,7 @@ const tradingSlice = createSlice({
         },
         setLastChart: (state, { payload }) => {
             state.time = payload.timeSocket
+            console.log(payload.close)
             if (state.candles.length === 0) return
             if (payload.close > state.maxHighItem.high || payload.close < state.minLowItem.low ||
                 payload.volume > state.volumeCandles.max || payload.volume < state.volumeCandles.min) {

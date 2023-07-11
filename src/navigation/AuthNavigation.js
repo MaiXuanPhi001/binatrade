@@ -13,6 +13,7 @@ import DrawerCustom from './DrawerCustom'
 import Orders from '@screen/Orders'
 import Vipmember from '@screen/Vipmember'
 import Notifications from '@screen/Notifications'
+import Dashboard from '@screen/Dashboard'
 
 const Drawer = createDrawerNavigator()
 
@@ -67,6 +68,11 @@ const AuthNavigation = () => {
             id: 7,
             name: routes.NOTIFICATIONS,
             component: Notifications,
+        },
+        {
+            id: 8,
+            name: routes.DASHBOARD,
+            component: Dashboard,
         },
     ]
 

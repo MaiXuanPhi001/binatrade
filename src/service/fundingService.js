@@ -153,3 +153,30 @@ export const getParentList = async (userid) => {
         return callFailed()
     }
 }
+
+export const clickNotification = async (idNotification) => {
+    try {
+        const res = await axiosInstance.post('/api/binaryOption/clickNotification', { idNotification })
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}
+
+export const dayStatisticsOrder = async (data) => {
+    try {
+        const res = await axiosInstance.post('/api/binaryOption/dayStatisticsOrder', data )
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}
+
+export const weekHistoryOrder = async (data) => {
+    try {
+        const res = await axiosInstance.post('/api/binaryOption/weekHistoryOrder', data )
+        return callSuccess(res)
+    } catch (error) {
+        return callFailed()
+    }
+}

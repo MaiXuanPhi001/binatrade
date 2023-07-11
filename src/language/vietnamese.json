@@ -372,6 +372,17 @@
         "Successful internal recharge": "Nạp tiền nội bộ thành công",
         "Recharge successful": "Nạp tiền thành công",
         "Summary of the Continuous Challenge results": "Tổng hợp kết quả Thử Thách Liên Tục",
-        "Receive commission from VIP member": "Nhận hoa hồng từ thành viên VIP"
+        "Receive commission from VIP member": "Nhận hoa hồng từ thành viên VIP",
+        "Dashboard": "Bảng điều khiển",
+        "Draw": "Hoà",
+        "BO Statictics": "Thống kê",
+        "Trade Stats": "Thống kê đặt lệnh",
+        "Total trade": "Tổng số lệnh",
+        "Total win round": "Tổng số lệnh thắng",
+        "Total rate": "Tỉ lệ thắng",
+        "Net Profit": "Lợi nhuận ròng",
+        "Total Revenue": "Tổng doanh thu",
+        "Trade summary": "Thống kê đặt lệnh",
+        "Trade history": "Lịch sử đặt lệnh"
     }
 }
