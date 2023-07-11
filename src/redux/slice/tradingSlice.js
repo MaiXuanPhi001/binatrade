@@ -34,11 +34,17 @@ const tradingSlice = createSlice({
             state.order.profit = (state.order.amount * 0.95) + state.order.amount
         },
         setLastChart: (state, { payload }) => {
+            const start = performance.now();
+
             state.time = payload.timeSocket
-            console.log(payload.close)
             if (state.candles.length === 0) return
             if (payload.close > state.maxHighItem.high || payload.close < state.minLowItem.low ||
                 payload.volume > state.volumeCandles.max || payload.volume < state.volumeCandles.min) {
+                console.log('abc')
+                console.log(payload.close > state.maxHighItem.high)
+                console.log(payload.close < state.minLowItem.low)
+                console.log(payload.volume > state.volumeCandles.max)
+                console.log(payload.volume < state.volumeCandles.min)
                 const lastChart = state.candles[state.candles.length - 1]
                 let candles = []
 
@@ -142,6 +148,7 @@ const tradingSlice = createSlice({
                 state.maxHighItem = maxHighItem
                 state.minLowItem = minLowItem
                 state.heighValueChart = heighValueChart
+                state.volumeCandles = volumeCandles
                 state.dPathMA = {
                     ma5: dPathMA5,
                     ma10: dPathMA10,
@@ -218,6 +225,9 @@ const tradingSlice = createSlice({
                     state.trade.length - 1,
                 )
             }
+
+            const end = performance.now();
+            console.log(`Execution time: ${end - start} ms`);
         },
     },
     extraReducers: builder => {
