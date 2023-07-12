@@ -407,7 +407,7 @@ export const getChartThunk =
             const sectionVolume = (data.height_svg - data.height_volume) / volumeCandles.height
 
             let [dPathMA5, dPathMA10] = ['', '']
-            const max_size = array.length - data.size_chart - 1
+            const max_size = array.length - data.size_chart
 
             candles = candles.map((item, index) => {
                 let highSVG = data.heigh_candle - ((item.high - minLowItem.low) * section) + data.paddingTop

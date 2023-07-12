@@ -35,7 +35,6 @@ const tradingSlice = createSlice({
         },
         setLastChart: (state, { payload }) => {
             state.time = payload.timeSocket
-            console.log(payload.close)
             if (state.candles.length === 0) return
             if (payload.close > state.maxHighItem.high || payload.close < state.minLowItem.low ||
                 payload.volume > state.volumeCandles.max || payload.volume < state.volumeCandles.min) {
@@ -51,8 +50,8 @@ const tradingSlice = createSlice({
                     candles.shift()
                 } else {
                     candles = state.candles
-                    candles[candles.length - 1] = lastChart
-                    state.trade[state.trade.length - 1] = lastChart
+                    candles[candles.length - 1] = payload
+                    state.trade[state.trade.length - 1] = payload
                 }
 
                 let [maxHighItem, minLowItem, volumeCandles] = [
@@ -90,7 +89,7 @@ const tradingSlice = createSlice({
                 const sectionVolume = (payload.HEIGHT_SVG - payload.HEIGHT_VOLUME) / volumeCandles.height
 
                 let [dPathMA5, dPathMA10] = ['', '']
-                const max_size = state.trade.length - payload.SIZE_CHART - 1
+                const max_size = state.trade.length - payload.SIZE_CHART
 
                 candles = candles.map((item, index) => {
                     let highSVG = payload.HEIGHT_CANLES - ((item.high - minLowItem.low) * section) + payload.PADDING_TOP
@@ -142,6 +141,7 @@ const tradingSlice = createSlice({
                 state.maxHighItem = maxHighItem
                 state.minLowItem = minLowItem
                 state.heighValueChart = heighValueChart
+                state.volumeCandles = volumeCandles
                 state.dPathMA = {
                     ma5: dPathMA5,
                     ma10: dPathMA10,
@@ -192,23 +192,23 @@ const tradingSlice = createSlice({
                     state.dots.push(state.trade[state.trade.length - 2])
                     state.candles.shift()
                     state.trade.shift()
-
-                    state.dPathMA.ma5 = ''
-                    state.dPathMA.ma10 = ''
-                    for (let index = 0; index < state.candles.length; index++) {
-                        const cande = state.candles[index]
-
-                        if (index === 0) {
-                            state.dPathMA.ma5 += `M${payload.GAP_CANDLE * index} ${cande.dma5}`
-                            state.dPathMA.ma10 += `M${payload.GAP_CANDLE * index} ${cande.dma10}`
-                        } else {
-                            state.dPathMA.ma5 += `L${payload.GAP_CANDLE * index} ${cande.dma5}`
-                            state.dPathMA.ma10 += `L${payload.GAP_CANDLE * index} ${cande.dma10}`
-                        }
-                    }
                 } else {
                     state.candles[state.candles.length - 1] = candleItem
                     state.trade[state.trade.length - 1] = candleItem
+                }
+
+                state.dPathMA.ma5 = ''
+                state.dPathMA.ma10 = ''
+                for (let index = 0; index < state.candles.length; index++) {
+                    const cande = state.candles[index]
+
+                    if (index === 0) {
+                        state.dPathMA.ma5 += `M${payload.GAP_CANDLE * index} ${cande.dma5}`
+                        state.dPathMA.ma10 += `M${payload.GAP_CANDLE * index} ${cande.dma10}`
+                    } else {
+                        state.dPathMA.ma5 += `L${payload.GAP_CANDLE * index} ${cande.dma5}`
+                        state.dPathMA.ma10 += `L${payload.GAP_CANDLE * index} ${cande.dma10}`
+                    }
                 }
             }
 
