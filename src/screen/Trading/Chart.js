@@ -18,7 +18,7 @@ const GAP_CANDLE = width * 4.55 / 100
 const WIDTH_CANDLE = width * 3.052 / 100
 const PADDING_TOP = 15
 const HEIGHT_VOLUME = HEIGHT_CANLES + PADDING_TOP + 40
-const WIDTH_CANDLES = width - (width - (GAP_CANDLE * (SIZE_CHART - 1))) + (WIDTH_CANDLE / 2)
+const WIDTH_CANDLES = GAP_CANDLE * (SIZE_CHART - 1) + (WIDTH_CANDLE / 2)
 
 const Chart = () => {
     const dispatch = useDispatch()
@@ -37,13 +37,13 @@ const Chart = () => {
             if (data) {
                 dispatch(
                     tradingSlice.actions.setLastChart({
-                        ...data,
-                        HEIGHT_CANLES,
-                        PADDING_TOP,
-                        GAP_CANDLE,
-                        HEIGHT_SVG,
-                        HEIGHT_VOLUME,
-                        SIZE_CHART,
+                        data,
+                        heigh_candle: HEIGHT_CANLES,
+                        paddingTop: PADDING_TOP,
+                        gap_candle: GAP_CANDLE,
+                        height_svg: HEIGHT_SVG,
+                        height_volume: HEIGHT_VOLUME,
+                        size_chart: SIZE_CHART,
                         timeSocket,
                     })
                 )

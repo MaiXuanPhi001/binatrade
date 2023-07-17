@@ -35,213 +35,39 @@ const tradingSlice = createSlice({
         },
         setLastChart: (state, { payload }) => {
             state.time = payload.timeSocket
-            if (state.candles.length === 0) return
-            if (payload.close > state.maxHighItem.high || payload.close < state.minLowItem.low ||
-                payload.volume > state.volumeCandles.max || payload.volume < state.volumeCandles.min) {
-                const lastChart = state.candles[state.candles.length - 1]
-                let candles = []
-
-                if (payload.id != lastChart.id) {
-                    state.candles.push(payload)
-                    state.trade.push(payload)
-                    state.dots.push(state.trade[state.trade.length - 2])
-                    state.trade.shift()
-                    candles = state.candles
-                    candles.shift()
-                } else {
-                    candles = state.candles
-                    candles[candles.length - 1] = payload
-                    state.trade[state.trade.length - 1] = payload
-                }
-
-                let [maxHighItem, minLowItem, volumeCandles] = [
-                    { high: Number.MIN_SAFE_INTEGER },
-                    { low: Number.MAX_SAFE_INTEGER },
-                    { max: Number.MIN_SAFE_INTEGER, min: Number.MAX_SAFE_INTEGER, height: 0 },
-                ]
-
-                for (let i = 0; i < candles.length; i++) {
-                    // Tìm high cao nhất trong data
-                    maxHighItem = candles[i].high >= maxHighItem.high ?
-                        { ...candles[i], position: i } : maxHighItem
-
-                    // Tìm low thấp nhất trong data
-                    minLowItem = candles[i].low <= minLowItem.low ?
-                        { ...candles[i], position: i } : minLowItem
-
-                    // Tìm volume cao nhất trong data
-                    volumeCandles.max = candles[i].volume >= volumeCandles.max ?
-                        candles[i].volume : volumeCandles.max
-
-                    // Timf volume thấp nhất trong data
-                    volumeCandles.min = candles[i].volume <= volumeCandles.min ?
-                        candles[i].volume : volumeCandles.min
-                }
-
-                // Tính filed height trong volumeCandles
-                volumeCandles = { ...volumeCandles, height: volumeCandles.max - volumeCandles.min }
-
-                const heighChart = maxHighItem.high - minLowItem.low
-                maxHighItem.high = maxHighItem.high + (heighChart / 4)
-                minLowItem.low = minLowItem.low - (heighChart / 4)
-                const heighValueChart = maxHighItem.high - minLowItem.low
-                const section = payload.HEIGHT_CANLES / heighValueChart
-                const sectionVolume = (payload.HEIGHT_SVG - payload.HEIGHT_VOLUME) / volumeCandles.height
-
-                let [dPathMA5, dPathMA10] = ['', '']
-                const max_size = state.trade.length - payload.SIZE_CHART
-
-                candles = candles.map((item, index) => {
-                    let highSVG = payload.HEIGHT_CANLES - ((item.high - minLowItem.low) * section) + payload.PADDING_TOP
-                    let lowSVG = payload.HEIGHT_CANLES - ((item.low - minLowItem.low) * section) + payload.PADDING_TOP
-                    let closeSVG = payload.HEIGHT_CANLES - ((item.close - minLowItem.low) * section) + payload.PADDING_TOP
-                    let openSVG = payload.HEIGHT_CANLES - ((item.open - minLowItem.low) * section) + payload.PADDING_TOP
-                    let volumeSVG = payload.HEIGHT_SVG - (item.volume - volumeCandles.min) * sectionVolume - 3
-                    let colorChart = item.close > item.open ? colors.greenCan :
-                        item.close < item.open ? colors.red3 : colors.white
-
-                    let [ma5, ma10, dma5, dma10] = [0, 0, 0, 0]
-                    for (let i = (index + max_size); i > (index + max_size - 10); i--) {
-                        const close = state.trade[i].close
-                        if ((index + max_size - i) < 5) ma5 += close
-                        ma10 += close
-                    }
-                    ma5 /= 5
-                    ma10 /= 10
-
-                    dma5 = payload.HEIGHT_CANLES - ((ma5 - minLowItem.low) * section) + payload.PADDING_TOP
-                    dma10 = payload.HEIGHT_CANLES - ((ma10 - minLowItem.low) * section) + payload.PADDING_TOP
-
-                    if (index === 0) {
-                        dPathMA5 += `M${payload.GAP_CANDLE * index} ${dma5}`
-                        dPathMA10 += `M${payload.GAP_CANDLE * index} ${dma10}`
-                    } else {
-                        dPathMA5 += `L${payload.GAP_CANDLE * index} ${dma5}`
-                        dPathMA10 += `L${payload.GAP_CANDLE * index} ${dma10}`
-                    }
-
-                    return (
-                        {
-                            ...item,
-                            highSVG: highSVG,
-                            lowSVG: lowSVG,
-                            colorChart,
-                            closeSVG,
-                            openSVG,
-                            volumeSVG,
-                            ma5,
-                            ma10,
-                            dma5,
-                            dma10,
-                        }
-                    )
-                })
-
-                state.candles = candles
-                state.maxHighItem = maxHighItem
-                state.minLowItem = minLowItem
-                state.heighValueChart = heighValueChart
-                state.volumeCandles = volumeCandles
-                state.dPathMA = {
-                    ma5: dPathMA5,
-                    ma10: dPathMA10,
+            if (state.candles.length <= 0) return
+            const lastChart = state.candles[state.candles.length - 1]
+            if (payload.data.id !== lastChart.id) {
+                state.trade.push(payload.data)
+                state.trade.shift()
+                state.candles.push(payload.data)
+                state.candles.shift()
+                state.dots.push(lastChart)
+                if (state.dots.length >= 61) {
+                    state.dots = state.trade.slice(state.trade.length - 40, state.trade.length - 1)
                 }
             } else {
-                const section = payload.HEIGHT_CANLES / state.heighValueChart
-                const sectionVolume = (payload.HEIGHT_SVG - payload.HEIGHT_VOLUME) / state.volumeCandles.height
-
-                let highSVG = payload.HEIGHT_CANLES - ((payload.high - state.minLowItem.low) * section) + payload.PADDING_TOP
-                let lowSVG = payload.HEIGHT_CANLES - ((payload.low - state.minLowItem.low) * section) + payload.PADDING_TOP
-                let closeSVG = payload.HEIGHT_CANLES - ((payload.close - state.minLowItem.low) * section) + payload.PADDING_TOP
-                let openSVG = payload.HEIGHT_CANLES - ((payload.open - state.minLowItem.low) * section) + payload.PADDING_TOP
-                let volumeSVG = payload.HEIGHT_SVG - (payload.volume - state.volumeCandles.min) * sectionVolume - 3
-                let colorChart = payload.close > payload.open ? colors.greenCan :
-                    payload.close < payload.open ? colors.red3 : colors.white
-
-                let [ma5, ma10] = [0, 0]
-                for (let i = (state.candles.length - 1); i >= (state.candles.length - 10); i--) {
-                    const close = state.candles[i].close
-                    if (i >= (state.candles.length - 5)) ma5 += close
-                    ma10 += close
-                }
-                ma5 /= 5
-                ma10 /= 10
-
-                let dma5 = payload.HEIGHT_CANLES - ((ma5 - state.minLowItem.low) * section) + payload.PADDING_TOP
-                let dma10 = payload.HEIGHT_CANLES - ((ma10 - state.minLowItem.low) * section) + payload.PADDING_TOP
-
-                let candleItem = {
-                    ...payload,
-                    highSVG,
-                    lowSVG,
-                    colorChart,
-                    closeSVG,
-                    openSVG,
-                    volumeSVG,
-                    ma5,
-                    ma10,
-                    dma5,
-                    dma10,
-                }
-
-                const lastChart = state.candles[state.candles.length - 1]
-
-                if (candleItem.id != lastChart.id) {
-                    state.candles.push(candleItem)
-                    state.trade.push(candleItem)
-                    state.dots.push(state.trade[state.trade.length - 2])
-                    state.candles.shift()
-                    state.trade.shift()
-                } else {
-                    state.candles[state.candles.length - 1] = candleItem
-                    state.trade[state.trade.length - 1] = candleItem
-                }
-
-                state.dPathMA.ma5 = ''
-                state.dPathMA.ma10 = ''
-                for (let index = 0; index < state.candles.length; index++) {
-                    const cande = state.candles[index]
-
-                    if (index === 0) {
-                        state.dPathMA.ma5 += `M${payload.GAP_CANDLE * index} ${cande.dma5}`
-                        state.dPathMA.ma10 += `M${payload.GAP_CANDLE * index} ${cande.dma10}`
-                    } else {
-                        state.dPathMA.ma5 += `L${payload.GAP_CANDLE * index} ${cande.dma5}`
-                        state.dPathMA.ma10 += `L${payload.GAP_CANDLE * index} ${cande.dma10}`
-                    }
-                }
+                state.trade[state.trade.length - 1] = payload.data
+                state.candles[state.candles.length - 1] = payload.data
             }
-
-            if (state.dots.length > 60) {
-                state.dots = state.trade.slice(
-                    state.trade.length - 41,
-                    state.trade.length - 1,
-                )
-            }
+            handleSetChart(state, payload)
         },
     },
     extraReducers: builder => {
         builder
             .addCase(getChartThunk.fulfilled, (state, { payload }) => {
                 if (payload.status) {
-                    state.trade = payload.array
-                    state.candles = payload.candles
-                    state.dots = payload.dots
-                    state.maxHighItem = payload.maxHighItem
-                    state.minLowItem = payload.minLowItem
-                    state.heighValueChart = payload.heighValueChart
-                    state.volumeCandles = payload.volumeCandles
-                    state.dPathMA = payload.dPathMA
+                    state.trade = payload.data
+                    state.candles = payload.data.slice(payload.data.length - payload.size_chart, payload.data.length)
+                    state.dots = payload.data.slice(payload.data.length - 40, payload.data.length - 1)
+                    handleSetChart(state, payload)
                 }
             })
-            .addCase(orderThunk.pending, (state, { payload }) => {
+            .addCase(orderThunk.pending, (state) => {
                 state.order.loading = true
             })
-            .addCase(orderThunk.fulfilled, (state, { payload }) => {
+            .addCase(orderThunk.fulfilled, (state) => {
                 state.order.loading = false
-                if (payload.error && payload.status) {
-
-                }
             })
             .addCase(getAllOrderPendingUserThunk.fulfilled, (state, { payload }) => {
                 if (payload.status) {
@@ -250,5 +76,98 @@ const tradingSlice = createSlice({
             })
     }
 })
+
+const handleSetChart = (state, payload) => {
+    let [maxHighItem, minLowItem, volumeCandles, candles] = [
+        { high: Number.MIN_SAFE_INTEGER },
+        { low: Number.MAX_SAFE_INTEGER },
+        { max: Number.MIN_SAFE_INTEGER, min: Number.MAX_SAFE_INTEGER, height: 0 },
+        state.candles,
+    ]
+
+    for (let i = 0; i < candles.length; i++) {
+        // Tìm high cao nhất trong data
+        maxHighItem = candles[i].high >= maxHighItem.high ?
+            { ...candles[i], position: i } : maxHighItem
+        // Tìm low thấp nhất trong data
+        minLowItem = candles[i].low <= minLowItem.low ?
+            { ...candles[i], position: i } : minLowItem
+
+        // Tìm volume cao nhất trong data
+        volumeCandles.max = candles[i].volume >= volumeCandles.max ?
+            candles[i].volume : volumeCandles.max
+
+        // Tim volume thấp nhất trong data
+        volumeCandles.min = candles[i].volume <= volumeCandles.min ?
+            candles[i].volume : volumeCandles.min
+    }
+
+    // Tính filed height trong volumeCandles
+    volumeCandles.height = volumeCandles.max - volumeCandles.min
+    const heighChart = maxHighItem.high - minLowItem.low
+    maxHighItem.high = maxHighItem.high + (heighChart / 2)
+    minLowItem.low = minLowItem.low - (heighChart / 5)
+    const heighValueChart = maxHighItem.high - minLowItem.low
+    const section = payload.heigh_candle / heighValueChart
+    const sectionVolume = (payload.height_svg - payload.height_volume) / volumeCandles.height
+
+    let [dPathMA5, dPathMA10, sumMA5, sumMA10] = ['', '', 0, 0]
+    const max_size = state.trade.length - payload.size_chart
+
+    candles = candles.map((item, index) => {
+        let highSVG = payload.heigh_candle - ((item.high - minLowItem.low) * section) + payload.paddingTop
+        let lowSVG = payload.heigh_candle - ((item.low - minLowItem.low) * section) + payload.paddingTop
+        let closeSVG = payload.heigh_candle - ((item.close - minLowItem.low) * section) + payload.paddingTop
+        let openSVG = payload.heigh_candle - ((item.open - minLowItem.low) * section) + payload.paddingTop
+        let volumeSVG = payload.height_svg - (item.volume - volumeCandles.min) * sectionVolume - 3
+        let colorChart = item.close > item.open ? colors.greenCan :
+            item.close < item.open ? colors.red3 : colors.white
+
+        if (index === 0) {
+            for (let i = max_size; i > (max_size - 10); i--) {
+                const close = state.trade[i].close
+                sumMA10 += close
+                if ((max_size - i) < 5) sumMA5 += close
+            }
+        } else {
+            const firstValueSumMA5 = state.trade[max_size + index - 5].close
+            const firstValueSumMA10 = state.trade[max_size + index - 10].close
+            const current = item.close
+            sumMA5 = sumMA5 - firstValueSumMA5 + current
+            sumMA10 = sumMA10 - firstValueSumMA10 + current
+        }
+
+        let dma5 = payload.heigh_candle - ((sumMA5 / 5 - minLowItem.low) * section) + payload.paddingTop
+        let dma10 = payload.heigh_candle - ((sumMA10 / 10 - minLowItem.low) * section) + payload.paddingTop
+
+        const char = index === 0 ? 'M' : 'L'
+        dPathMA5 += `${char}${payload.gap_candle * index} ${dma5}`
+        dPathMA10 += `${char}${payload.gap_candle * index} ${dma10}`
+
+        return {
+            ...item,
+            highSVG: highSVG,
+            lowSVG: lowSVG,
+            colorChart,
+            closeSVG,
+            openSVG,
+            volumeSVG,
+            ma5: sumMA5 / 5,
+            ma10: sumMA10 / 10,
+            dma5,
+            dma10,
+        }
+    })
+
+    state.candles = candles
+    state.maxHighItem = maxHighItem
+    state.minLowItem = minLowItem
+    state.heighValueChart = heighValueChart
+    state.volumeCandles = volumeCandles
+    state.dPathMA = {
+        ma5: dPathMA5,
+        ma10: dPathMA10,
+    }
+}
 
 export default tradingSlice
