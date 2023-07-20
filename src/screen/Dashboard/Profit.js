@@ -73,7 +73,7 @@ const Profit = ({ data }) => {
                 </Box>
             </Box>
 
-            <Txt size={18} bold color={COLOR.white} marginVertical={20}>Trade summary</Txt>
+            <Txt size={18} bold color={COLOR.white} marginVertical={20}>{t('Trade summary')}</Txt>
             {total === 0 ?
                 <Progress.Bar
                     progress={0}
