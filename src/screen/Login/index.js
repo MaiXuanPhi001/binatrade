@@ -19,9 +19,9 @@ const Login = () => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
 
-  const [email, setEmail] = useState('test@gmail.com')
+  const [email, setEmail] = useState('')
   const [otp, setOtp] = useState('')
-  const [password, setPassword] = useState('123123')
+  const [password, setPassword] = useState('')
   const [isShowModalOTP, setShowModalOTP] = useState(false)
   const [checkForm, setCheckForm] = useState(false)
   const [loading, setLoading] = useState(false)
